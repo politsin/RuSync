@@ -60,6 +60,8 @@ $env:RUSYNC_SIMPLE_AUTH_KEY = "dev-sync-key"
 node utils/simple-auth-backend/smoke.mjs
 ```
 
+Current local verification note: in this Codex environment Docker is not available on `PATH`, so the real CouchDB smoke command was not executed here. The HTTP boundary is covered by `_tools/simple-auth-backend.unit.spec.ts` with mocked CouchDB REST responses.
+
 The plug-in calls:
 
 ```http

@@ -1,10 +1,12 @@
 import { describe, expect, it, vi } from "vitest";
+import { createServer, type IncomingMessage, type ServerResponse } from "node:http";
 import {
     createCouchDbRequests,
     createProvisioningPlan,
     createProvisioningResponse,
     createSafeName,
     applyProvisioningPlan,
+    createRequestHandler,
     validateSyncKey,
 } from "../utils/simple-auth-backend/server.mjs";
 import {
@@ -12,6 +14,27 @@ import {
     sanitiseProvisioningResponse,
     verifyProvisionedDatabase,
 } from "../utils/simple-auth-backend/smoke.mjs";
+
+type RequestListener = (request: IncomingMessage, response: ServerResponse) => void;
+
+async function withHttpServer<T>(handler: RequestListener, run: (baseUrl: string) => Promise<T>) {
+    const server = createServer(handler);
+    await new Promise<void>((resolve) => {
+        server.listen(0, "127.0.0.1", resolve);
+    });
+    const address = server.address();
+    if (!address || typeof address === "string") {
+        server.close();
+        throw new Error("Could not bind test HTTP server.");
+    }
+    try {
+        return await run(`http://127.0.0.1:${address.port}`);
+    } finally {
+        await new Promise<void>((resolve, reject) => {
+            server.close((error) => (error ? reject(error) : resolve()));
+        });
+    }
+}
 
 describe("simple auth backend", () => {
     it("creates CouchDB-safe names and keeps encryption enabled by default", () => {
@@ -187,5 +210,60 @@ describe("simple auth backend", () => {
                 },
             })
         );
+    });
+
+    it("serves the HTTP provisioning boundary without a real CouchDB", async () => {
+        const couchFetcher = vi.fn(async () => ({
+            status: 201,
+            text: async () => "",
+        }));
+        const handler = createRequestHandler(
+            {
+                RUSYNC_COUCHDB_URL: "http://couchdb.example",
+                RUSYNC_COUCHDB_ADMIN_USER: "admin",
+                RUSYNC_COUCHDB_ADMIN_PASSWORD: "password",
+                RUSYNC_SIMPLE_AUTH_KEY: "dev-sync-key",
+            },
+            couchFetcher as unknown as typeof fetch
+        );
+
+        await withHttpServer(handler, async (baseUrl) => {
+            await expect((await fetch(`${baseUrl}/health`)).json()).resolves.toEqual({ ok: true });
+
+            const missingKey = await fetch(`${baseUrl}/api/provision`, {
+                method: "POST",
+                headers: { "content-type": "application/json" },
+                body: JSON.stringify({ name: "Vault", encrypted: true }),
+            });
+            await expect(missingKey.json()).resolves.toEqual({ error: "sync_key_required" });
+            expect(missingKey.status).toBe(401);
+
+            const rejectedKey = await fetch(`${baseUrl}/api/provision`, {
+                method: "POST",
+                headers: { "content-type": "application/json", "x-rusync-sync-key": "wrong" },
+                body: JSON.stringify({ name: "Vault", encrypted: true }),
+            });
+            await expect(rejectedKey.json()).resolves.toEqual({ error: "sync_key_rejected" });
+            expect(rejectedKey.status).toBe(403);
+
+            const provisioned = await fetch(`${baseUrl}/api/provision`, {
+                method: "POST",
+                headers: { "content-type": "application/json", "x-rusync-sync-key": "dev-sync-key" },
+                body: JSON.stringify({ name: "Vault", encrypted: false }),
+            });
+            const body = await provisioned.json();
+            expect(provisioned.status).toBe(200);
+            expect(body).toMatchObject({
+                couchdb: {
+                    url: "http://couchdb.example",
+                },
+                sync: {
+                    encrypted: false,
+                    passphrase: "",
+                    pathObfuscation: false,
+                },
+            });
+        });
+        expect(couchFetcher).toHaveBeenCalledTimes(3);
     });
 });
