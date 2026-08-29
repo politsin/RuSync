@@ -29,11 +29,16 @@
     } from "./setupDialogTypes";
     import { isValidCouchDBServerURL, probeCouchDBConnection } from "./couchDBConnectionProbe";
     import { $msg as translateMessage } from "@/common/translation";
+    import { provisionSimpleAuth } from "./simpleAuthProvision";
 
     const default_setting = pickCouchDBSyncSettings(DEFAULT_SETTINGS);
 
     let syncSetting = $state<CouchDBConnection>({ ...default_setting });
     let setupMode = $state<CouchDBSetupMode>("settings");
+    let expertMode = $state(false);
+    let simpleAuthEndpoint = $state("http://127.0.0.1:8787");
+    let simpleAuthName = $state("");
+    let simpleAuthEncrypted = $state(true);
     type Props = GuestDialogProps<SetupRemoteCouchDBResultType, SetupRemoteCouchDBInitialData>;
     const { setResult, getInitialData }: Props = $props();
     onMount(() => {
@@ -112,6 +117,25 @@
             return;
         }
     }
+    async function provisionAndCommit() {
+        error = "";
+        try {
+            processing = true;
+            const provisioned = await provisionSimpleAuth(simpleAuthEndpoint, {
+                name: simpleAuthName.trim(),
+                encrypted: simpleAuthEncrypted,
+            });
+            copyTo(provisioned.couchdb, syncSetting);
+            setResult({
+                ...provisioned.couchdb,
+                ...provisioned.encryption,
+            });
+        } catch (e) {
+            error = translateMessage("Simple authorisation failed: ${reason}", { reason: `${e}` });
+        } finally {
+            processing = false;
+        }
+    }
     function commit() {
         const setting = pickCouchDBSyncSettings(generateSetting());
         setResult(setting);
@@ -159,9 +183,73 @@
         }
         return translateMessage("Test connection and save");
     });
+    const canProvision = $derived.by(() => simpleAuthEndpoint.trim().length > 0);
 </script>
 
 <DialogHeader title={translateMessage("CouchDB Configuration")} />
+{#if !expertMode}
+    <Guidance>
+        {translateMessage(
+            "Enter the simple authorisation server address. It will create the CouchDB login and apply the recommended synchronisation defaults."
+        )}
+    </Guidance>
+    <InputRow label={translateMessage("Authorisation server")}>
+        <input
+            type="text"
+            name="simple-auth-url"
+            placeholder="http://127.0.0.1:8787"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+            bind:value={simpleAuthEndpoint}
+            required
+        />
+    </InputRow>
+    <InputRow label={translateMessage("Name")}>
+        <input
+            type="text"
+            name="simple-auth-name"
+            placeholder={translateMessage("Optional account or Vault name")}
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+            bind:value={simpleAuthName}
+        />
+    </InputRow>
+    <InputRow label={translateMessage("Encrypt synchronised data")}>
+        <input type="checkbox" name="simple-auth-encrypted" bind:checked={simpleAuthEncrypted} />
+    </InputRow>
+    <InfoNote>
+        {translateMessage(
+            "Encryption is enabled by default. Disable it only for a database which must remain readable by trusted automation or AI tools."
+        )}
+    </InfoNote>
+    <InfoNote warning visible={!simpleAuthEncrypted}>
+        {translateMessage("Unencrypted synchronisation stores readable content in CouchDB. Use it only for trusted data.")}
+    </InfoNote>
+    <InfoNote error visible={error !== ""}>
+        {error}
+    </InfoNote>
+    {#if processing}
+        {translateMessage("Checking connection... Please wait.")}
+    {:else}
+        <UserDecisions>
+            <Decision
+                title={translateMessage("Connect with simple authorisation")}
+                important
+                disabled={!canProvision}
+                commit={() => provisionAndCommit()}
+            />
+            <Decision
+                title={translateMessage("Expert settings")}
+                commit={() => {
+                    expertMode = true;
+                }}
+            />
+            <Decision title={translateMessage("Cancel")} commit={() => cancel()} />
+        </UserDecisions>
+    {/if}
+{:else}
 <Guidance>{translateMessage("Please enter the CouchDB server information below.")}</Guidance>
 <InputRow label={translateMessage("URL")}>
     <input
@@ -330,4 +418,5 @@
         {/if}
         <Decision title={translateMessage("Cancel")} commit={() => cancel()} />
     </UserDecisions>
+{/if}
 {/if}

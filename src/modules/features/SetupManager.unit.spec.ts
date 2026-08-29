@@ -148,6 +148,54 @@ describe("SetupManager", () => {
         expect(configureManually).toHaveBeenCalledWith(createNewVaultSettings(), UserMode.NewUser);
     });
 
+    it("uses the simple CouchDB provisioning path for new manual onboarding", async () => {
+        const { manager, setting, dialogManager } = createSetupManager();
+        dialogManager.openWithExplicitCancel.mockResolvedValueOnce("cancelled");
+
+        await manager.onConfigureManually(setting.currentSettings(), UserMode.NewUser);
+
+        expect(dialogManager.openWithExplicitCancel).toHaveBeenNthCalledWith(1, expect.anything(), {
+            settings: expect.objectContaining({
+                encrypt: true,
+                usePathObfuscation: true,
+                remoteConfigurations: {},
+            }),
+            mode: "create-or-connect",
+        });
+    });
+
+    it("lets simple CouchDB provisioning override encryption from the backend", async () => {
+        const { manager, setting, dialogManager } = createSetupManager();
+        dialogManager.openWithExplicitCancel
+            .mockResolvedValueOnce({
+                couchDB_URI: "https://couch.example",
+                couchDB_USER: "alice",
+                couchDB_PASSWORD: "secret",
+                couchDB_DBNAME: "notes",
+                couchDB_CustomHeaders: "",
+                useJWT: false,
+                jwtAlgorithm: "",
+                jwtKey: "",
+                jwtKid: "",
+                jwtSub: "",
+                jwtExpDuration: 5,
+                useRequestAPI: false,
+                encrypt: false,
+                passphrase: "",
+                usePathObfuscation: false,
+                E2EEAlgorithm: "v2",
+            })
+            .mockResolvedValueOnce(true);
+
+        await manager.onCouchDBManualSetup(UserMode.NewUser, setting.currentSettings());
+
+        const current = setting.currentSettings();
+        expect(current.encrypt).toBe(false);
+        expect(current.passphrase).toBe("");
+        expect(current.usePathObfuscation).toBe(false);
+        expect(current.remoteType).toBe(REMOTE_COUCHDB);
+    });
+
     it("compatibility: normalises imported flat remote settings from a Setup URI before applying", async () => {
         const { manager, setting, dialogManager } = createSetupManager();
         dialogManager.openWithExplicitCancel

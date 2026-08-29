@@ -12,6 +12,12 @@ Earlier releases remain available in the 1.0 release history, the 1.0 preview hi
 
 ## Unreleased
 
+### Setup
+
+#### Improved
+
+- The new-user CouchDB setup path now starts with a simple authorisation flow for the RuSync MVP backend, keeps advanced CouchDB controls behind **Expert settings**, and applies encryption by default while leaving an explicit unencrypted option for trusted AI-readable databases.
+
 ## 1.0.21
 
 26th August, 2026

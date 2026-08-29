@@ -49,6 +49,16 @@ import {
 } from "@/serviceFeatures/setupObsidian/setupActivationLifecycle.ts";
 import { isP2PMainRemote } from "@/common/remoteConfiguration.ts";
 
+function createSimpleMvpEncryptionSettings(): EncryptionSettings {
+    const randomUUID = typeof window !== "undefined" ? window.crypto?.randomUUID?.() : undefined;
+    return {
+        encrypt: true,
+        passphrase: randomUUID ? `rusync-${randomUUID}` : `rusync-${Date.now().toString(36)}`,
+        usePathObfuscation: true,
+        E2EEAlgorithm: createNewVaultSettings().E2EEAlgorithm,
+    };
+}
+
 function copySettingsForRemoteProfileUpdate(settings: ObsidianLiveSyncSettings): ObsidianLiveSyncSettings {
     return {
         ...settings,
@@ -329,6 +339,16 @@ export class SetupManager extends AbstractModule {
      * @returns
      */
     async onConfigureManually(originalSetting: ObsidianLiveSyncSettings, userMode: UserMode): Promise<boolean> {
+        if (userMode === UserMode.NewUser) {
+            return await this.onCouchDBManualSetup(
+                userMode,
+                {
+                    ...originalSetting,
+                    ...createSimpleMvpEncryptionSettings(),
+                },
+                true
+            );
+        }
         const e2eeConf = await this.dialogManager.openWithExplicitCancel<SetupRemoteE2EEResultType, EncryptionSettings>(
             SetupRemoteE2EE,
             originalSetting

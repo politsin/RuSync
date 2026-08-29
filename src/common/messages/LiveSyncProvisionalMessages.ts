@@ -82,6 +82,18 @@ export const liveSyncProvisionalEnglishMessages = {
         "Saving without a successful connection test keeps this profile, but automatic synchronisation may fail until the connection is corrected.",
     "This optional check uses Obsidian's internal request API and sends the credentials above to the CouchDB server. Use it only with a server you trust; administrator access may be required.":
         "This optional check uses Obsidian's internal request API and sends the credentials above to the CouchDB server. Use it only with a server you trust; administrator access may be required.",
+    "Simple authorisation failed: ${reason}": "Simple authorisation failed: ${reason}",
+    "Enter the simple authorisation server address. It will create the CouchDB login and apply the recommended synchronisation defaults.":
+        "Enter the simple authorisation server address. It will create the CouchDB login and apply the recommended synchronisation defaults.",
+    "Authorisation server": "Authorisation server",
+    "Optional account or Vault name": "Optional account or Vault name",
+    "Encrypt synchronised data": "Encrypt synchronised data",
+    "Encryption is enabled by default. Disable it only for a database which must remain readable by trusted automation or AI tools.":
+        "Encryption is enabled by default. Disable it only for a database which must remain readable by trusted automation or AI tools.",
+    "Unencrypted synchronisation stores readable content in CouchDB. Use it only for trusted data.":
+        "Unencrypted synchronisation stores readable content in CouchDB. Use it only for trusted data.",
+    "Connect with simple authorisation": "Connect with simple authorisation",
+    "Expert settings": "Expert settings",
     "Check server requirements": "Check server requirements",
     "Change CouchDB server setting": "Change CouchDB server setting",
     "Change CouchDB server setting '${SETTING}' to '${VALUE}'?":
