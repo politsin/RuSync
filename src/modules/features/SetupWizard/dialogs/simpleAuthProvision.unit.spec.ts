@@ -82,7 +82,11 @@ describe("simpleAuthProvision", () => {
         }));
 
         await expect(
-            provisionSimpleAuth("http://127.0.0.1:8787/", { name: "Vault", encrypted: true }, fetcher)
+            provisionSimpleAuth(
+                "http://127.0.0.1:8787/",
+                { syncKey: "test-key", name: "Vault", encrypted: true },
+                fetcher
+            )
         ).resolves.toMatchObject({
             couchdb: {
                 couchDB_USER: "alice",
@@ -95,7 +99,10 @@ describe("simpleAuthProvision", () => {
             "http://127.0.0.1:8787/api/provision",
             expect.objectContaining({
                 method: "POST",
-                body: JSON.stringify({ name: "Vault", encrypted: true }),
+                headers: expect.objectContaining({
+                    "x-rusync-sync-key": "test-key",
+                }),
+                body: JSON.stringify({ syncKey: "test-key", name: "Vault", encrypted: true }),
             })
         );
     });

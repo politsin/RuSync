@@ -5,6 +5,7 @@ import {
     createProvisioningResponse,
     createSafeName,
     applyProvisioningPlan,
+    validateSyncKey,
 } from "../utils/simple-auth-backend/server.mjs";
 
 describe("simple auth backend", () => {
@@ -93,5 +94,22 @@ describe("simple auth backend", () => {
 
     it("falls back to a generated vault name when the requested name is empty", () => {
         expect(createSafeName("", "abc123")).toBe("vault-abc123");
+    });
+
+    it("accepts the configured sync key before provisioning", () => {
+        expect(() =>
+            validateSyncKey(
+                { headers: { "x-rusync-sync-key": "test-key" } },
+                {},
+                { RUSYNC_SIMPLE_AUTH_KEY: "test-key" }
+            )
+        ).not.toThrow();
+    });
+
+    it("rejects missing and mismatched sync keys", () => {
+        expect(() => validateSyncKey({ headers: {} }, {}, {})).toThrow("sync_key_required");
+        expect(() =>
+            validateSyncKey({ headers: { "x-rusync-sync-key": "wrong" } }, {}, { RUSYNC_SIMPLE_AUTH_KEY: "right" })
+        ).toThrow("sync_key_rejected");
     });
 });

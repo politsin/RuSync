@@ -37,6 +37,7 @@
     let setupMode = $state<CouchDBSetupMode>("settings");
     let expertMode = $state(false);
     let simpleAuthEndpoint = $state("http://127.0.0.1:8787");
+    let simpleAuthSyncKey = $state("");
     let simpleAuthName = $state("");
     let simpleAuthEncrypted = $state(true);
     type Props = GuestDialogProps<SetupRemoteCouchDBResultType, SetupRemoteCouchDBInitialData>;
@@ -122,6 +123,7 @@
         try {
             processing = true;
             const provisioned = await provisionSimpleAuth(simpleAuthEndpoint, {
+                syncKey: simpleAuthSyncKey.trim(),
                 name: simpleAuthName.trim(),
                 encrypted: simpleAuthEncrypted,
             });
@@ -183,25 +185,25 @@
         }
         return translateMessage("Test connection and save");
     });
-    const canProvision = $derived.by(() => simpleAuthEndpoint.trim().length > 0);
+    const canProvision = $derived.by(() => simpleAuthEndpoint.trim().length > 0 && simpleAuthSyncKey.trim().length > 0);
 </script>
 
 <DialogHeader title={translateMessage("CouchDB Configuration")} />
 {#if !expertMode}
     <Guidance>
         {translateMessage(
-            "Enter the simple authorisation server address. It will create the CouchDB login and apply the recommended synchronisation defaults."
+            "Enter the sync key from your RuSync account. The plug-in will receive the CouchDB login and recommended synchronisation defaults automatically."
         )}
     </Guidance>
-    <InputRow label={translateMessage("Authorisation server")}>
+    <InputRow label={translateMessage("Sync key")}>
         <input
-            type="text"
-            name="simple-auth-url"
-            placeholder="http://127.0.0.1:8787"
+            type="password"
+            name="simple-auth-key"
+            placeholder={translateMessage("Enter your sync key")}
             autocorrect="off"
             autocapitalize="off"
             spellcheck="false"
-            bind:value={simpleAuthEndpoint}
+            bind:value={simpleAuthSyncKey}
             required
         />
     </InputRow>
@@ -227,6 +229,20 @@
     <InfoNote warning visible={!simpleAuthEncrypted}>
         {translateMessage("Unencrypted synchronisation stores readable content in CouchDB. Use it only for trusted data.")}
     </InfoNote>
+    <ExtraItems title={translateMessage("Local MVP backend")}>
+        <InputRow label={translateMessage("Authorisation server")}>
+            <input
+                type="text"
+                name="simple-auth-url"
+                placeholder="http://127.0.0.1:8787"
+                autocorrect="off"
+                autocapitalize="off"
+                spellcheck="false"
+                bind:value={simpleAuthEndpoint}
+                required
+            />
+        </InputRow>
+    </ExtraItems>
     <InfoNote error visible={error !== ""}>
         {error}
     </InfoNote>

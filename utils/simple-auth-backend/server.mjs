@@ -4,6 +4,13 @@ import { pathToFileURL } from "node:url";
 
 const DEFAULT_PORT = 8787;
 
+class HttpError extends Error {
+    constructor(status, message) {
+        super(message);
+        this.status = status;
+    }
+}
+
 export function normaliseCouchDbUrl(url) {
     const trimmed = `${url ?? ""}`.trim().replace(/\/+$/, "");
     if (!trimmed) {
@@ -114,6 +121,17 @@ export function createProvisioningResponse(plan) {
     };
 }
 
+export function validateSyncKey(request, body, env = process.env) {
+    const expected = `${env.RUSYNC_SIMPLE_AUTH_KEY ?? ""}`.trim();
+    const provided = `${request.headers["x-rusync-sync-key"] ?? body.syncKey ?? ""}`.trim();
+    if (!provided) {
+        throw new HttpError(401, "sync_key_required");
+    }
+    if (expected && provided !== expected) {
+        throw new HttpError(403, "sync_key_rejected");
+    }
+}
+
 export async function readJsonBody(request) {
     const chunks = [];
     for await (const chunk of request) {
@@ -150,6 +168,7 @@ export function createRequestHandler(env = process.env, fetcher = fetch) {
                 return;
             }
             const body = await readJsonBody(request);
+            validateSyncKey(request, body, env);
             const encrypted = body.encrypted !== false;
             const plan = createProvisioningPlan({
                 couchDbUrl: env.RUSYNC_COUCHDB_URL,
@@ -163,7 +182,7 @@ export function createRequestHandler(env = process.env, fetcher = fetch) {
             });
             sendJson(response, 200, createProvisioningResponse(plan));
         } catch (error) {
-            sendJson(response, 500, {
+            sendJson(response, error instanceof HttpError ? error.status : 500, {
                 error: error instanceof Error ? error.message : `${error}`,
             });
         }

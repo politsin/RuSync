@@ -31,7 +31,7 @@ The first usable version is deliberately simple:
 
 The local MVP backend lives at `utils/simple-auth-backend/server.mjs`.
 
-This is the temporary replacement for the later hosted 'sync key' or short-lived ticket flow. The user still sees a simple authorisation service address in this MVP, but should not see CouchDB URL, username, password, database name, CORS, headers, or JWT settings unless **Expert settings** is opened.
+This is the temporary replacement for the later hosted short-lived ticket flow. The user sees a sync key first. The local backend URL remains in a collapsed **Local MVP backend** block for development, and CouchDB URL, username, password, database name, CORS, headers, and JWT settings stay behind **Expert settings**.
 
 Run it with:
 
@@ -48,6 +48,7 @@ On Windows PowerShell:
 $env:RUSYNC_COUCHDB_URL = "http://127.0.0.1:5984"
 $env:RUSYNC_COUCHDB_ADMIN_USER = "admin"
 $env:RUSYNC_COUCHDB_ADMIN_PASSWORD = "password"
+$env:RUSYNC_SIMPLE_AUTH_KEY = "dev-sync-key"
 node utils/simple-auth-backend/server.mjs
 ```
 
@@ -58,6 +59,7 @@ POST /api/provision
 content-type: application/json
 
 {
+  "syncKey": "dev-sync-key",
   "name": "optional vault or account name",
   "encrypted": true
 }
@@ -89,11 +91,11 @@ When `"encrypted": false` is requested, the backend returns an empty passphrase 
 
 For a new user choosing manual setup, the wizard now goes straight to the CouchDB provisioning dialogue with sensible encryption defaults. The dialogue asks for:
 
-- authorisation server URL;
+- sync key;
 - optional account or Vault name;
 - whether synchronised data should be encrypted.
 
-The existing detailed CouchDB URL, username, password, database, custom header, internal API, and JWT controls remain available through **Expert settings**.
+The local backend URL is available from **Local MVP backend** for development. The existing detailed CouchDB URL, username, password, database, custom header, internal API, and JWT controls remain available through **Expert settings**.
 
 ## Current Assumptions
 

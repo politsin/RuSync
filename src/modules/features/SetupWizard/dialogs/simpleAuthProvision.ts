@@ -5,6 +5,7 @@ import {
 } from "@vrtmrz/livesync-commonlib/compat/common/types";
 
 export type SimpleAuthProvisionRequest = {
+    syncKey: string;
     name: string;
     encrypted: boolean;
 };
@@ -107,6 +108,7 @@ export async function provisionSimpleAuth(
         method: "POST",
         headers: {
             "content-type": "application/json",
+            "x-rusync-sync-key": request.syncKey,
         },
         body: JSON.stringify(request),
     });
