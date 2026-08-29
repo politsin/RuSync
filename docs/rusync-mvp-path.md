@@ -29,7 +29,7 @@ The first usable version is deliberately simple:
 
 ## Simple Authorisation Contract
 
-The local MVP backend lives at `utils/simple-auth-backend/server.mjs`.
+The local MVP backend lives at `utils/simple-auth-backend/server.mjs`. Its local test notes live at `utils/simple-auth-backend/README.md`, and `utils/simple-auth-backend/smoke.mjs` exercises the HTTP provisioning contract without Obsidian.
 
 This is the temporary replacement for the later hosted short-lived ticket flow. The user sees a sync key first. The local backend URL remains in a collapsed **Local MVP backend** block for development, and CouchDB URL, username, password, database name, CORS, headers, and JWT settings stay behind **Expert settings**.
 
@@ -50,6 +50,14 @@ $env:RUSYNC_COUCHDB_ADMIN_USER = "admin"
 $env:RUSYNC_COUCHDB_ADMIN_PASSWORD = "password"
 $env:RUSYNC_SIMPLE_AUTH_KEY = "dev-sync-key"
 node utils/simple-auth-backend/server.mjs
+```
+
+Run the no-Obsidian smoke test from another terminal:
+
+```powershell
+$env:RUSYNC_SIMPLE_AUTH_URL = "http://127.0.0.1:8787"
+$env:RUSYNC_SIMPLE_AUTH_KEY = "dev-sync-key"
+node utils/simple-auth-backend/smoke.mjs
 ```
 
 The plug-in calls:

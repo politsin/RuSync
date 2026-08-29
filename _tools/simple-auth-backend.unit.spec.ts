@@ -7,6 +7,11 @@ import {
     applyProvisioningPlan,
     validateSyncKey,
 } from "../utils/simple-auth-backend/server.mjs";
+import {
+    buildProvisionPayload,
+    sanitiseProvisioningResponse,
+    verifyProvisionedDatabase,
+} from "../utils/simple-auth-backend/smoke.mjs";
 
 describe("simple auth backend", () => {
     it("creates CouchDB-safe names and keeps encryption enabled by default", () => {
@@ -111,5 +116,76 @@ describe("simple auth backend", () => {
         expect(() =>
             validateSyncKey({ headers: { "x-rusync-sync-key": "wrong" } }, {}, { RUSYNC_SIMPLE_AUTH_KEY: "right" })
         ).toThrow("sync_key_rejected");
+    });
+
+    it("builds an encrypted smoke payload by default", () => {
+        expect(buildProvisionPayload({ RUSYNC_SIMPLE_AUTH_KEY: "test-key" }, [])).toEqual({
+            syncKey: "test-key",
+            name: "smoke vault",
+            encrypted: true,
+        });
+        expect(buildProvisionPayload({ RUSYNC_SIMPLE_AUTH_KEY: "test-key" }, ["--unencrypted"]).encrypted).toBe(false);
+    });
+
+    it("sanitises smoke output secrets", () => {
+        expect(
+            sanitiseProvisioningResponse({
+                couchdb: {
+                    url: "http://localhost:5984",
+                    username: "rusync-test",
+                    password: "long-secret-password",
+                    database: "rusync-db",
+                    useInternalApi: false,
+                },
+                sync: {
+                    encrypted: true,
+                    passphrase: "long-secret-passphrase",
+                    pathObfuscation: true,
+                    algorithm: "v2",
+                },
+            })
+        ).toMatchObject({
+            couchdb: {
+                password: "long-s...word",
+            },
+            sync: {
+                passphrase: "long-s...rase",
+            },
+        });
+    });
+
+    it("verifies the generated CouchDB credentials in the smoke path", async () => {
+        const fetcher = vi.fn(async () => ({
+            ok: true,
+            status: 200,
+            url: "http://localhost:5984/rusync-db",
+            text: async () => JSON.stringify({ db_name: "rusync-db", doc_count: 0, update_seq: "0-g1" }),
+        }));
+
+        await expect(
+            verifyProvisionedDatabase(
+                {
+                    couchdb: {
+                        url: "http://localhost:5984",
+                        username: "rusync-test",
+                        password: "secret",
+                        database: "rusync-db",
+                    },
+                },
+                fetcher as unknown as typeof fetch
+            )
+        ).resolves.toEqual({
+            db_name: "rusync-db",
+            doc_count: 0,
+            update_seq: "0-g1",
+        });
+        expect(fetcher).toHaveBeenCalledWith(
+            "http://localhost:5984/rusync-db",
+            expect.objectContaining({
+                headers: {
+                    authorization: "Basic cnVzeW5jLXRlc3Q6c2VjcmV0",
+                },
+            })
+        );
     });
 });
