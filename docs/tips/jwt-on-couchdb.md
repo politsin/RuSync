@@ -11,7 +11,7 @@ authors:
 
 # JWT Authentication on CouchDB
 
-When using CouchDB as a backend for Self-hosted LiveSync, it is possible to enhance security by employing JWT (JSON Web Token) Authentication. In particular, using asymmetric keys (ES256 and ES512) provides greater security against token interception.
+When using CouchDB as a backend for RuSync, it is possible to enhance security by employing JWT (JSON Web Token) Authentication. In particular, using asymmetric keys (ES256 and ES512) provides greater security against token interception.
 
 ## Setting up JWT Authentication (Asymmetrical Key Example)
 
@@ -54,7 +54,7 @@ Ju...........................................................gTt
 
 For detailed information, please refer to the [CouchDB JWT Authentication Documentation](https://docs.couchdb.org/en/stable/api/server/authn.html#jwt-authentication).
 
-### 3. Configure Self-hosted LiveSync to use JWT Authentication
+### 3. Configure RuSync to use JWT Authentication
 
 | Setting                 | Description                                                                                                                                           |
 | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -66,7 +66,7 @@ For detailed information, please refer to the [CouchDB JWT Authentication Docume
 | JWT Subject (sub)       | Set your user ID; this overrides the original `Username` setting. If you have detected access with `Username`, you have failed to authorise with JWT. |
 
 > [!IMPORTANT]
-> Self-hosted LiveSync requests to CouchDB treat the user as `_admin`. If you want to restrict access, configure `jwt_auth/roles_claim_name` to a custom claim name. (Self-hosted LiveSync always sets `_couchdb.roles` with the value `["_admin"]`).
+> RuSync requests to CouchDB treat the user as `_admin`. If you want to restrict access, configure `jwt_auth/roles_claim_name` to a custom claim name. (RuSync always sets `_couchdb.roles` with the value `["_admin"]`).
 
 ### 4. Test the configuration
 
@@ -76,6 +76,6 @@ Just try to `Test Settings and Continue` in the remote setup dialogue. If you ha
 
 This feature is still experimental. Please ensure to test thoroughly in your environment before deploying to production.
 
-However, we think that this is a great step towards enhancing security when using CouchDB with Self-hosted LiveSync. We shall enable this setting by default in future releases.
+However, we think that this is a great step towards enhancing security when using CouchDB with RuSync. We shall enable this setting by default in future releases.
 
 We would love to hear your feedback and any issues you encounter.

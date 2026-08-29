@@ -43,7 +43,7 @@ const notePath = "E2E/couchdb-upload.md";
 const noteContent = [
     "# CouchDB upload from real Obsidian",
     "",
-    "This note is created through Obsidian and uploaded by Self-hosted LiveSync.",
+    "This note is created through Obsidian and uploaded by RuSync.",
     "The content is intentionally long enough to require chunk metadata in the local database.",
     "0123456789 abcdefghijklmnopqrstuvwxyz 0123456789 abcdefghijklmnopqrstuvwxyz",
     "0123456789 abcdefghijklmnopqrstuvwxyz 0123456789 abcdefghijklmnopqrstuvwxyz",
@@ -58,7 +58,7 @@ async function createNoteAndWaitForLocalDb(cliBinary: string, env: NodeJS.Proces
             "(async()=>{",
             `const path=${JSON.stringify(notePath)};`,
             `const content=${JSON.stringify(noteContent)};`,
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             "if(!(await app.vault.adapter.exists('E2E'))) await app.vault.createFolder('E2E');",
             "const existing=app.vault.getAbstractFileByPath(path);",
             "if(existing) await app.vault.delete(existing);",
@@ -127,7 +127,7 @@ async function main(): Promise<void> {
             dbName,
         });
         await waitForLiveSyncCoreReady(cli.binary, session.cliEnv);
-        assertEqual(configured.isConfigured, true, "Self-hosted LiveSync was not marked as configured.");
+        assertEqual(configured.isConfigured, true, "RuSync was not marked as configured.");
         assertEqual(configured.couchDB_URI, couchDb.uri, "Configured CouchDB URI did not match.");
         assertEqual(configured.couchDB_DBNAME, dbName, "Configured CouchDB database name did not match.");
         assertEqual(configured.liveSync, false, "LiveSync should remain disabled during this one-shot workflow.");

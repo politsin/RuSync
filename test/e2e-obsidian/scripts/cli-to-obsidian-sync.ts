@@ -31,7 +31,7 @@ const notePath = "E2E/cli-to-obsidian.md";
 const noteContent = [
     "# CLI to real Obsidian",
     "",
-    "This note was created by the Self-hosted LiveSync CLI.",
+    "This note was created by the RuSync CLI.",
     "The real Obsidian plug-in must retrieve the same content from CouchDB.",
     "0123456789 abcdefghijklmnopqrstuvwxyz 0123456789 abcdefghijklmnopqrstuvwxyz",
     "",
@@ -263,7 +263,7 @@ async function main(): Promise<void> {
     if (process.env.LIVESYNC_CLI_COMMAND === undefined) {
         await access(liveSyncCli).catch(() => {
             throw new Error(
-                `Built LiveSync CLI was not found at ${liveSyncCli}. Run 'npm run build -w self-hosted-livesync-cli' first, or set LIVESYNC_CLI_COMMAND.`
+                `Built LiveSync CLI was not found at ${liveSyncCli}. Run 'npm run build -w rusync-cli' first, or set LIVESYNC_CLI_COMMAND.`
             );
         });
     }

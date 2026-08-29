@@ -149,7 +149,7 @@ function buildConfig(): BenchmarkConfig {
         relay: readEnvString("BENCH_RELAY", "ws://localhost:4000/"),
         appId: readEnvString(
             "BENCH_APP_ID",
-            "self-hosted-livesync-cli-benchmark",
+            "rusync-cli-benchmark",
         ),
         roomId: readEnvString("BENCH_ROOM_ID", `bench-room-${Date.now()}`),
         passphrase: readEnvString("BENCH_PASSPHRASE", `bench-${Date.now()}`),

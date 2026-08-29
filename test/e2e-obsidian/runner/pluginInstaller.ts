@@ -7,7 +7,7 @@ export type { PluginInstallResult };
 
 export async function installBuiltPlugin(vaultPath: string, rootDir = process.cwd()): Promise<PluginInstallResult> {
     return await installGenericBuiltPlugin(vaultPath, {
-        pluginId: "obsidian-livesync",
+        pluginId: "rusync",
         artifactRoot: rootDir,
     });
 }

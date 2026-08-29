@@ -30,7 +30,7 @@
     });
 </script>
 
-<DialogHeader title={translateMessage("Welcome to Self-hosted LiveSync")} />
+<DialogHeader title={translateMessage("Welcome to RuSync")} />
 <Guidance
     >{translateMessage(
         "We will now guide you through a few questions to simplify the synchronisation setup."

@@ -4,7 +4,7 @@ These utilities support self-hosted CouchDB provisioning and Setup URI generatio
 
 ## CouchDB provisioning
 
-`couchdb/couchdb-init.sh` is a Bash wrapper for the Deno provisioning tool. Deno 2 is required. The tool configures single-node CouchDB, authenticated access, CORS for Obsidian, and the request and document size limits used by Self-hosted LiveSync.
+`couchdb/couchdb-init.sh` is a Bash wrapper for the Deno provisioning tool. Deno 2 is required. The tool configures single-node CouchDB, authenticated access, CORS for Obsidian, and the request and document size limits used by RuSync.
 
 Set `database` to create a database as part of provisioning. The tool then uses Commonlib's database negotiation contract to initialise and verify the LiveSync database version. If `database` is omitted, only the CouchDB server is configured and the first LiveSync client remains responsible for creating its database.
 

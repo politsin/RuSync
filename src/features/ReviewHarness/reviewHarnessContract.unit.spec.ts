@@ -206,7 +206,7 @@ describe("Review Harness contract", () => {
             ],
         });
 
-        expect(report).toContain("## Self-hosted LiveSync Review Harness report");
+        expect(report).toContain("## RuSync Review Harness report");
         expect(report).toContain("Obsidian\\|mobile<br>review");
         expect(report).toContain("Compatibility review boundary (compatibility-review)");
         expect(report).toContain("was not transmitted");

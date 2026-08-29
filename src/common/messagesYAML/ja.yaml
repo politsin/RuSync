@@ -67,7 +67,7 @@ Delay merge conflict prompt for inactive files.: 非アクティブなファイ�
 Delete: 削除
 Delete all customization sync data: カスタマイズ同期データをすべて削除
 Delete all data on the remote server.: リモートサーバー上のすべてのデータを削除します。
-Delete local database to reset or uninstall Self-hosted LiveSync: Self-hosted LiveSync をリセットまたはアンインストールするため、ローカルデータベースを削除
+Delete local database to reset or uninstall RuSync: RuSync をリセットまたはアンインストールするため、ローカルデータベースを削除
 Delete old metadata of deleted files on start-up: 削除済みデータのメタデータをクリーンナップする
 Delete Remote Configuration: リモート設定を削除
 Delete remote configuration '{name}'?: リモート設定 '{name}' を削除しますか？
@@ -77,7 +77,7 @@ Device name: デバイス名
 dialog:
   yourLanguageAvailable:
     _value: >-
-      Self-hosted LiveSync に設定されている言語の翻訳がありましたので、%{Display Language}が適用されました。
+      RuSync に設定されている言語の翻訳がありましたので、%{Display Language}が適用されました。
 
 
       注意： 全てのメッセージは翻訳されていません。あなたの貢献をお待ちしています！
@@ -133,7 +133,7 @@ Doctor:
       ${note}
 
       これを理想値に修正しますか？
-    Title: Self-hosted LiveSync 設定診断ツール
+    Title: RuSync 設定診断ツール
     TitleAlmostDone: あと少しです！
     TitleFix: 問題の修正 ${current}/${total}
   Level:
@@ -240,7 +240,7 @@ liveSyncReplicator:
   lockRemoteDb: データ破損を防ぐためリモートデータベースをロック
   markDeviceResolved: このデバイスを『解決済み』としてマーク。
   oneShotSyncBegin: OneShot同期を開始... (${syncMode})
-  remoteDbCorrupted: リモートデータベースが新しいか破損しています。self-hosted-livesyncの最新バージョンがインストールされていることを確認してください
+  remoteDbCorrupted: リモートデータベースが新しいか破損しています。rusyncの最新バージョンがインストールされていることを確認してください
   remoteDbCreatedOrConnected: リモートデータベースが作成または接続されました
   remoteDbDestroyed: リモートデータベースが削除されました
   remoteDbDestroyError: "リモートデータベースの削除中に問題が発生しました:"
@@ -263,7 +263,7 @@ logPane:
   autoScroll: 自動スクロール
   logWindowOpened: ログウィンドウが開かれました
   pause: 一時停止
-  title: Self-hosted LiveSync ログ
+  title: RuSync ログ
   wrap: 折り返し
 Maximum delay for batch database updating: バッチデータベース更新の最大遅延
 Maximum file size: 最大ファイル容量
@@ -292,7 +292,7 @@ moduleCheckRemoteSize:
     > [!MORE]-
     > 長年使用している場合、参照されていないチャンク（つまりゴミ）がデータベースに蓄積している可能性があります。そのため、すべてを再構築することをお勧めします。おそらくかなり小さくなるでしょう。
     >
-    > 単純に保管庫の容量が増えている場合は、事前にファイルを整理してからすべてを再構築するのが良いでしょう。Self-hosted LiveSyncは処理速度を上げるため、削除しても実際のデータを削除しません。これはおおまかに[documentation](https://github.com/vrtmrz/obsidian-livesync/blob/main/docs/tech_info.md)に記載されています。
+    > 単純に保管庫の容量が増えている場合は、事前にファイルを整理してからすべてを再構築するのが良いでしょう。RuSyncは処理速度を上げるため、削除しても実際のデータを削除しません。これはおおまかに[documentation](https://github.com/politsin/RuSync/blob/main/docs/tech_info.md)に記載されています。
     >
     > 増加を気にしない場合は、通知制限を100MB単位で増やすことができます。これは自分のサーバーで実行している場合に適しています。ただし、定期的にすべてを再構築する方が良いでしょう。
     >
@@ -329,14 +329,14 @@ moduleLiveSyncMain:
   logAdditionalSafetyScan: 追加の安全スキャン中...
   logLoadingPlugin: プラグインをロード中...
   logPluginInitCancelled: プラグインの初期化がモジュールによってキャンセルされました
-  logPluginVersion: Self-hosted LiveSync v${manifestVersion} ${packageVersion}
+  logPluginVersion: RuSync v${manifestVersion} ${packageVersion}
   logReadChangelog: LiveSyncが更新されました。変更履歴をお読みください！
   logSafetyScanCompleted: 追加の安全スキャンが完了しました
   logSafetyScanFailed: モジュールで追加の安全スキャンが失敗しました
   logUnloadingPlugin: プラグインをアンロード中...
   logVersionUpdate: LiveSyncが更新されました。互換性のない更新の場合、すべての自動同期が一時的に無効化されています。有効にする前に、すべてのデバイスが最新の状態であることを確認してください。
   msgScramEnabled: |
-    Self-hosted LiveSyncは一部のイベントを無視するように設定されています。これは正しいですか？
+    RuSyncは一部のイベントを無視するように設定されています。これは正しいですか？
 
     | タイプ | ステータス | メモ |
     |:---:|:---:|---|
@@ -395,7 +395,7 @@ moduleMigration:
 
       リモートデータベースがSSLで設定されていない、または安全性の低い認証情報を使用している場合、**機密データが漏洩するリスクがあります**。
 
-      注意: すべてのデバイスでSelf-hosted LiveSync v0.25.6以降にアップグレードし、必ず保管庫をバックアップしてください。
+      注意: すべてのデバイスでRuSync v0.25.6以降にアップグレードし、必ず保管庫をバックアップしてください。
       注意2: すべてを再構築とフェッチは時間とトラフィックを消費します。オフピーク時間に安定したネットワークで実行してください。
     title: 安全でないチャンクが見つかりました！
   logBulkSendCorrupted: チャンクの一括送信が有効にされていましたが、この機能に問題がありました。ご不便をおかけして申し訳ありません。自動的に無効化されました。
@@ -405,9 +405,9 @@ moduleMigration:
   logMigrationFailed: ${old}から${current}への移行が失敗またはキャンセルされました
   logRedflag2CreationFail: redflag2の作成に失敗しました
   logRemoteTweakUnavailable: リモートの調整値を取得できませんでした
-  logSetupCancelled: セットアップがキャンセルされました。Self-hosted LiveSyncはセットアップを待っています！
+  logSetupCancelled: セットアップがキャンセルされました。RuSyncはセットアップを待っています！
   msgFetchRemoteAgain: |-
-    ご存知のとおり、self-hosted LiveSyncはデフォルトの動作とデータベース構造を変更しました。
+    ご存知のとおり、RuSyncはデフォルトの動作とデータベース構造を変更しました。
 
     ご協力のおかげで、リモートデータベースはすでに移行されているようです。おめでとうございます！
 
@@ -416,7 +416,7 @@ moduleMigration:
     ___注意: 設定が変更され、データベースが再フェッチされるまで同期できません。___
     ___注意2: チャンクは完全に不変なので、メタデータと差分のみフェッチできます。___
   msgSinceV02321: |-
-    v0.23.21以降、self-hosted LiveSyncはデフォルトの動作とデータベース構造を変更しました。以下の変更が行われました：
+    v0.23.21以降、RuSyncはデフォルトの動作とデータベース構造を変更しました。以下の変更が行われました：
 
     1. **ファイル名の大文字小文字の区別**
        ファイル名の処理が大文字小文字を区別しなくなりました。これは、ファイル名の大文字小文字を効果的に管理しないLinuxとiOS以外のほとんどのプラットフォームにとって有益な変更です。
@@ -469,7 +469,7 @@ obsidianLiveSyncSettingTab:
   btnUse: 使用
   buttonFetch: フェッチ
   defaultLanguage: デフォルト
-  descConnectSetupURI: セットアップURIを使用してSelf-hosted LiveSyncをセットアップする推奨方法です。
+  descConnectSetupURI: セットアップURIを使用してRuSyncをセットアップする推奨方法です。
   descCopySetupURI: 新しいデバイスのセットアップにおすすめ！
   descEnableLiveSync: 上記の2つのオプションのいずれかを設定するか、すべての設定を手動で完了した後にのみ有効にしてください。
   descFetchConfigFromRemote: 既に設定済みのリモートサーバーから必要な設定を取得します。
@@ -925,7 +925,7 @@ Setup:
       No: いいえ、URIの設定をそのまま使用
       Yes: はい、診断ツールに相談する
     Message: |-
-      Self-hosted LiveSyncは徐々に歴史が長くなり、一部の推奨設定が変更されています。
+      RuSyncは徐々に歴史が長くなり、一部の推奨設定が変更されています。
 
       セットアップは、これを行う非常に良い機会です。
 
@@ -1166,7 +1166,7 @@ xxhash64 (Fastest): xxhash64 (最速)
 Reduces storage space by discarding all non-latest revisions. This requires the same amount of free space on the remote server and the local client.:
   最新版以外のすべてのリビジョンを破棄して、使用容量を削減します。実行には、リモートサーバーとローカルクライアントの両方に同程度の空き容量が必要です。
 Rerun Onboarding Wizard: オンボーディングウィザードを再実行
-Rerun the onboarding wizard to set up Self-hosted LiveSync again.: オンボーディングウィザードを再実行して、Self-hosted LiveSync をもう一度設定します。
+Rerun the onboarding wizard to set up RuSync again.: オンボーディングウィザードを再実行して、RuSync をもう一度設定します。
 Rerun Wizard: ウィザードを再実行
 Run Doctor: 診断を実行
 Scan for Broken files: 破損ファイルをスキャン
@@ -1180,7 +1180,7 @@ Reset the remote storage size threshold and check the remote storage size again.
 Scram Switches: 緊急対応スイッチ
 Minimum interval for syncing: 同期間隔の最小値
 The minimum interval for automatic synchronisation on event.: イベント発生時の自動同期における最小間隔です。
-"Welcome to Self-hosted LiveSync": "Self-hosted LiveSync へようこそ"
+"Welcome to RuSync": "RuSync へようこそ"
 "We will now guide you through a few questions to simplify the synchronisation setup.": "これからいくつかの質問に沿って、同期設定を簡単に進めます。"
 "First, please select the option that best describes your current situation.": "まず、現在の状況に最も近い項目を選択してください。"
 "I am setting this up for the first time": "はじめて設定します"

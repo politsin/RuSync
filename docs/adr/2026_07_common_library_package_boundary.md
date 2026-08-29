@@ -6,18 +6,18 @@ Accepted — the package boundary is implemented, published pre-release artefact
 
 ## Context
 
-Self-hosted LiveSync currently consumes `livesync-commonlib` as the `src/lib` Git submodule. TypeScript, Vite, Vitest, the CLI, Webapp, and WebPeer resolve `@lib/*` directly to the submodule's TypeScript source. The common-library repository has no package manifest, standalone build, export map, or self-contained test command. Its tests and dependency versions are consequently supplied by the Self-hosted LiveSync repository.
+RuSync currently consumes `livesync-commonlib` as the `src/lib` Git submodule. TypeScript, Vite, Vitest, the CLI, Webapp, and WebPeer resolve `@lib/*` directly to the submodule's TypeScript source. The common-library repository has no package manifest, standalone build, export map, or self-contained test command. Its tests and dependency versions are consequently supplied by the RuSync repository.
 
-Source archives do not populate a Git submodule. Self-hosted LiveSync therefore also commits generated declarations under `_types` and resolves `@lib/*` to those declarations as a fallback. This makes one logical dependency appear in the plug-in repository twice: once as a submodule checkout and once as generated declarations. Release preparation must regenerate and commit the fallback, and repository scanners can report generated lint directives as if they were maintained plug-in source.
+Source archives do not populate a Git submodule. RuSync therefore also commits generated declarations under `_types` and resolves `@lib/*` to those declarations as a fallback. This makes one logical dependency appear in the plug-in repository twice: once as a submodule checkout and once as generated declarations. Release preparation must regenerate and commit the fallback, and repository scanners can report generated lint directives as if they were maintained plug-in source.
 
-The Obsidian community scanner currently inspects repository source beyond the plug-in entry point. Reports include `src/apps/cli`, `src/apps/webapp`, `src/apps/webpeer`, and generated `_types`. Moving the common library from `src/lib` to another source directory or a workspace package inside the Self-hosted LiveSync repository would therefore preserve the scan surface. It could remove the submodule fallback, but it would not create the same dependency boundary as consuming a published npm package.
+The Obsidian community scanner currently inspects repository source beyond the plug-in entry point. Reports include `src/apps/cli`, `src/apps/webapp`, `src/apps/webpeer`, and generated `_types`. Moving the common library from `src/lib` to another source directory or a workspace package inside the RuSync repository would therefore preserve the scan surface. It could remove the submodule fallback, but it would not create the same dependency boundary as consuming a published npm package.
 
-The common library is already a substantial shared domain layer. At the time of this decision it contains 270 non-test TypeScript or Svelte source files. At Self-hosted LiveSync revision `e114f66fb2b7c6f3fec2d53701f6638d2557e606`, source outside `src/lib` uses 180 distinct raw `@lib/*` specifiers across plug-in, application, and test source. Normalising optional TypeScript source suffixes leaves 140 migration paths. The plug-in contributes most of those imports, but the CLI, Webapp, and WebPeer also depend on the library. Treating every existing deep path as a permanent public API would make future refactoring impractical.
+The common library is already a substantial shared domain layer. At the time of this decision it contains 270 non-test TypeScript or Svelte source files. At RuSync revision `e114f66fb2b7c6f3fec2d53701f6638d2557e606`, source outside `src/lib` uses 180 distinct raw `@lib/*` specifiers across plug-in, application, and test source. Normalising optional TypeScript source suffixes leaves 140 migration paths. The plug-in contributes most of those imports, but the CLI, Webapp, and WebPeer also depend on the library. Treating every existing deep path as a permanent public API would make future refactoring impractical.
 
 The intended external use is not new:
 
 - [commonlib issue #1](https://github.com/vrtmrz/livesync-commonlib/issues/1) has requested an npm package and an established API since 2022;
-- [Self-hosted LiveSync issue #87](https://github.com/vrtmrz/obsidian-livesync/issues/87) asks for a client with list, get, submit, and delete operations;
+- [RuSync issue #87](https://github.com/politsin/RuSync/issues/87) asks for a client with list, get, submit, and delete operations;
 - [commonlib issue #10](https://github.com/vrtmrz/livesync-commonlib/issues/10) asks for an API which lets another application add Markdown files to the CouchDB data model; and
 - [commonlib issue #13](https://github.com/vrtmrz/livesync-commonlib/issues/13) records the integration cost of consuming a Git submodule and compiling its source.
 
@@ -25,7 +25,7 @@ Existing external consumers use custom TypeScript aliases, loaders, and host stu
 
 The library is close to being self-contained, but it crosses its boundary in a small number of important places:
 
-- four files depend on Self-hosted LiveSync's event hub or event identifiers;
+- four files depend on RuSync's event hub or event identifiers;
 - `KeyValueDBService` imports the host's concrete database-opening function;
 - `ObsidianServiceContext` imports the plug-in class and Obsidian types from the parent repository; and
 - `coreEnvFunctions` imports an Obsidian function type even though the module is intended to be host-neutral.
@@ -45,22 +45,22 @@ The present process model also assumes one main LiveSync instance. Event dispatc
 
 Maintain `livesync-commonlib` as the authoritative independent repository and publish its compiled output as the scoped, pre-1.0 npm package `@vrtmrz/livesync-commonlib`.
 
-Self-hosted LiveSync, its CLI, Webapp, WebPeer, and external tools will consume the compiled package and declarations through package export maps. They must not compile the common library's source through a path alias. The package lock records the exact resolved artefact used to build a plug-in release.
+RuSync, its CLI, Webapp, WebPeer, and external tools will consume the compiled package and declarations through package export maps. They must not compile the common library's source through a path alias. The package lock records the exact resolved artefact used to build a plug-in release.
 
-The common-library repository may become a small workspace if independently useful artefacts emerge, but it does not move into the Fancy Kit repository or the Self-hosted LiveSync plug-in repository. This preserves its domain ownership, existing history, issues, and independent release cadence while making the plug-in repository a package consumer.
+The common-library repository may become a small workspace if independently useful artefacts emerge, but it does not move into the Fancy Kit repository or the RuSync plug-in repository. This preserves its domain ownership, existing history, issues, and independent release cadence while making the plug-in repository a package consumer.
 
 The first package release is an infrastructure and compatibility release, not a declaration that every internal service is stable. It exposes:
 
 - a small documented root API;
 - named, task-oriented public subpaths;
-- explicitly marked compatibility subpaths required to migrate current Self-hosted LiveSync imports; and
+- explicitly marked compatibility subpaths required to migrate current RuSync imports; and
 - no unrestricted source-directory wildcard as a permanent contract.
 
-Compatibility subpaths may be exported during the migration, but they remain pre-1.0 and are documented as internal. New external integrations should use the high-level client façade rather than reproduce Self-hosted LiveSync's internal Service Hub composition.
+Compatibility subpaths may be exported during the migration, but they remain pre-1.0 and are documented as internal. New external integrations should use the high-level client façade rather than reproduce RuSync's internal Service Hub composition.
 
 ### Domain ownership
 
-The common library continues to own behaviour which defines the Self-hosted LiveSync data and synchronisation model:
+The common library continues to own behaviour which defines the RuSync data and synchronisation model:
 
 - document, metadata, chunk, setting, and protocol types;
 - path and identifier encoding;
@@ -72,7 +72,7 @@ The common library continues to own behaviour which defines the Self-hosted Live
 - headless composition; and
 - the future high-level client façade.
 
-The Self-hosted LiveSync repository owns plug-in and product integration:
+The RuSync repository owns plug-in and product integration:
 
 - `ObsidianServiceContext` and every reference to the plug-in class, `App`, `Plugin`, or Obsidian lifecycle;
 - Setup Wizard components and LiveSync-specific presentation policy;
@@ -89,9 +89,9 @@ Neutral utilities which do not express LiveSync data, storage, replication, or U
 The package must contain no `@/` import and no direct Obsidian import. The current reverse dependencies are removed as follows:
 
 - common protocol and service events live with their common-library contracts;
-- host-only event reactions are registered by Self-hosted LiveSync at its composition root;
+- host-only event reactions are registered by RuSync at its composition root;
 - `KeyValueDBService` receives an `openKeyValueDatabase` factory through constructor or service dependencies;
-- `ObsidianServiceContext` moves to Self-hosted LiveSync;
+- `ObsidianServiceContext` moves to RuSync;
 - the language getter uses a local function type rather than importing the Obsidian declaration; and
 - browser globals, fetch, crypto, timers, storage, and document access are obtained through explicit host capabilities where behaviour varies by runtime.
 
@@ -109,7 +109,7 @@ In particular, event subscriptions, translation selection, offline-scan maps and
 
 Translation lookup is separated from the application catalogue. Commonlib owns a typed canonical English definition for the messages requested by its services and uses it when a host omits the optional translator capability. This ensures that another consumer receives meaningful English rather than symbolic keys.
 
-Self-hosted LiveSync owns the complete multilingual catalogue, generation tools, selected-language state, and translator implementation. It injects that translator into the Obsidian, CLI, and browser composition roots. Commonlib does not publish `compat/common/i18n`, `compat/common/rosetta`, generated language modules, or JSON catalogues.
+RuSync owns the complete multilingual catalogue, generation tools, selected-language state, and translator implementation. It injects that translator into the Obsidian, CLI, and browser composition roots. Commonlib does not publish `compat/common/i18n`, `compat/common/rosetta`, generated language modules, or JSON catalogues.
 
 The canonical Commonlib key type and English fallback change with Commonlib. LiveSync may add translations for those keys without duplicating every English definition; its translator delegates absent keys to Commonlib's canonical English fallback. A separate language package remains possible only if independent consumers and release cadence later justify it; core must never depend on an application catalogue.
 
@@ -121,15 +121,15 @@ The present Svelte dialogue implementation is split into three responsibilities:
 
 1. an Obsidian `Modal` host which owns content, title, close, one-shot settlement, and disposal;
 2. a Svelte adapter which mounts and unmounts a component in that host; and
-3. Self-hosted LiveSync policy which supplies service context, reacts to plug-in unload, requires explicit cancellation in selected workflows, translates messages, and styles Setup Wizard content.
+3. RuSync policy which supplies service context, reacts to plug-in unload, requires explicit cancellation in selected workflows, translates messages, and styles Setup Wizard content.
 
 Fancy Kit is an appropriate owner for the first responsibility when the contract is useful beyond this migration. The Kit API should be framework-neutral: it accepts a mount callback, exposes typed `resolve`, `cancel`, `close`, and `setTitle` controls, and accepts a disposer returned by the callback. It returns a `Promise<TResult | null>` which settles once, and it owns safe-area, viewport, focus, and Obsidian Modal lifecycle guarantees.
 
-Fancy Kit does not add Svelte to its core dependencies for this migration. Self-hosted LiveSync initially owns the small Svelte adapter which calls Svelte's `mount` and `unmount` through the framework-neutral host. The browser dialogue host also remains outside the Obsidian plug-in kit. If a second Obsidian plug-in needs the same Svelte adapter, it can be promoted to an optional Kit subpath with an optional Svelte peer dependency, or to a separate `@vrtmrz/obsidian-svelte-kit` package. That promotion must preserve the existing `sideEffects: false` and focused-import guarantees for consumers which do not use Svelte.
+Fancy Kit does not add Svelte to its core dependencies for this migration. RuSync initially owns the small Svelte adapter which calls Svelte's `mount` and `unmount` through the framework-neutral host. The browser dialogue host also remains outside the Obsidian plug-in kit. If a second Obsidian plug-in needs the same Svelte adapter, it can be promoted to an optional Kit subpath with an optional Svelte peer dependency, or to a separate `@vrtmrz/obsidian-svelte-kit` package. That promotion must preserve the existing `sideEffects: false` and focused-import guarantees for consumers which do not use Svelte.
 
-Self-hosted LiveSync's `openWithExplicitCancel` retry policy, application service context, and Setup Wizard components do not move to Fancy Kit.
+RuSync's `openWithExplicitCancel` retry policy, application service context, and Setup Wizard components do not move to Fancy Kit.
 
-Arbitrary component mounting is not added to the neutral `UiInteractions` contract. A component instance is a framework and host integration detail rather than a portable interaction request which a generic driver can serialise or answer. A LiveSync workflow which needs a hosted component defines and receives its own narrow, typed dialogue capability; Self-hosted LiveSync composes that capability from the Kit Modal host and its local Svelte adapter.
+Arbitrary component mounting is not added to the neutral `UiInteractions` contract. A component instance is a framework and host integration detail rather than a portable interaction request which a generic driver can serialise or answer. A LiveSync workflow which needs a hosted component defines and receives its own narrow, typed dialogue capability; RuSync composes that capability from the Kit Modal host and its local Svelte adapter.
 
 ### Package artefacts
 
@@ -142,7 +142,7 @@ The common-library package publishes compiled ESM and generated declaration file
 - explicit runtime, peer, and optional dependencies;
 - no unresolved `@lib/*`, `@/*`, Vite query, or source `.ts` import in published JavaScript or declarations;
 - an `npm pack` contents check; and
-- clean-install consumer fixtures for Node, a browser bundle, and Self-hosted LiveSync.
+- clean-install consumer fixtures for Node, a browser bundle, and RuSync.
 
 Svelte source, worker query imports, AWS SDK adapters, PouchDB adapters, and Node-only crypto must not leak through the root entry point. Optional feature subpaths may carry their own heavier dependency surface.
 
@@ -168,7 +168,7 @@ The Node entry also centralises direct Node built-in access needed by trusted he
 
 Commonlib's `context` entry exposes a narrow `StandardIo` contract for command-line composition. It reads UTF-8 standard input, asks one line-oriented question, and writes text or binary chunks to standard output and standard error without adding delimiters. Commonlib's `node` entry supplies `createNodeStandardIo()`, which binds that contract to host-selected Node streams and defaults to the current process streams.
 
-Self-hosted LiveSync constructs the Node implementation at the CLI composition root and places the exact instance on `NodeServiceContext`. `NodeServiceHub` must receive that Context rather than silently constructing one. Command handlers reach input, prompts, and protocol output through the Context, so unit tests can inject memory I/O without replacing process globals. Obsidian and browser Contexts do not acquire a fictitious terminal capability, and the base `ServiceContextContract` remains limited to capabilities required by every composition.
+RuSync constructs the Node implementation at the CLI composition root and places the exact instance on `NodeServiceContext`. `NodeServiceHub` must receive that Context rather than silently constructing one. Command handlers reach input, prompts, and protocol output through the Context, so unit tests can inject memory I/O without replacing process globals. Obsidian and browser Contexts do not acquire a fictitious terminal capability, and the base `ServiceContextContract` remains limited to capabilities required by every composition.
 
 Standard I/O does not own command-line arguments, exit codes, signals, stream lifecycle, log levels, or log persistence. Diagnostic logging remains the responsibility of the existing API and Logger composition. CLI adapters receive a narrow diagnostic callback wired to the service logging API instead of calling `console` directly. A CLI host may render selected logs on standard error, but Logger is not added to `StandardIo` or made mandatory on the base Context.
 
@@ -203,14 +203,14 @@ Every retained barrel must correspond to an explicit `exports` entry, list named
 ### Phase 0: Record and enforce the boundary
 
 - Add a package-boundary check which rejects `@/` and direct Obsidian imports in common-library production source.
-- Record the current Self-hosted LiveSync `@lib/*` import inventory and classify each path as public, compatibility-only, host-owned, or obsolete.
+- Record the current RuSync `@lib/*` import inventory and classify each path as public, compatibility-only, host-owned, or obsolete.
 - Inventory mutable module-level state and add a two-client isolation test before promising a public client API.
-- Add standalone test and type-check configuration to the common-library repository while retaining downstream Self-hosted LiveSync CI.
-- Add a packed-consumer fixture before changing Self-hosted LiveSync resolution.
+- Add standalone test and type-check configuration to the common-library repository while retaining downstream RuSync CI.
+- Add a packed-consumer fixture before changing RuSync resolution.
 
 ### Phase 1: Remove host leaks
 
-- Move `ObsidianServiceContext` and `setupObsidian` presentation code to Self-hosted LiveSync.
+- Move `ObsidianServiceContext` and `setupObsidian` presentation code to RuSync.
 - Inject the key-value database factory and host event reactions.
 - Replace the Obsidian language type import with a local contract.
 - Move global DOM compatibility mutation to the browser application bootstrap.
@@ -231,14 +231,14 @@ Every retained barrel must correspond to an explicit `exports` entry, list named
 - Publish an immutable pre-1.0 version to a pre-release npm dist-tag.
 - Verify its package name, provenance, checksum, export map, and packed files.
 - Run common-library tests against the packed artefact rather than the source checkout.
-- Run downstream Self-hosted LiveSync type checks, unit tests, integration tests, CLI tests, Webapp tests, WebPeer tests, production builds, and focused real-Obsidian E2E against the exact package version.
+- Run downstream RuSync type checks, unit tests, integration tests, CLI tests, Webapp tests, WebPeer tests, production builds, and focused real-Obsidian E2E against the exact package version.
 - Validate at least one external consumer which currently uses a submodule or custom loader.
 
-### Phase 4: Convert Self-hosted LiveSync
+### Phase 4: Convert RuSync
 
 - Replace `@lib/*` source aliases with package imports.
 - Remove the `src/lib` submodule, `_types`, `tsconfig.types.json`, `generate-types.mjs`, and release-workflow steps which regenerate fallback declarations.
-- Move the multilingual catalogue and its generation tooling into Self-hosted LiveSync, while retaining only Commonlib's typed English fallback in the package.
+- Move the multilingual catalogue and its generation tooling into RuSync, while retaining only Commonlib's typed English fallback in the package.
 - Keep application-owned source under `src/apps` until a separate decision moves an application.
 - Run the community scanner's branch or commit preview before releasing the converted plug-in.
 
@@ -247,19 +247,19 @@ Every retained barrel must correspond to an explicit `exports` entry, list named
 - Design a high-level asynchronous client around explicit `create`, `list`, `get`, `put`, `delete`, `watch`, and `close` lifecycles.
 - Specify path normalisation, encryption negotiation, conflict handling, conditional writes, deletion, history, and resource disposal before declaring the façade stable.
 - Adapt `DirectFileManipulator` behind that façade or deprecate it; do not treat its current constructor and deep dependencies as the final API.
-- Narrow or remove compatibility-only export paths as Self-hosted LiveSync imports migrate to documented package modules.
+- Narrow or remove compatibility-only export paths as RuSync imports migrate to documented package modules.
 
 ## Implementation Proof
 
 The package proof builds Commonlib as one compiled ESM package with a small root, `context`, `settings`, `remote-configurations`, `browser`, `node`, and `rpc` entries, plus only the explicit compatibility exports required by the reviewed downstream inventory. It publishes neither raw TypeScript nor Svelte source, uses no unrestricted export wildcard, and can be installed into a clean consumer, imported in Node, type-checked from declarations, and bundled independently for browser context, browser storage, browser services, and workers. Release validation records and compares the immutable registry version and checksum.
 
-The compatibility inventory is regenerated from the maintained Self-hosted LiveSync consumer. Focused entries replace compatibility imports when their contracts are proven; obsolete paths are removed from the next candidate rather than retained merely because an earlier immutable release contained them. The multilingual `common/i18n` and `common/rosetta` paths have been removed in this way after ownership moved to the host.
+The compatibility inventory is regenerated from the maintained RuSync consumer. Focused entries replace compatibility imports when their contracts are proven; obsolete paths are removed from the next candidate rather than retained merely because an earlier immutable release contained them. The multilingual `common/i18n` and `common/rosetta` paths have been removed in this way after ownership moved to the host.
 
 The proof found and fixed three boundary defects which source-alias consumption had hidden: compiled JSON imports required explicit output extensions, precompiled Svelte output could not safely be treated as source by the downstream Svelte pipeline, and Vite's default client conditions selected Commonlib's browser worker while building the Node CLI. Packed-consumer regressions cover the first two. The CLI now uses Vite's server conditions and treats every Node built-in reported by Commonlib's Node entry as external; the built CLI is exercised through Deno E2E. Importing root or context also no longer patches DOM prototypes, translator injection prevents the context entry from loading the complete language catalogue, and standard input and protocol output are supplied by the package-owned host contract rather than direct stream access in command handlers.
 
-Self-hosted LiveSync, its CLI, Webapp, WebPeer, plug-in source, and tests compile against that exact registry artefact without `@lib/*`. Focused downstream storage tests pass against the package-owned Node and File System Access API implementations. Commonlib also owns the Trystero implementation and version; the host retains no direct Trystero dependency, preventing two transport generations from entering one application graph. The old `src/lib` Git submodule, generated `_types` fallback, type-generation scripts, and source aliases are removed by the proof branch.
+RuSync, its CLI, Webapp, WebPeer, plug-in source, and tests compile against that exact registry artefact without `@lib/*`. Focused downstream storage tests pass against the package-owned Node and File System Access API implementations. Commonlib also owns the Trystero implementation and version; the host retains no direct Trystero dependency, preventing two transport generations from entering one application graph. The old `src/lib` Git submodule, generated `_types` fallback, type-generation scripts, and source aliases are removed by the proof branch.
 
-Commonlib's contract and complete suites cover Context results, both platform storage implementations, standard I/O, replication, settings, and package consumption. Self-hosted LiveSync runs the same host-composition result contract for Obsidian, CLI, and browser compositions against the exact packed artefact, followed by its unit, integration, application-build, CLI E2E, and focused real-Obsidian gates.
+Commonlib's contract and complete suites cover Context results, both platform storage implementations, standard I/O, replication, settings, and package consumption. RuSync runs the same host-composition result contract for Obsidian, CLI, and browser compositions against the exact packed artefact, followed by its unit, integration, application-build, CLI E2E, and focused real-Obsidian gates.
 
 The package-owned Trystero transport also completes the canonical Compose P2P synchronisation workflow with a local relay and two isolated CLI peers. In real Obsidian, the plug-in starts with one consistent `ObsidianServiceContext`, the representative server-selection and Setup URI Svelte dialogues mount and close through their normal controls, their mobile variants satisfy viewport, safe-area, and touch-target assertions, and the settings pane exposes only the effective deletion controls. These runtime checks complement the package tests without making Webapp maintenance the primary release gate.
 
@@ -285,19 +285,19 @@ The obsolete mocked browser Harness and its `harness-ci` workflow have been remo
 
 Consuming the npm package removes the common-library source and generated `_types` from the plug-in repository's Community directory scan, because package dependencies are treated as dependencies rather than maintained plug-in source. The branch preview confirms this expected boundary.
 
-The change does not hide or resolve warnings in Self-hosted LiveSync-owned source. The scanner will continue to inspect the plug-in, CLI, Webapp, and WebPeer while those applications remain in the repository. Moving those applications to a LiveSync-family application repository may be considered after the package boundary is stable, but it is not part of this decision because the CLI and Webapp still import shared plug-in composition code.
+The change does not hide or resolve warnings in RuSync-owned source. The scanner will continue to inspect the plug-in, CLI, Webapp, and WebPeer while those applications remain in the repository. Moving those applications to a LiveSync-family application repository may be considered after the package boundary is stable, but it is not part of this decision because the CLI and Webapp still import shared plug-in composition code.
 
 Package extraction also does not resolve release-asset attestation verification, unsupported release assets, declarative settings migration, or other scanner findings which are independent of source ownership.
 
 ## Alternatives Rejected
 
-### Move the common library into the Self-hosted LiveSync monorepo
+### Move the common library into the RuSync monorepo
 
 This would permit atomic source changes and remove the Git submodule, but the community scanner already examines non-plug-in application source. A source workspace would remain in scope, and every library directive and platform dependency would be attributed to the plug-in repository. It would also make independent consumers depend on the plug-in repository's release cadence.
 
 ### Move the common library into Fancy Kit
 
-Fancy Kit owns reusable framework-neutral interactions, Obsidian adapters, test infrastructure, and neutral utilities. Replication protocols, chunk and metadata formats, PouchDB composition, conflict rules, and LiveSync storage policy are a different domain. Moving them would obscure ownership and make general plug-in tooling carry Self-hosted LiveSync release concerns.
+Fancy Kit owns reusable framework-neutral interactions, Obsidian adapters, test infrastructure, and neutral utilities. Replication protocols, chunk and metadata formats, PouchDB composition, conflict rules, and LiveSync storage policy are a different domain. Moving them would obscure ownership and make general plug-in tooling carry RuSync release concerns.
 
 ### Publish the current source tree without changing boundaries
 
@@ -317,10 +317,10 @@ The package-boundary conversion is ready for acceptance only when:
 - packed Node and browser consumers resolve only exported paths;
 - a headless client does not bundle Svelte or the full language catalogue;
 - retained entry-point barrels do not load unrelated optional implementations, and no removed barrel is replaced by unrestricted deep exports;
-- Self-hosted LiveSync verifies its local Svelte adapter and workflow policy through injected tests and a focused composition smoke test;
-- Self-hosted LiveSync no longer has `src/lib`, `_types`, or `@lib/*` source aliases;
-- the Commonlib owner and packed-consumer suites, Self-hosted LiveSync unit and integration tests, Deno CLI E2E, plug-in and application production builds, and focused real-Obsidian E2E pass against the reviewed package artefact;
-- common-library downstream CI records and tests the exact Self-hosted LiveSync ref;
+- RuSync verifies its local Svelte adapter and workflow policy through injected tests and a focused composition smoke test;
+- RuSync no longer has `src/lib`, `_types`, or `@lib/*` source aliases;
+- the Commonlib owner and packed-consumer suites, RuSync unit and integration tests, Deno CLI E2E, plug-in and application production builds, and focused real-Obsidian E2E pass against the reviewed package artefact;
+- common-library downstream CI records and tests the exact RuSync ref;
 - a Community directory scanner preview confirms the expected change in source findings; and
 - compatibility exports are explicitly enumerated from a reviewed downstream inventory rather than exposed through a wildcard.
 
@@ -333,7 +333,7 @@ The following are later SDK-stabilisation gates, not blockers for accepting the 
 ## Consequences
 
 - The common library gains an independently consumable and testable artefact while retaining its domain ownership and history.
-- Self-hosted LiveSync release archives no longer need generated fallback declarations for an absent submodule.
+- RuSync release archives no longer need generated fallback declarations for an absent submodule.
 - Community directory scanning distinguishes plug-in source from the reviewed dependency.
 - Changes which span the package and plug-in require coordinated package and downstream validation rather than one atomic source commit.
 - Temporary compatibility exports increase the first package surface, but their pre-1.0 status and explicit classification prevent them from becoming silent permanent contracts.

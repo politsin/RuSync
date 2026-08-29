@@ -8,7 +8,7 @@ Deno.test("p2p-host: starts and becomes ready", async () => {
     const relay = Deno.env.get("RELAY") ?? "ws://localhost:4000/";
     const roomId = Deno.env.get("ROOM_ID") ?? `room-${Date.now()}`;
     const passphrase = Deno.env.get("PASSPHRASE") ?? "test";
-    const appId = Deno.env.get("APP_ID") ?? "self-hosted-livesync-cli-tests";
+    const appId = Deno.env.get("APP_ID") ?? "rusync-cli-tests";
     const useInternalRelay = Deno.env.get("USE_INTERNAL_RELAY") !== "0";
 
     await using workDir = await TempDir.create("livesync-cli-p2p-host");

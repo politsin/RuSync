@@ -6,7 +6,7 @@ import {
 } from "./reviewHarnessContract";
 import type { ReviewHarnessController } from "./reviewHarnessController";
 
-export const VIEW_TYPE_REVIEW_HARNESS = "self-hosted-livesync-review-harness";
+export const VIEW_TYPE_REVIEW_HARNESS = "rusync-review-harness";
 
 const STATUS_LABELS: Record<ReviewHarnessScenarioStatus, string> = {
     idle: "Not run",
@@ -35,7 +35,7 @@ export class ReviewHarnessView extends ItemView {
     }
 
     getDisplayText(): string {
-        return "Self-hosted LiveSync review harness";
+        return "RuSync review harness";
     }
 
     override async onOpen(): Promise<void> {
@@ -110,7 +110,7 @@ export class ReviewHarnessView extends ItemView {
         this.contentEl.empty();
         this.contentEl.addClass("sls-review-harness");
         this.contentEl.dataset.testid = "review-harness";
-        this.contentEl.createEl("h2", { text: "Self-hosted LiveSync review harness" });
+        this.contentEl.createEl("h2", { text: "RuSync review harness" });
         this.contentEl.createEl("p", {
             text: "Use a dedicated test Vault. Read-only scenarios are labelled. The Vault round-trip scenario writes only after confirmation, owns one fixed fixture tree, and removes it in a finally block. The Harness never accepts arbitrary commands, paths, code, or remote credentials.",
             cls: "sls-review-harness__warning",

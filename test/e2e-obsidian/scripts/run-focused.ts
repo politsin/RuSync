@@ -34,7 +34,7 @@ const focusedScenarios = new Set([
 function usage(): string {
     return `Usage: npm run test:e2e:obsidian:focused -- <scenario> [scenario arguments]
 
-Builds the current Self-hosted LiveSync plug-in before running one maintained
+Builds the current RuSync plug-in before running one maintained
 real-Obsidian scenario. Supported scenarios:
 
 ${[...focusedScenarios].map((scenario) => `  ${scenario}`).join("\n")}
@@ -76,7 +76,7 @@ function main(): void {
     // The compatibility scenario defaults to the repository CLI. Build it only
     // when the caller has not selected an external CLI distribution.
     if (scenario === "cli-to-obsidian-sync" && !process.env.LIVESYNC_CLI_COMMAND) {
-        runNpm(["run", "build", "--workspace", "self-hosted-livesync-cli"]);
+        runNpm(["run", "build", "--workspace", "rusync-cli"]);
     }
 
     const script = `test:e2e:obsidian:${scenario}`;

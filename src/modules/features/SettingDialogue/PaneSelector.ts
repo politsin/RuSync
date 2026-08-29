@@ -70,7 +70,7 @@ export function paneSelector(this: ObsidianLiveSyncSettingTab, paneEl: HTMLEleme
         });
         this.lifetimeComponent.register(() => void unmount(targetPatternControl));
 
-        const defaultSkipPattern = "\\/node_modules\\/, \\/\\.git\\/, ^\\.git\\/, \\/obsidian-livesync\\/";
+        const defaultSkipPattern = "\\/node_modules\\/, \\/\\.git\\/, ^\\.git\\/, \\/rusync\\/";
         const defaultSkipPatternXPlat =
             defaultSkipPattern + ",\\/workspace$ ,\\/workspace.json$,\\/workspace-mobile.json$";
 

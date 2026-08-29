@@ -69,7 +69,7 @@ Delay merge conflict prompt for inactive files.: 推迟手动解决不活动文�
 Delete: 删除
 Delete all customization sync data: 删除所有自定义同步数据
 Delete all data on the remote server.: 删除远端服务器上的所有数据。
-Delete local database to reset or uninstall Self-hosted LiveSync: 删除本地数据库以重置或卸载 Self-hosted LiveSync
+Delete local database to reset or uninstall RuSync: 删除本地数据库以重置或卸载 RuSync
 Delete old metadata of deleted files on start-up: 启动时删除已删除文件的旧元数据
 Delete Remote Configuration: 删除远端配置
 Delete remote configuration '{name}'?: 要删除远端配置“{name}”吗？
@@ -79,7 +79,7 @@ Device name: 设备名称
 dialog:
   yourLanguageAvailable:
     _value: |-
-      Self-hosted LiveSync已提供您语言的翻译,因此启用了%{Display language}
+      RuSync已提供您语言的翻译,因此启用了%{Display language}
 
       注意：并非所有消息都已翻译。我们期待您的贡献！
       注意 2：若您创建问题报告， **请切换回%{lang-def}** ，然后截取屏幕截图、消息和日志，此操作可在设置对话框中完成
@@ -129,7 +129,7 @@ Doctor:
       ${note}
 
       Fix this to the ideal value?
-    Title: Self-hosted LiveSync 配置诊断
+    Title: RuSync 配置诊断
     TitleAlmostDone: 全部完成!
     TitleFix: 修复问题 ${current}/${total}
   Level:
@@ -243,7 +243,7 @@ liveSyncReplicator:
   lockRemoteDb: 锁定远程数据库以防止数据损坏
   markDeviceResolved: 将此设备标记为“已解决”
   oneShotSyncBegin: OneShot同步开始...(${syncMode})
-  remoteDbCorrupted: 远程数据库较新或已损坏,请确保已安装最新版本的self-hosted-livesync
+  remoteDbCorrupted: 远程数据库较新或已损坏,请确保已安装最新版本的rusync
   remoteDbCreatedOrConnected: 远程数据库已创建或连接
   remoteDbDestroyed: 远程数据库已销毁
   remoteDbDestroyError: 远程数据库销毁时发生错误：
@@ -265,7 +265,7 @@ logPane:
   autoScroll: 自动滚动
   logWindowOpened: 日志窗口已打开
   pause: 暂停
-  title: Self-hosted LiveSync 日志
+  title: RuSync 日志
   wrap: 自动换行
 Maximum delay for batch database updating: 批量数据库更新的最大延迟
 Maximum file size: 最大文件大小
@@ -294,7 +294,7 @@ moduleCheckRemoteSize:
     > [!MORE]-
     > 如果您已经使用了很多年,数据库中可能会积累未引用的 chunks——也就是垃圾。因此,我们建议重建所有内容。它可能会变得小得多。
     >
-    > 如果您的库容量只是在增加,最好在整理文件后重建所有内容。即使您为了加速过程删除了文件,Self-hosted LiveSync 也不会删除实际数据。这大致[有文档记录](https://github.com/vrtmrz/obsidian-livesync/blob/main/docs/tech_info.md)。
+    > 如果您的库容量只是在增加,最好在整理文件后重建所有内容。即使您为了加速过程删除了文件,RuSync 也不会删除实际数据。这大致[有文档记录](https://github.com/politsin/RuSync/blob/main/docs/tech_info.md)。
     >
     > 如果您不介意增加,可以将通知限制增加 100MB。如果您在自己的服务器上运行,就是这种情况。但是,最好还是不时地重建所有内容。
     >
@@ -331,14 +331,14 @@ moduleLiveSyncMain:
   logAdditionalSafetyScan: 额外的安全扫描...
   logLoadingPlugin: 正在加载插件...
   logPluginInitCancelled: 插件初始化被某个模块取消
-  logPluginVersion: Self-hosted LiveSync v${manifestVersion} ${packageVersion}
+  logPluginVersion: RuSync v${manifestVersion} ${packageVersion}
   logReadChangelog: LiveSync 已更新,请阅读更新日志！
   logSafetyScanCompleted: 额外的安全扫描完成
   logSafetyScanFailed: 额外的安全扫描在某个模块上失败
   logUnloadingPlugin: 正在卸载插件...
   logVersionUpdate: LiveSync 已更新,如果存在破坏性更新,所有自动同步已暂时禁用。请确保所有设备都更新到最新版本后再启用
   msgScramEnabled: |
-    Self-hosted LiveSync 已被配置为忽略某些事件。这样对吗？
+    RuSync 已被配置为忽略某些事件。这样对吗？
 
     | 类型 | 状态 | 说明 |
     |:---:|:---:|---|
@@ -398,7 +398,7 @@ moduleMigration:
 
       如果你的远程数据库未配置 SSL，或者使用了不安全的凭据 **你可能面临暴露敏感数据的风险**.
 
-      注意：请在所有设备上将 Self-hosted LiveSync 升级到 v0.25.6 或更高版本，并确保备份你的保险库
+      注意：请在所有设备上将 RuSync 升级到 v0.25.6 或更高版本，并确保备份你的保险库
 
       注意2：重建所有内容和获取操作会消耗一些时间和流量，请在非高峰时段进行，并确保网络连接稳定
     title: 发现不安全的块！
@@ -409,9 +409,9 @@ moduleMigration:
   logMigrationFailed: 从 ${old} 到 ${current} 的迁移失败或已取消
   logRedflag2CreationFail: 创建 redflag2 失败
   logRemoteTweakUnavailable: 无法获取远程调整值
-  logSetupCancelled: 设置已取消,Self-hosted LiveSync 正在等待您的设置！
+  logSetupCancelled: 设置已取消,RuSync 正在等待您的设置！
   msgFetchRemoteAgain: |-
-    您可能已经知道,Self-hosted LiveSync 更改了其默认行为和数据库结构。
+    您可能已经知道,RuSync 更改了其默认行为和数据库结构。
 
     值得庆幸的是,在您的时间和努力下,远程数据库似乎已经迁移完成。恭喜！
 
@@ -420,7 +420,7 @@ moduleMigration:
     ___注意:在更改配置并再次获取数据库之前,我们无法进行同步。___
     ___注意2:chunks 是完全不可变的,我们只能获取元数据和差异
   msgSinceV02321: |-
-    自 v0.23.21 起,Self-hosted LiveSync 更改了默认行为和数据库结构。进行了以下更改：
+    自 v0.23.21 起,RuSync 更改了默认行为和数据库结构。进行了以下更改：
 
     1. **文件名的区分大小写**
     现在处理文件名时不区分大小写。这对于大多数平台来说是一个有益的更改,除了 Linux 和 iOS,它们不能有效地管理文件名的大小写敏感性。
@@ -473,7 +473,7 @@ obsidianLiveSyncSettingTab:
   btnUse: 使用
   buttonFetch: 获取
   defaultLanguage: 默认语言
-  descConnectSetupURI: 这是使用设置 URI 设置 Self-hosted LiveSync 的推荐方法
+  descConnectSetupURI: 这是使用设置 URI 设置 RuSync 的推荐方法
   descCopySetupURI: 非常适合设置新设备！
   descEnableLiveSync: 仅在配置了上述两个选项之一或手动完成所有配置后启用此选项
   descFetchConfigFromRemote: 从已配置的远程服务器获取必要的设置
@@ -880,7 +880,7 @@ Replicator:
 Requires restart of Obsidian: 需要重启 Obsidian
 Requires restart of Obsidian.: "需要重启 Obsidian "
 Rerun Onboarding Wizard: 重新运行引导向导
-Rerun the onboarding wizard to set up Self-hosted LiveSync again.: 重新运行引导向导以再次设置 Self-hosted LiveSync。
+Rerun the onboarding wizard to set up RuSync again.: 重新运行引导向导以再次设置 RuSync。
 Rerun Wizard: 重新运行向导
 Resend: 重新发送
 Resend all chunks to the remote.: 将所有 chunks 重新发送到远端。
@@ -1002,7 +1002,7 @@ Setup:
       No: No, please use the settings in the URI as is
       Yes: Yes, please consult the doctor
     Message: >-
-      Self-hosted LiveSync has gradually become longer in history and some
+      RuSync has gradually become longer in history and some
       recommended settings have changed.
 
 
@@ -1338,7 +1338,7 @@ Ui:
     Maintenance:
       Cleanup: 执行清理
       CleanupDesc: 丢弃所有非最新修订版本，以减少存储空间占用。此操作要求远程服务器和本地客户端都具备同等大小的可用空间。
-      DeleteLocalDatabase: 删除本地数据库以重置或卸载 Self-hosted LiveSync
+      DeleteLocalDatabase: 删除本地数据库以重置或卸载 RuSync
       EmergencyRestart: 紧急重启
       EmergencyRestartDesc: 禁用所有同步并重新启动。
       FreshStartWipe: 全新开始清空
@@ -1468,7 +1468,7 @@ Ui:
       TargetPatternsDesc: 用于匹配需要同步文件的模式
     Setup:
       RerunWizardButton: 重新运行向导
-      RerunWizardDesc: 重新运行引导向导，再次设置 Self-hosted LiveSync。
+      RerunWizardDesc: 重新运行引导向导，再次设置 RuSync。
       RerunWizardName: 重新运行引导向导
     SyncSettings:
       Merge: 合并
@@ -1487,7 +1487,7 @@ Ui:
       ProceedExisting: 是的，我要将此设备加入现有同步
       ProceedNew: 是的，我要开始新的同步配置
       Question: 首先，请选择最符合你当前情况的选项。
-      Title: 欢迎使用 Self-hosted LiveSync
+      Title: 欢迎使用 RuSync
       Guidance: 接下来我们会通过几个问题，帮助你更轻松地完成同步配置。
     SelectExisting:
       Guidance: 你正在将此设备加入已有同步配置。
@@ -1562,7 +1562,7 @@ Write credentials in the file: 将凭据写入文件
 Write logs into the file: 将日志写入文件
 xxhash32 (Fast but less collision resistance): xxhash32（速度快，但抗碰撞能力较弱）
 xxhash64 (Fastest): xxhash64（最快）
-"Welcome to Self-hosted LiveSync": "欢迎使用 Self-hosted LiveSync"
+"Welcome to RuSync": "欢迎使用 RuSync"
 "We will now guide you through a few questions to simplify the synchronisation setup.": "接下来我们会通过几个问题，引导你更轻松地完成同步设置。"
 "First, please select the option that best describes your current situation.": "首先，请选择最符合你当前情况的选项。"
 "I am setting this up for the first time": "我是第一次进行设置"

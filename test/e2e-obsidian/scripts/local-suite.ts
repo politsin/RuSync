@@ -9,7 +9,7 @@ type Step = {
 const testSteps: Step[] = [
     { name: "build", args: ["run", "build"] },
     ...(process.env.LIVESYNC_CLI_COMMAND === undefined
-        ? [{ name: "CLI build", args: ["run", "build", "-w", "self-hosted-livesync-cli"] }]
+        ? [{ name: "CLI build", args: ["run", "build", "-w", "rusync-cli"] }]
         : []),
     { name: "discover", args: ["run", "test:e2e:obsidian:discover"] },
     { name: "smoke", args: ["run", "test:e2e:obsidian:smoke"] },

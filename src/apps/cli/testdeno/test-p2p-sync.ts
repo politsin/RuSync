@@ -44,7 +44,7 @@ Deno.test("p2p-sync: discovers peer and completes sync", async () => {
             hostSettings,
             roomId,
             passphrase,
-            "self-hosted-livesync-cli-tests",
+            "rusync-cli-tests",
             relay,
             "~.*",
             turnServers
@@ -53,7 +53,7 @@ Deno.test("p2p-sync: discovers peer and completes sync", async () => {
             clientSettings,
             roomId,
             passphrase,
-            "self-hosted-livesync-cli-tests",
+            "rusync-cli-tests",
             relay,
             "~.*",
             turnServers

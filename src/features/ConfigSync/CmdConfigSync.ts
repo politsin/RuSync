@@ -75,7 +75,7 @@ const UPDATED_CONFIGURATION_NOTICE_KEY = "config-sync:updated-configuration";
 
 function serialize(data: PluginDataEx): string {
     // For higher performance, create custom plug-in data strings.
-    // Self-hosted LiveSync uses `\n` to split chunks. Therefore, grouping together those with similar entropy would work nicely.
+    // RuSync uses `\n` to split chunks. Therefore, grouping together those with similar entropy would work nicely.
     let ret = "";
     ret += ":";
     ret += data.category + d + data.name + d + data.term + d2;

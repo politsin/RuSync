@@ -225,7 +225,7 @@ cli_test_apply_p2p_settings() {
     local settings_file="$1"
     local room_id="$2"
     local passphrase="$3"
-    local app_id="${4:-self-hosted-livesync-cli-tests}"
+    local app_id="${4:-rusync-cli-tests}"
     local relays="${5:-ws://localhost:4000/}"
     local auto_accept="${6:-~.*}"
     SETTINGS_FILE="$settings_file" \

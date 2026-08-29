@@ -35,7 +35,7 @@
         <div class="brand-lockup">
             <span class="brand-mark" aria-hidden="true"><span></span></span>
             <span>
-                <small>Self-hosted LiveSync</small>
+                <small>RuSync</small>
                 <strong>WebPeer</strong>
                 <span class="brand-description">A browser-hosted peer for temporary P2P transfers.</span>
             </span>

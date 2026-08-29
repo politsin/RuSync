@@ -287,7 +287,7 @@ async function pauseAutomaticReplication(cliBinary: string, env: NodeJS.ProcessE
         cliBinary,
         [
             "(()=>{",
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             "core.services.replicator.getActiveReplicator()?.closeReplication();",
             "const settings=core.services.setting.currentSettings();",
             "return JSON.stringify({",
@@ -315,7 +315,7 @@ async function cachedSecuritySeedFingerprint(cliBinary: string, env: NodeJS.Proc
         cliBinary,
         [
             "(async()=>{",
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             "const settings=core.services.setting.currentSettings();",
             "const replicator=core.services.replicator.getActiveReplicator();",
             "const seed=await replicator.getReplicationPBKDF2Salt(settings,false);",
@@ -437,7 +437,7 @@ async function inspectSessionHealth(cliBinary: string, env: NodeJS.ProcessEnv): 
         [
             "(async()=>{",
             `const patterns=${JSON.stringify(hkdfErrorMessages)};`,
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             "await core.services.API.showWindow('log-log');",
             "const sleep=(ms)=>new Promise((resolve)=>setTimeout(resolve,ms));",
             "let text='';",
@@ -682,7 +682,7 @@ async function cleanupResources(
 }
 
 async function writeResult(result: unknown): Promise<string> {
-    const outputDirectory = process.env.E2E_OBSIDIAN_DIAGNOSTICS_DIR ?? "/tmp/obsidian-livesync-e2e";
+    const outputDirectory = process.env.E2E_OBSIDIAN_DIAGNOSTICS_DIR ?? "/tmp/rusync-e2e";
     const resultPath = join(outputDirectory, "security-seed-reconnect-result.json");
     await mkdir(outputDirectory, { recursive: true });
     await writeFile(resultPath, `${JSON.stringify(result, null, 2)}\n`, "utf-8");
@@ -723,8 +723,8 @@ async function main(): Promise<void> {
         await assertCouchDbReachable(couchDb);
         await createCouchDbDatabase(couchDb, dbName);
         databaseCreated = true;
-        vaults.push(await createTemporaryVault("obsidian-livesync-security-seed-a-"));
-        vaults.push(await createTemporaryVault("obsidian-livesync-security-seed-b-"));
+        vaults.push(await createTemporaryVault("rusync-security-seed-a-"));
+        vaults.push(await createTemporaryVault("rusync-security-seed-b-"));
         evidence = await runScenario(context, vaults[0], vaults[1]);
     } catch (error) {
         scenarioError = error;

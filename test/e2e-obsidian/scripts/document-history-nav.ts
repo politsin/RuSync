@@ -53,7 +53,7 @@ async function seedRevisions(cliBinary: string, env: NodeJS.ProcessEnv): Promise
             "(async()=>{",
             `const path=${JSON.stringify(notePath)};`,
             `const revisions=${JSON.stringify(revisions)};`,
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             "const sleep=(ms)=>new Promise((resolve)=>setTimeout(resolve,ms));",
             "if(!(await app.vault.adapter.exists('E2E'))) await app.vault.createFolder('E2E');",
             "const existing=app.vault.getAbstractFileByPath(path);",
@@ -103,7 +103,7 @@ async function openDocumentHistory(cliBinary: string, env: NodeJS.ProcessEnv): P
             "const leaf=app.workspace.getLeaf(false);",
             "await leaf.openFile(file);",
             "await new Promise((resolve)=>setTimeout(resolve,300));",
-            "await app.commands.executeCommandById('obsidian-livesync:livesync-history');",
+            "await app.commands.executeCommandById('rusync:livesync-history');",
             "await new Promise((resolve)=>setTimeout(resolve,500));",
             "const modal=document.querySelector('.modal-container .modal-title');",
             "return JSON.stringify({opened:!!modal,modalTitle:modal?modal.textContent:null});",
@@ -123,7 +123,7 @@ async function main(): Promise<void> {
 
     const screenshotDir =
         process.env.E2E_OBSIDIAN_HISTORY_SCREENSHOT_DIR ??
-        join(process.env.E2E_OBSIDIAN_DIAGNOSTICS_DIR ?? "/tmp/obsidian-livesync-e2e", "document-history-nav");
+        join(process.env.E2E_OBSIDIAN_DIAGNOSTICS_DIR ?? "/tmp/rusync-e2e", "document-history-nav");
     const reportPath = process.env.E2E_OBSIDIAN_HISTORY_REPORT ?? join(screenshotDir, "report.txt");
 
     async function captureStep(page: import("playwright").Page, step: string): Promise<string> {

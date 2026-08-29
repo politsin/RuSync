@@ -72,14 +72,14 @@ type ObsidianTestGlobal = typeof globalThis & { app?: ObsidianTestApp };
 async function openP2PStatusPane(page: Page) {
     return await page.evaluate((commandId) => {
         const app = (globalThis as ObsidianTestGlobal).app;
-        const plugin = app?.plugins?.plugins?.["obsidian-livesync"];
+        const plugin = app?.plugins?.plugins?.["rusync"];
         return {
             opened: app?.commands?.executeCommandById(commandId) === true,
             appIsMobile: app?.isMobile ?? null,
             apiIsMobile: plugin?.core?.services?.API?.isMobile?.() ?? null,
             bodyIsMobile: document.body.classList.contains("is-mobile"),
         };
-    }, "obsidian-livesync:open-p2p-server-status");
+    }, "rusync:open-p2p-server-status");
 }
 
 async function collectP2PWorkspaceState(page: Page) {
@@ -215,8 +215,8 @@ async function assertP2PUIIsOptIn(): Promise<void> {
         const state = await page.evaluate(() => {
             const commands = (globalThis as ObsidianTestGlobal).app?.commands?.commands ?? {};
             return {
-                currentCommand: commands["obsidian-livesync:open-p2p-server-status"] !== undefined,
-                legacyCommand: commands["obsidian-livesync:open-p2p-replicator"] !== undefined,
+                currentCommand: commands["rusync:open-p2p-server-status"] !== undefined,
+                legacyCommand: commands["rusync:open-p2p-replicator"] !== undefined,
             };
         });
         if (!state.currentCommand) {
@@ -252,7 +252,7 @@ async function assertConfiguredP2PCommandIsAvailable(): Promise<void> {
             const app = (globalThis as ObsidianTestGlobal).app;
             const commands = app?.commands?.commands ?? {};
             return {
-                commandRegistered: commands["obsidian-livesync:open-p2p-server-status"] !== undefined,
+                commandRegistered: commands["rusync:open-p2p-server-status"] !== undefined,
                 openPaneCount: app?.workspace?.getLeavesOfType?.("p2p-server-status").length ?? 0,
             };
         });

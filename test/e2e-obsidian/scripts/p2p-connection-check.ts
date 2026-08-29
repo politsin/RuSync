@@ -242,7 +242,7 @@ async function runScenario(): Promise<void> {
 
     try {
         browser = await chromium.launch({ headless: true });
-        const firstVault = await createTemporaryVault("obsidian-livesync-p2p-check-first-e2e-");
+        const firstVault = await createTemporaryVault("rusync-p2p-check-first-e2e-");
         vaults.push(firstVault);
         const page = await browser.newPage({ viewport: { width: 1440, height: 1100 } });
         page.on("pageerror", (error) => pageErrors.push(error.stack ?? error.message));
@@ -306,7 +306,7 @@ async function runScenario(): Promise<void> {
             throw new Error("The additional-device action regenerated or replaced the Setup URI.");
         }
 
-        const secondVault = await createTemporaryVault("obsidian-livesync-p2p-check-second-e2e-");
+        const secondVault = await createTemporaryVault("rusync-p2p-check-second-e2e-");
         vaults.push(secondVault);
         const secondSession = await startObsidianLiveSyncSession({
             binary,
@@ -344,7 +344,7 @@ async function runScenario(): Promise<void> {
         const screenshotPath = resolve(
             process.env.E2E_P2P_CHECK_SCREENSHOT ??
                 resolve(
-                    process.env.E2E_OBSIDIAN_DIAGNOSTICS_DIR ?? "/tmp/obsidian-livesync-e2e",
+                    process.env.E2E_OBSIDIAN_DIAGNOSTICS_DIR ?? "/tmp/rusync-e2e",
                     "p2p-connection-check-browser-success.png"
                 )
         );

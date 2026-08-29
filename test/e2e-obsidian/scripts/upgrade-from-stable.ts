@@ -252,18 +252,18 @@ async function startSession(
 }
 
 async function readStoredPluginData(vault: TemporaryVault): Promise<Record<string, unknown>> {
-    const path = resolve(vault.path, ".obsidian", "plugins", "obsidian-livesync", "data.json");
+    const path = resolve(vault.path, ".obsidian", "plugins", "rusync", "data.json");
     return JSON.parse(await readFile(path, "utf8")) as Record<string, unknown>;
 }
 
 async function writeStoredPluginData(vault: TemporaryVault, data: Record<string, unknown>): Promise<void> {
-    const path = resolve(vault.path, ".obsidian", "plugins", "obsidian-livesync", "data.json");
+    const path = resolve(vault.path, ".obsidian", "plugins", "rusync", "data.json");
     await writeFile(path, `${JSON.stringify(data, null, 2)}\n`);
 }
 
 async function runUnconfiguredSettingsUpgrade(context: RunnerContext, port: number): Promise<void> {
     console.log(`\n# Upgrade from ${STABLE_RELEASE_VERSION}: unconfigured legacy settings`);
-    const vault = await createTemporaryVault("obsidian-livesync-upgrade-unconfigured-");
+    const vault = await createTemporaryVault("rusync-upgrade-unconfigured-");
 
     try {
         let session = await startSession(context, vault, port, context.sourceArtifactRoot, {
@@ -469,8 +469,8 @@ async function runCouchDbUpgrade(context: RunnerContext, ports: readonly [number
     const databaseName = makeUniqueDatabaseName(config.dbPrefix, "upgrade-from-stable");
     const remote: UpgradeTransportConfiguration = { kind: "couchdb", config, databaseName };
     const paths = createUpgradeScenarioPaths("couchdb");
-    const upgradeVault = await createTemporaryVault("obsidian-livesync-upgrade-couchdb-");
-    const verifierVault = await createTemporaryVault("obsidian-livesync-upgrade-couchdb-verifier-");
+    const upgradeVault = await createTemporaryVault("rusync-upgrade-couchdb-");
+    const verifierVault = await createTemporaryVault("rusync-upgrade-couchdb-verifier-");
     let upgradedSession: ObsidianLiveSyncSession | undefined;
 
     try {
@@ -585,8 +585,8 @@ async function runObjectStorageUpgrade(context: RunnerContext, ports: readonly [
     const prefix = makeUniqueBucketPrefix("upgrade-from-stable");
     const remote: UpgradeTransportConfiguration = { kind: "object-storage", config, bucketPrefix: prefix };
     const paths = createUpgradeScenarioPaths("object-storage");
-    const upgradeVault = await createTemporaryVault("obsidian-livesync-upgrade-object-storage-");
-    const verifierVault = await createTemporaryVault("obsidian-livesync-upgrade-object-storage-verifier-");
+    const upgradeVault = await createTemporaryVault("rusync-upgrade-object-storage-");
+    const verifierVault = await createTemporaryVault("rusync-upgrade-object-storage-verifier-");
     let upgradedSession: ObsidianLiveSyncSession | undefined;
 
     try {

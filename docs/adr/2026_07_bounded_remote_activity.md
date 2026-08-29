@@ -6,7 +6,7 @@ Accepted
 
 ## Context
 
-Self-hosted LiveSync performs remote work through more than one path:
+RuSync performs remote work through more than one path:
 
 - finite, or bounded, replication starts for manual, event-driven, periodic, and start-up synchronisation;
 - long-running rebuild uploads, standard fetches, and fast fetches;

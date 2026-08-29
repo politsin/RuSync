@@ -1,8 +1,8 @@
 # How to report an issue
 
-Thank you for helping improve Self-hosted LiveSync. A concise report with the right evidence is more useful than trying several recovery operations before reporting the original symptom.
+Thank you for helping improve RuSync. A concise report with the right evidence is more useful than trying several recovery operations before reporting the original symptom.
 
-Use the [issue report template](https://github.com/vrtmrz/obsidian-livesync/issues/new?template=issue-report.md) for the report itself. Use [Troubleshooting](troubleshooting.md) to diagnose a symptom or choose a recovery action.
+Use the [issue report template](https://github.com/politsin/RuSync/issues/new?template=issue-report.md) for the report itself. Use [Troubleshooting](troubleshooting.md) to diagnose a symptom or choose a recovery action.
 
 ## Preserve the original symptom
 

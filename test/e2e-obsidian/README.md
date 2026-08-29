@@ -7,7 +7,7 @@ The generic application discovery, isolated-vault, plug-in installation, process
 The current smoke runner verifies the launch path and the loaded plug-in's Service Context composition:
 
 1. create a temporary vault,
-2. install the built Self-hosted LiveSync plug-in artefacts,
+2. install the built RuSync plug-in artefacts,
 3. launch real Obsidian,
 4. open the temporary vault through `obsidian-cli`,
 5. prepare the isolated Vault trust state and handle any Obsidian trust prompt,
@@ -18,7 +18,7 @@ The current smoke runner verifies the launch path and the loaded plug-in's Servi
 10. optionally drive a real vault or CouchDB workflow through Obsidian's own API, and
 11. terminate Obsidian and remove the temporary vault.
 
-The runner does not require Self-hosted LiveSync to expose an E2E-only bridge. Readiness is checked from outside the plug-in through Obsidian's own CLI.
+The runner does not require RuSync to expose an E2E-only bridge. Readiness is checked from outside the plug-in through Obsidian's own CLI.
 
 Obsidian 1.12 stores the global community plug-in switch outside `.obsidian/community-plugins.json`. The smoke runner enables it through `app.plugins.setEnable(true)` after the vault window is available.
 
@@ -41,7 +41,7 @@ The maintained runner provides several complementary observation paths:
 - `evalObsidianJson()` and `obsidian-cli eval` can read a small, explicitly selected piece of LiveSync or Obsidian state.
 - `withObsidianPage()` can inspect the active renderer, invoke a registered command, or interact with visible UI through CDP. `captureObsidianPage()`, `captureObsidianDialogue()`, and `captureObsidianElement()` retain screenshots; the capture helpers also write a full-page `.failure.png` before rethrowing a UI assertion failure.
 - `session.app.output()` returns the standard output and standard error captured from the isolated Obsidian process. This is especially useful when the renderer or CLI becomes unreachable.
-- **Show log** (`obsidian-livesync:view-log`) exposes the recent LiveSync log, while **Copy full report to clipboard** (`obsidian-livesync:dump-debug-info`) opens the generated diagnostic report. `dialog-mounts.ts` verifies both surfaces, and focused scenarios may inspect the log pane and `appLifecycle.getUnresolvedMessages()` for a bounded set of expected errors.
+- **Show log** (`rusync:view-log`) exposes the recent LiveSync log, while **Copy full report to clipboard** (`rusync:dump-debug-info`) opens the generated diagnostic report. `dialog-mounts.ts` verifies both surfaces, and focused scenarios may inspect the log pane and `appLifecycle.getUnresolvedMessages()` for a bounded set of expected errors.
 - Renderer `console` messages and uncaught page errors are not retained automatically. A focused investigation can attach `page.on("console", ...)` and `page.on("pageerror", ...)` while it owns a `withObsidianPage()` callback. That observer ends when the callback closes its CDP connection, so use it around the action under investigation rather than treating it as a session-wide audit trail.
 
 If a scenario times out or appears to do nothing, capture the visible page before teardown, then record a bounded state snapshot and the relevant tail of the LiveSync log, unresolved messages, and process output. If an unexplained Notice appears, retain a screenshot while it is still visible before opening or dismissing it, then use the log or full report to identify its source. A Notice alone is not enough evidence for its cause.
@@ -133,7 +133,7 @@ The same workflow checks the two remote-activity status boundaries. It first hol
 
 `test:e2e:obsidian:couchdb-manual-setup-workflow` follows the visible onboarding path for the first device when no Setup URI is available. It enters end-to-end encryption and CouchDB details, runs the read-only `Check server requirements` step, requires the prepared fixture to pass without applying a server fix, and lets the onboarding connection test create the named database. After Rebuild completes on the first device, it creates an ordinary note, asks that working device to generate a Setup URI for a second device, completes Fetch there, and verifies a bidirectional note round-trip. The workflow captures each decision point and the expanded server-check result; password controls remain visually masked.
 
-If this status workflow fails while Obsidian is running, it writes a full-page screenshot and a JSON snapshot of the status text and counters under `/tmp/obsidian-livesync-e2e`. The dialogue-mount workflow leaves desktop and mobile screenshots for both representative Svelte routes, the Hidden File Sync workflow captures the successfully displayed JSON Resolve dialogue before selecting an option, and the Security Seed reconnect workflow captures each significant application state. The suite therefore records representative evidence without capturing every interaction. Set `E2E_OBSIDIAN_DIAGNOSTICS_DIR` to use another directory.
+If this status workflow fails while Obsidian is running, it writes a full-page screenshot and a JSON snapshot of the status text and counters under `/tmp/rusync-e2e`. The dialogue-mount workflow leaves desktop and mobile screenshots for both representative Svelte routes, the Hidden File Sync workflow captures the successfully displayed JSON Resolve dialogue before selecting an option, and the Security Seed reconnect workflow captures each significant application state. The suite therefore records representative evidence without capturing every interaction. Set `E2E_OBSIDIAN_DIAGNOSTICS_DIR` to use another directory.
 
 The two-Vault workflow performs the missing-marker review once for each isolated Vault. Later process launches reuse the same profile-backed acknowledgement, rather than seeding a replacement or repeatedly applying a decision for the first device. The Hidden File Sync scenario is narrower: it starts from an explicitly acknowledged marker because it tests consumer-owned hidden-file behaviour, JSON resolution, target filtering, and grouped mobile Notices rather than duplicating the compatibility workflow. After `app.emulateMobile(true)`, its fixture operations use the active DevTools renderer because Obsidian can remove desktop-only CLI commands in mobile mode.
 
@@ -182,7 +182,7 @@ This proves in real Obsidian the plug-in behaviour shared by supported platforms
 
 `test:e2e:obsidian:document-history-restore` creates a normal note, records a logical deletion while retaining readable chunks, and restores the deleted content through the visible Document History dialogue. It requires the action itself to create and reflect a new non-deleted successor revision, reopens the history at that successor, and captures the file picker, readable deleted revision, restored Vault file, and new successor revision. This scenario owns the ordinary-history restoration boundary; conflict resolution remains with **Inspect conflicts and file/database differences**.
 
-`test:e2e:obsidian:hidden-file-snippet-sync` runs a two-vault hidden file round-trip. It verifies creation and deletion of a real `.obsidian/snippets/*.css` file, automatic JSON conflict merging for a hidden file with the merged result propagated by a second synchronisation, manual JSON Resolve dialogue application through Obsidian's UI, and per-device target patterns where one vault ignores a hidden file that the other vault synchronises. Initial enablement must open one user-visible progress Notice before the enabled setting is saved, then retain that Notice while its nested rebuild and scan phases continue in the ordinary log. The configured fixture starts with a current CouchDB remote profile, so migration from legacy remote settings remains the responsibility of the upgrade scenarios and cannot add unrelated Notices to this check. It also covers [issue #555](https://github.com/vrtmrz/obsidian-livesync/issues/555) by requiring several plug-in and settings changes to share one separate action Notice whose controls remain usable in mobile layouts; a manually dismissed group must not repeat its acknowledged rows when a later change arrives.
+`test:e2e:obsidian:hidden-file-snippet-sync` runs a two-vault hidden file round-trip. It verifies creation and deletion of a real `.obsidian/snippets/*.css` file, automatic JSON conflict merging for a hidden file with the merged result propagated by a second synchronisation, manual JSON Resolve dialogue application through Obsidian's UI, and per-device target patterns where one vault ignores a hidden file that the other vault synchronises. Initial enablement must open one user-visible progress Notice before the enabled setting is saved, then retain that Notice while its nested rebuild and scan phases continue in the ordinary log. The configured fixture starts with a current CouchDB remote profile, so migration from legacy remote settings remains the responsibility of the upgrade scenarios and cannot add unrelated Notices to this check. It also covers [issue #555](https://github.com/politsin/RuSync/issues/555) by requiring several plug-in and settings changes to share one separate action Notice whose controls remain usable in mobile layouts; a manually dismissed group must not repeat its acknowledged rows when a later change arrives.
 
 `test:e2e:obsidian:customisation-sync` runs a two-vault Customisation Sync workflow. It scans a real snippet CSS file, config JSON file, and sample plug-in fixture into per-file Customisation Sync data, synchronises the entries through CouchDB, applies them on the second vault, verifies the resulting `.obsidian` files, propagates a snippet update, and verifies deletion of the source-vault snippet sync data without confusing it with the target vault's own applied copy.
 
@@ -254,11 +254,11 @@ Useful environment variables:
 - `E2E_OBSIDIAN_ARTIFACT_ROOT`: directory containing the plug-in artefact installed by a direct scenario invocation; default is the repository root.
 - `E2E_OBSIDIAN_ARTIFACT_REVISION`: exact source commit recorded by the Security Seed reconnect result when `E2E_OBSIDIAN_ARTIFACT_ROOT` is a downloaded artefact rather than a Git worktree.
 - `E2E_OBSIDIAN_FILE_TIMEOUT_MS`: timeout for waiting until a note created through Obsidian's vault API is reflected to disk.
-- `E2E_OBSIDIAN_CORE_READY_TIMEOUT_MS`: timeout for waiting until Self-hosted LiveSync reports that its core lifecycle and local database are ready.
-- `E2E_OBSIDIAN_LOCAL_DB_TIMEOUT_MS`: timeout for waiting until a file appears in Self-hosted LiveSync's local database.
+- `E2E_OBSIDIAN_CORE_READY_TIMEOUT_MS`: timeout for waiting until RuSync reports that its core lifecycle and local database are ready.
+- `E2E_OBSIDIAN_LOCAL_DB_TIMEOUT_MS`: timeout for waiting until a file appears in RuSync's local database.
 - `E2E_OBSIDIAN_COUCHDB_TIMEOUT_MS`: timeout for waiting until CouchDB contains uploaded E2E documents.
 - `E2E_OBSIDIAN_REMOTE_ACTIVITY_TIMEOUT_MS`: timeout for an observed remote activity to enter or leave its status boundary; default is 30 seconds.
-- `E2E_OBSIDIAN_DIAGNOSTICS_DIR`: directory for screenshots and status snapshots, including the Security Seed reconnect stages; default is `/tmp/obsidian-livesync-e2e`.
+- `E2E_OBSIDIAN_DIAGNOSTICS_DIR`: directory for screenshots and status snapshots, including the Security Seed reconnect stages; default is `/tmp/rusync-e2e`.
 - `E2E_OBSIDIAN_OBJECT_STORAGE_TIMEOUT_MS`: timeout for waiting until Object Storage contains uploaded E2E objects.
 - `E2E_OBSIDIAN_KEEP_COUCHDB=true`: keep the temporary CouchDB database for inspection.
 - `E2E_OBSIDIAN_KEEP_OBJECT_STORAGE=true`: keep the temporary Object Storage prefix for inspection.

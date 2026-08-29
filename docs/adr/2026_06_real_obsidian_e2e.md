@@ -23,7 +23,7 @@ The current harness should therefore stop being treated as the primary E2E layer
 
 ## Decision
 
-Introduce a new E2E layer that launches real Obsidian with temporary vaults and the built Self-hosted LiveSync plug-in installed into those vaults.
+Introduce a new E2E layer that launches real Obsidian with temporary vaults and the built RuSync plug-in installed into those vaults.
 
 The long-term test pyramid should be:
 
@@ -50,8 +50,8 @@ The runner should:
 
 - Create one or more temporary vault directories.
 - Build the plug-in once with `npm run build` or a narrower production build command.
-- Install `main.js`, `manifest.json`, and `styles.css` when present into `.obsidian/plugins/obsidian-livesync/`.
-- Prepare `.obsidian/community-plugins.json` and `.obsidian/plugins/obsidian-livesync/data.json` as needed.
+- Install `main.js`, `manifest.json`, and `styles.css` when present into `.obsidian/plugins/rusync/`.
+- Prepare `.obsidian/community-plugins.json` and `.obsidian/plugins/rusync/data.json` as needed.
 - Launch Obsidian against the temporary vault.
 - Wait until the plug-in reports readiness through a deterministic probe.
 - Drive assertions through a narrow control channel rather than fragile visual selectors wherever possible.
@@ -80,9 +80,9 @@ Possible bridge options:
 - A file-based bridge in the vault, where Obsidian writes status files and consumes command files.
 - A DevTools protocol bridge if Obsidian exposes a stable debugging port in the test environment.
 
-The first implementation uses Obsidian's CLI for orchestration and readiness checks. The CLI handles vault opening through `obsidian://open?path=...`, enables community plug-ins through `app.plugins.setEnable(true)`, reloads Self-hosted LiveSync through `plugin:reload id=obsidian-livesync`, and verifies that `app.plugins.plugins['obsidian-livesync']` is loaded.
+The first implementation uses Obsidian's CLI for orchestration and readiness checks. The CLI handles vault opening through `obsidian://open?path=...`, enables community plug-ins through `app.plugins.setEnable(true)`, reloads RuSync through `plugin:reload id=rusync`, and verifies that `app.plugins.plugins['rusync']` is loaded.
 
-This keeps E2E-only behaviour out of the production plug-in bundle. The runner should not require Self-hosted LiveSync to write marker files or expose a test server merely to prove that Obsidian loaded it.
+This keeps E2E-only behaviour out of the production plug-in bundle. The runner should not require RuSync to write marker files or expose a test server merely to prove that Obsidian loaded it.
 
 The DevTools protocol remains useful for diagnostics. Obsidian's CLI exposes developer commands such as `dev:cdp`, `dev:errors`, and `dev:console`, so the runner should prefer the CLI path first and fall back to direct DevTools attachment only if the CLI cannot provide the required signal.
 
@@ -109,14 +109,14 @@ Initial discovery on Linux ARM64 found that:
 - No missing shared libraries were reported by `ldd` for the extracted binary in the tested environment.
 - Obsidian's CLI is disabled unless the global `obsidian.json` contains `cli: true`.
 - Passing only `.obsidian/community-plugins.json` is not enough to load community plug-ins on Obsidian 1.12. The runner also has to enable the global community plug-in switch through `app.plugins.setEnable(true)`.
-- The reliable launch sequence is: start Obsidian, send `obsidian://open?path=...` through `obsidian-cli`, wait until the vault-side CLI exposes the plug-in catalogue, enable community plug-ins, reload Self-hosted LiveSync, and verify plug-in readiness through `obsidian-cli eval`.
+- The reliable launch sequence is: start Obsidian, send `obsidian://open?path=...` through `obsidian-cli`, wait until the vault-side CLI exposes the plug-in catalogue, enable community plug-ins, reload RuSync, and verify plug-in readiness through `obsidian-cli eval`.
 
 ### Phase 1: Smoke Runner
 
 - Add `test/e2e-obsidian/runner` utilities for temporary vault creation, plug-in installation, launch, readiness wait, and cleanup.
 - Add one smoke test:
     - launch Obsidian with an empty vault,
-    - load Self-hosted LiveSync,
+    - load RuSync,
     - wait for the boot-up sequence to become ready,
     - read the plug-in version or status through the control channel,
     - close Obsidian cleanly.
@@ -129,8 +129,8 @@ Current implementation status:
 - Added `startObsidianLiveSyncSession()` so future workflows can reuse the launch, trusted temporary vault state, vault open, community plug-in reload, and readiness sequence without duplicating smoke runner code.
 - Added CouchDB runner utilities that reuse `.test.env`/process environment values, create unique temporary databases, query uploaded documents directly, and clean up the database unless `E2E_OBSIDIAN_KEEP_COUCHDB=true` is set.
 - Added a manual AppImage installer that downloads Obsidian `1.12.7` for `arm64` or `x86_64`, stores it under `_testdata/obsidian`, and extracts it for FUSE-free execution.
-- Confirmed the smoke runner on Linux ARM64 with the extracted Obsidian `1.12.7` AppImage, `xvfb-run`, and the built Self-hosted LiveSync bundle.
-- Confirmed the runner can enable the Obsidian CLI through isolated `obsidian.json` state, pre-seed the temporary Chromium local storage so the generated vault ID is trusted for community plug-ins, open the temporary vault through `obsidian-cli`, reload Self-hosted LiveSync, and verify readiness through `obsidian-cli eval`.
+- Confirmed the smoke runner on Linux ARM64 with the extracted Obsidian `1.12.7` AppImage, `xvfb-run`, and the built RuSync bundle.
+- Confirmed the runner can enable the Obsidian CLI through isolated `obsidian.json` state, pre-seed the temporary Chromium local storage so the generated vault ID is trusted for community plug-ins, open the temporary vault through `obsidian-cli`, reload RuSync, and verify readiness through `obsidian-cli eval`.
 - Removed the first test-only ready-marker bridge from the plug-in bundle. The current runner observes readiness from outside the plug-in through Obsidian's own CLI, so normal user vaults do not receive E2E marker files.
 
 Current verification:

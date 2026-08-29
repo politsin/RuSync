@@ -12,7 +12,7 @@ async function writeFilledFile(path: string, size: number, byte: number): Promis
 
 Deno.test("p2p: upload/download reproduction scenario", async () => {
     const relay = Deno.env.get("RELAY") ?? "ws://localhost:4000/";
-    const appId = Deno.env.get("APP_ID") ?? "self-hosted-livesync-cli-tests";
+    const appId = Deno.env.get("APP_ID") ?? "rusync-cli-tests";
     const peersTimeout = Number(Deno.env.get("PEERS_TIMEOUT") ?? "20");
     const syncTimeout = Number(Deno.env.get("SYNC_TIMEOUT") ?? "240");
     const roomId = `p2p-room-${Date.now()}`;

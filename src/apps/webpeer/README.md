@@ -1,6 +1,6 @@
-# Self-hosted LiveSync WebPeer
+# RuSync WebPeer
 
-WebPeer is an experimental, browser-hosted, P2P-only Self-hosted LiveSync peer. It can receive database changes from one peer and provide them to another without materialising ordinary Vault files.
+WebPeer is an experimental, browser-hosted, P2P-only RuSync peer. It can receive database changes from one peer and provide them to another without materialising ordinary Vault files.
 
 It stores LiveSync metadata and chunks in an origin-scoped local database, but it does not present them as a Vault. This makes it useful as a temporary browser peer or transfer bridge. It is not a durable replacement for CouchDB, a backup, or an always-on server.
 
@@ -37,7 +37,7 @@ Use a dedicated empty Vault for every device:
 
 1. Select desktop or mobile, then prepare the check.
 2. Start the browser connection monitor.
-3. Open or scan the Setup URI in an empty Vault with Self-hosted LiveSync installed and enabled.
+3. Open or scan the Setup URI in an empty Vault with RuSync installed and enabled.
 4. Enter the separately displayed Setup URI passphrase.
 5. Keep both peers open for the observation period and watch the successful-connection total.
 6. Use **Show the Setup QR again** to return to the existing configuration without regenerating it.
@@ -76,7 +76,7 @@ Use a separately deployed origin when isolation from the public Pages deployment
 - Confirm which peer should fetch and which should send.
 - Start broadcasting on the source when another peer is watching it.
 - Use the explicit fetch or send action to test one direction.
-- Confirm that the peers use compatible Self-hosted LiveSync versions and P2P settings.
+- Confirm that the peers use compatible RuSync versions and P2P settings.
 
 ### Saved settings or data appear to be missing
 
@@ -119,4 +119,4 @@ The WebPeer production bundle has two HTML entry points. `index.html` loads `src
 
 ## Licence
 
-The same licence as the main Self-hosted LiveSync project applies.
+The same licence as the main RuSync project applies.

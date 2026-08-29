@@ -73,7 +73,7 @@ async function createHealthyLogicalDeletion(cliBinary: string, env: NodeJS.Proce
             "(async()=>{",
             `const path=${JSON.stringify(healthyDeletedPath)};`,
             `const timeoutMs=${JSON.stringify(uiTimeoutMs)};`,
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             "const file=app.vault.getAbstractFileByPath(path);",
             "if(!file) throw new Error(`Logical-deletion fixture is missing from the Vault: ${path}`);",
             "await app.vault.delete(file);",
@@ -107,7 +107,7 @@ async function createBrokenConflict(
             `const path=${JSON.stringify(path)};`,
             `const baseRevision=${JSON.stringify(baseRevision)};`,
             `const contents=${JSON.stringify(branchContents)};`,
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             "const id=await core.services.path.path2id(path);",
             "for(const [index,content] of contents.entries()){",
             "  const blob=new Blob([content],{type:'text/plain'});",
@@ -154,7 +154,7 @@ async function readRevisionTree(cliBinary: string, env: NodeJS.ProcessEnv): Prom
         [
             "(async()=>{",
             `const path=${JSON.stringify(path)};`,
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             "const id=await core.services.path.path2id(path);",
             "const tree=await core.localDatabase.localDatabase.get(id,{conflicts:true});",
             "return JSON.stringify({",
@@ -173,7 +173,7 @@ async function readVaultWinnerState(cliBinary: string, env: NodeJS.ProcessEnv): 
         [
             "(async()=>{",
             `const path=${JSON.stringify(path)};`,
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             "const file=app.vault.getAbstractFileByPath(path);",
             "if(!file) throw new Error(`Vault file is missing: ${path}`);",
             "const entry=await core.localDatabase.getDBEntry(path,undefined,false,true,true);",
@@ -201,7 +201,7 @@ async function readFileReflectionProvenance(
         [
             "(async()=>{",
             `const path=${JSON.stringify(targetPath)};`,
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             "const store=core.services.keyValueDB.openSimpleStore('file-reflection-provenance-v1');",
             "return JSON.stringify((await store.get(path))??null);",
             "})()",
@@ -263,7 +263,7 @@ async function requestConflictCheck(cliBinary: string, env: NodeJS.ProcessEnv): 
         [
             "(async()=>{",
             `const path=${JSON.stringify(path)};`,
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             "core.localDatabase.clearCaches();",
             "await core.services.conflict.queueCheckFor(path);",
             "await core.services.conflict.ensureAllProcessed();",
@@ -281,7 +281,7 @@ async function main(): Promise<void> {
         throw new Error(`Could not find obsidian-cli. Checked paths: ${cli.checked.join(", ")}`);
     }
     const cliBinary = cli.binary;
-    const vault = await createTemporaryVault("obsidian-livesync-revision-repair-");
+    const vault = await createTemporaryVault("rusync-revision-repair-");
     let session: ObsidianLiveSyncSession | undefined;
     try {
         session = await startObsidianLiveSyncSession({

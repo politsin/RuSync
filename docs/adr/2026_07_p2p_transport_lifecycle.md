@@ -6,7 +6,7 @@ Accepted — implemented and verified through Commonlib owner tests, the Compose
 
 ## Context
 
-Self-hosted LiveSync uses Trystero's Nostr strategy for P2P discovery, signalling, and WebRTC transport. Three related resources have different owners and lifetimes:
+RuSync uses Trystero's Nostr strategy for P2P discovery, signalling, and WebRTC transport. Three related resources have different owners and lifetimes:
 
 - a LiveSync P2P service instance owns its commands, RPC sessions, advertisements, and room membership;
 - Trystero owns the underlying WebRTC peers and may share one physical peer across more than one room; and
@@ -50,9 +50,9 @@ P2P setup follows the transport's actual ownership model. Initialising the first
 
 ## Ownership
 
-Commonlib owns the LiveSync-specific P2P service, RPC, command, and lifecycle composition. Trystero owns WebRTC peer creation, sharing, reuse, stale detection, and destruction, as well as relay-client reconstruction. The Self-hosted LiveSync host owns the current Commonlib service-feature result and supplies the platform services used by its current replicator.
+Commonlib owns the LiveSync-specific P2P service, RPC, command, and lifecycle composition. Trystero owns WebRTC peer creation, sharing, reuse, stale detection, and destruction, as well as relay-client reconstruction. The RuSync host owns the current Commonlib service-feature result and supplies the platform services used by its current replicator.
 
-Self-hosted LiveSync does not add a separate root Trystero dependency. Tests which must observe relay sockets resolve the exact Trystero generation owned by the locked Commonlib package, avoiding two independent transport singletons in one process.
+RuSync does not add a separate root Trystero dependency. Tests which must observe relay sockets resolve the exact Trystero generation owned by the locked Commonlib package, avoiding two independent transport singletons in one process.
 
 ## Alternatives rejected
 
@@ -76,7 +76,7 @@ This interferes with Trystero's shared relay clients. The public pause and resum
 
 Commonlib unit tests prove that normal P2P host closure calls `room.leave()` without directly closing Trystero-owned peer connections. Additional package tests cover the action API, replaceable peer-event subscriptions, multiple RPC transport disposers, serialised open and close operations, initialisation of the first device without a central remote, and Fetch running once for an additional device.
 
-Self-hosted LiveSync unit tests prove that settings and database replacement leave panes on the current replicator, and that an explicit P2P rebuild bypasses the policy intended for ordinary replication.
+RuSync unit tests prove that settings and database replacement leave panes on the current replicator, and that an explicit P2P rebuild bypasses the policy intended for ordinary replication.
 
 The canonical Compose P2P suite uses a real local Nostr relay and WebRTC implementation. It covers ordinary two-peer synchronisation, replacement of the active LiveSync replicator followed by discovery and transfer with the same peer, and explicit relay disconnection followed by paused and resumed reconnection. The lifecycle scenario is exposed only through a Docker test build and an injected CLI command runner; it is not part of the public CLI command surface.
 

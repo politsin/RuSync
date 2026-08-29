@@ -11,7 +11,7 @@ vi.mock("@vrtmrz/obsidian-test-session", () => ({
         cliEnv: {},
         install: {},
         readiness: {},
-        pluginId: "obsidian-livesync",
+        pluginId: "rusync",
         remoteDebuggingPort: 28052,
     })),
 }));
@@ -39,7 +39,7 @@ describe("LiveSync real-Obsidian session", () => {
             binary: "/Applications/Obsidian",
             cliBinary: "obsidian-cli",
             vault,
-            artifactRoot: "/tmp/obsidian-livesync-0.25.83",
+            artifactRoot: "/tmp/rusync-0.25.83",
         };
 
         await startObsidianLiveSyncSession(options);
@@ -47,7 +47,7 @@ describe("LiveSync real-Obsidian session", () => {
         expect(startObsidianPluginSession).toHaveBeenCalledWith(
             expect.objectContaining({
                 artifactRoot: options.artifactRoot,
-                pluginId: "obsidian-livesync",
+                pluginId: "rusync",
                 vault,
             })
         );

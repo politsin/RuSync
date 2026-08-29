@@ -1,4 +1,4 @@
-/** Browser runtime for Self-hosted LiveSync over the File System Access API. */
+/** Browser runtime for RuSync over the File System Access API. */
 
 import { LiveSyncBaseCore } from "@/LiveSyncBaseCore";
 import { ServiceContext, type LiveSyncEventHub } from "@vrtmrz/livesync-commonlib/context";
@@ -181,7 +181,7 @@ export class WebAppRuntime {
 
         // Create service context and hub
         this.serviceHub = createLiveSyncBrowserServiceHub<ServiceContext>(this.createServiceOptions());
-        this.addLog("Self-hosted LiveSync WebApp", LOG_LEVEL_INFO, "initialise");
+        this.addLog("RuSync WebApp", LOG_LEVEL_INFO, "initialise");
         this.addLog("Initialising...", LOG_LEVEL_VERBOSE, "initialise");
         this.addLog(`Vault directory: ${this.rootHandle.name}`, LOG_LEVEL_VERBOSE, "initialise");
 

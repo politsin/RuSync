@@ -13,7 +13,7 @@ VERBOSE_TEST_LOGGING="${VERBOSE_TEST_LOGGING:-0}"
 
 RELAY="${RELAY:-ws://localhost:4000/}"
 USE_INTERNAL_RELAY="${USE_INTERNAL_RELAY:-1}"
-APP_ID="${APP_ID:-self-hosted-livesync-cli-tests}"
+APP_ID="${APP_ID:-rusync-cli-tests}"
 PEERS_TIMEOUT="${PEERS_TIMEOUT:-20}"
 SYNC_TIMEOUT="${SYNC_TIMEOUT:-240}"
 

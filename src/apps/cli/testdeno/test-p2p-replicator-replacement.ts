@@ -47,7 +47,7 @@ Deno.test("p2p lifecycle: replacement keeps real CLI communication on the curren
     const nonce = `${Date.now()}-${crypto.randomUUID().slice(0, 8)}`;
     const roomId = Deno.env.get("ROOM_ID") ?? `replacement-room-${nonce}`;
     const passphrase = Deno.env.get("PASSPHRASE") ?? `replacement-pass-${nonce}`;
-    const appId = "self-hosted-livesync-cli-replacement-test";
+    const appId = "rusync-cli-replacement-test";
     const hostPeerName = `p2p-replacement-host-${nonce}`;
     const probePeerName = `p2p-replacement-probe-${nonce}`;
     const verifierPeerName = `p2p-replacement-verifier-${nonce}`;

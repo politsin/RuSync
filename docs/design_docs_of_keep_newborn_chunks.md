@@ -8,7 +8,7 @@ Reduce the number of chunks which in volatile, and reduce the usage of storage o
 
 ## Motivation
 
-- In the current implementation, Self-hosted LiveSync splits documents into metadata and multiple chunks. In particular, chunks are split so that they do not exceed a certain length.
+- In the current implementation, RuSync splits documents into metadata and multiple chunks. In particular, chunks are split so that they do not exceed a certain length.
     - This is to optimise the transfer and take advantage of the properties of CouchDB. This also complies with the restriction of IBM Cloudant on the size of a single document.
 - However, creating chunks halfway through each editing operation increases the number of unnecessary chunks.
     - Chunks are shared by several documents. For this reason, it is not clear whether these chunks are needed or not unless all revisions of all documents are checked. This makes it difficult to remove unnecessary data.
@@ -21,7 +21,7 @@ Reduce the number of chunks which in volatile, and reduce the usage of storage o
 ## Prerequisite
 
 - The implementation must be able to control the size of the document appropriately so that it does not become non-transferable (1).
-- The implementation must be such that data corruption can be avoided even if forward compatibility is not maintained; due to the nature of Self-hosted LiveSync, backward version connexions are expected.
+- The implementation must be such that data corruption can be avoided even if forward compatibility is not maintained; due to the nature of RuSync, backward version connexions are expected.
 - Viewed as a feature:
     - This feature should be disabled for migration users.
     - This feature should be enabled for new users and after rebuilds of migrated users.
@@ -87,7 +87,7 @@ After implementing this feature, we have been using it for a while. The followin
 
 - Drawbacks were thought not to be a problem, but they were actually a problem:
     - A document with `Eden` has a quite larger history compared to a document without `Eden`.
-        - Self-hosted LiveSync does not perform compaction aggressively, which results in the remote database becoming partially bloated.
+        - RuSync does not perform compaction aggressively, which results in the remote database becoming partially bloated.
         - Compaction of the Remote Database (CouchDB) requires the same amount of free space as the size of the database. Therefore, it is not possible to perform compaction on a remote database if we reached to the maximum size of the database. It means that when we detect it, it is too late.
     - We have mentioned that `We need compaction` in previous sections. However, but it was so hard to be determined whether the compaction is required or not, until the database is bloated. (Of course, it requires some time to compact the database, and, literally, some document loses its history. It is not a good idea to perform frequently and meaninglessly. We need manual decision, but indeed difficult to normal users).
 

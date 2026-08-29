@@ -16,7 +16,7 @@ RELAY="${RELAY:-ws://localhost:4000/}"
 USE_INTERNAL_RELAY="${USE_INTERNAL_RELAY:-1}"
 ROOM_ID="${ROOM_ID:-1}"
 PASSPHRASE="${PASSPHRASE:-test}"
-APP_ID="${APP_ID:-self-hosted-livesync-cli-tests}"
+APP_ID="${APP_ID:-rusync-cli-tests}"
 
 cli_test_init_cli_cmd
 

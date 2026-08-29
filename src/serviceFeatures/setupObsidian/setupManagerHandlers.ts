@@ -15,7 +15,7 @@ export async function openOnboarding(setupManager: SetupManager) {
 }
 
 export function showOnboardingInvitation(host: NecessaryServices<"UI", never>, setupManager: SetupManager): void {
-    const message = `${$msg("Welcome to Self-hosted LiveSync")} ${$msg(
+    const message = `${$msg("Welcome to RuSync")} ${$msg(
         "We will now guide you through a few questions to simplify the synchronisation setup."
     )} {HERE}`;
     host.services.UI.confirm.askInPopup(

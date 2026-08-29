@@ -1,8 +1,8 @@
 <!-- For translation: 20240227r0 -->
-# Self-hosted LiveSync
+# RuSync
 [Documentación en inglés](./README_ja.md) - [Documentación en japonés](./README_ja.md) - [Documentación en chino](./README_cn.md).
 
-Self-hosted LiveSync es un plugin de sincronización implementado por la comunidad, disponible en todas las plataformas compatibles con Obsidian y utiliza CouchDB o Almacenamiento de Objetos (por ejemplo, MinIO, S3, R2, etc.) como servidor.
+RuSync es un plugin de sincronización implementado por la comunidad, disponible en todas las plataformas compatibles con Obsidian y utiliza CouchDB o Almacenamiento de Objetos (por ejemplo, MinIO, S3, R2, etc.) como servidor.
 
 ![Demostración de Obsidian Live Sync](https://user-images.githubusercontent.com/45774780/137355323-f57a8b09-abf2-4501-836c-8cb7d2ff24a3.gif)
 
@@ -17,7 +17,7 @@ Nota: Este plugin no puede sincronizarse con el "Obsidian Sync" oficial.
   - Pueden usarse soluciones compatibles.
 - Soporte de cifrado de extremo a extremo.
 - Sincronización de configuraciones, fragmentos, temas y complementos a través de [Sincronización de personalización \(Beta\)](#customization-sync) o [Sincronización de archivos ocultos](#hiddenfilesync)
-- WebClip de [obsidian-livesync-webclip](https://chrome.google.com/webstore/detail/obsidian-livesync-webclip/jfpaflmpckblieefkegjncjoceapakdf)
+- WebClip de [rusync-webclip](https://chrome.google.com/webstore/detail/rusync-webclip/jfpaflmpckblieefkegjncjoceapakdf)
 
 Este plugin puede ser útil para investigadores, ingenieros y desarrolladores que necesitan mantener sus notas totalmente autoalojadas por razones de seguridad, o para aquellos que deseen tener la tranquilidad de saber que sus notas son totalmente privadas.
 
@@ -82,7 +82,7 @@ Si tienes problemas para hacer funcionar el plugin, consulta: [Consejos y soluci
 ## Agradecimientos
 
 El proyecto ha progresado y mantenido en armonía gracias a:
-- Muchos [Colaboradores](https://github.com/vrtmrz/obsidian-livesync/graphs/contributors)
+- Muchos [Colaboradores](https://github.com/politsin/RuSync/graphs/contributors)
 - Muchos [Patrocinadores de GitHub](https://github.com/sponsors/vrtmrz#sponsors)
 - Programas comunitarios de JetBrains / Soporte para Proyectos de Código Abierto <img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.png" alt="JetBrains logo." height="24">
 

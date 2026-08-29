@@ -57,7 +57,7 @@ export class ObsidianCompatibilityReviewUi implements CompatibilityReviewUi {
         let reminderAnchor: HTMLAnchorElement | undefined;
         const fragment = createFragment((documentFragment) => {
             documentFragment.createSpan({
-                text: "Self-hosted LiveSync has paused remote synchronisation for compatibility review. ",
+                text: "RuSync has paused remote synchronisation for compatibility review. ",
             });
             documentFragment.createEl("a", { text: "Review why" }, (anchor) => {
                 reminderAnchor = anchor;

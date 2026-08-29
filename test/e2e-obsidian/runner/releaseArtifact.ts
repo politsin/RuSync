@@ -20,22 +20,22 @@ export type EnsurePinnedReleaseArtifactOptions = {
 };
 
 export const UPGRADE_SOURCE_RELEASE: PinnedPluginRelease = {
-    pluginId: "obsidian-livesync",
+    pluginId: "rusync",
     version: "0.25.83",
     files: [
         {
             name: "main.js",
-            url: "https://github.com/vrtmrz/obsidian-livesync/releases/download/0.25.83/main.js",
+            url: "https://github.com/politsin/RuSync/releases/download/0.25.83/main.js",
             sha256: "5e57f990635ab0cf2ff3879f3c6cb91ddfdbc146958d33d1e5d21f1869dff6a4",
         },
         {
             name: "manifest.json",
-            url: "https://github.com/vrtmrz/obsidian-livesync/releases/download/0.25.83/manifest.json",
+            url: "https://github.com/politsin/RuSync/releases/download/0.25.83/manifest.json",
             sha256: "4944f5665c94bcbb58db0e3708ec2bd8ee36118791271c01d085668876dc8ba6",
         },
         {
             name: "styles.css",
-            url: "https://github.com/vrtmrz/obsidian-livesync/releases/download/0.25.83/styles.css",
+            url: "https://github.com/politsin/RuSync/releases/download/0.25.83/styles.css",
             sha256: "37d31798186d7e97ea979e6d2aae8021ea1ac1df2c3b9d2b03dce269959c27f3",
         },
     ],

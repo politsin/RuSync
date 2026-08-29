@@ -212,11 +212,11 @@ async function stopTrackedSessions(context: RunnerContext): Promise<void> {
 
 async function enterSetupURI(port: number, mode: "new" | "existing", artifact: SetupArtifact): Promise<void> {
     await withObsidianPage(port, async (page) => {
-        const invitation = page.locator(".notice").filter({ hasText: "Welcome to Self-hosted LiveSync" });
+        const invitation = page.locator(".notice").filter({ hasText: "Welcome to RuSync" });
         await invitation.waitFor({ state: "visible", timeout: uiTimeoutMs });
         await invitation.locator(".sls-onboarding-invitation-action").click({ timeout: uiTimeoutMs });
 
-        const intro = modalByTitle(page, "Welcome to Self-hosted LiveSync");
+        const intro = modalByTitle(page, "Welcome to RuSync");
         await intro.waitFor({ state: "visible", timeout: uiTimeoutMs });
         if (mode === "new") {
             await selectRadioOption(intro, "I am setting this up for the first time");
@@ -445,7 +445,7 @@ async function readSetupState(cliBinary: string, environment: NodeJS.ProcessEnv)
         cliBinary,
         [
             "(()=>{",
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             "const settings=core.services.setting.currentSettings();",
             "return JSON.stringify({",
             "configured:settings.isConfigured===true,",
@@ -495,7 +495,7 @@ async function enableHiddenFileSync(cliBinary: string, environment: NodeJS.Proce
         cliBinary,
         [
             "(async()=>{",
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             "await core.services.setting.applyPartial({",
             "syncInternalFiles:true,",
             "syncInternalFilesBeforeReplication:true,",
@@ -522,7 +522,7 @@ async function captureHiddenFileGuideSettings(
         cliBinary,
         [
             "(async()=>{",
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             "await core.services.setting.applyPartial({",
             "useAdvancedMode:true,",
             "syncInternalFilesTargetPatterns:'^\\\\.obsidian(?:$|/snippets(?:/|$))',",
@@ -588,7 +588,7 @@ async function scanHiddenStorage(cliBinary: string, environment: NodeJS.ProcessE
         cliBinary,
         [
             "(async()=>{",
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             "const addOn=core.getAddOn('HiddenFileSync');",
             "await addOn.scanAllStorageChanges(true);",
             "return JSON.stringify({ok:true});",
@@ -604,7 +604,7 @@ async function scanHiddenDatabase(cliBinary: string, environment: NodeJS.Process
         cliBinary,
         [
             "(async()=>{",
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             "const addOn=core.getAddOn('HiddenFileSync');",
             "await addOn.scanAllDatabaseChanges(true);",
             "return JSON.stringify({ok:true});",

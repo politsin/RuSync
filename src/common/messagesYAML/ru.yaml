@@ -91,11 +91,11 @@ Delay merge conflict prompt for inactive files.: Отложить запрос �
 Delete: Удалить
 Delete all customization sync data: Удалить все данные синхронизации настроек
 Delete all data on the remote server.: Удалить все данные на удалённом сервере.
-Delete local database to reset or uninstall Self-hosted LiveSync: Удалить локальную базу данных, чтобы сбросить или удалить Self-hosted LiveSync
+Delete local database to reset or uninstall RuSync: Удалить локальную базу данных, чтобы сбросить или удалить RuSync
 Delete old metadata of deleted files on start-up: Удалять старые метаданные удалённых файлов при запуске
 Delete Remote Configuration: Удалить удалённую конфигурацию
 Delete remote configuration '{name}'?: Удалить удалённую конфигурацию '{name}'?
-descConnectSetupURI: Это рекомендуемый способ настройки Self-hosted LiveSync с помощью Setup URI.
+descConnectSetupURI: Это рекомендуемый способ настройки RuSync с помощью Setup URI.
 descCopySetupURI: Идеально для настройки нового устройства!
 descEnableLiveSync: Включайте это только после настройки одного из двух вариантов выше.
 descFetchConfigFromRemote: Загрузить необходимые настройки с уже настроенного удалённого сервера.
@@ -108,7 +108,7 @@ Device name: Имя устройства
 dialog:
   yourLanguageAvailable:
     _value: >-
-      Self-hosted LiveSync имеет переводы для вашего языка, поэтому была
+      RuSync имеет переводы для вашего языка, поэтому была
       включена настройка языка Display language.
 
 
@@ -171,7 +171,7 @@ Doctor:
       note
 
       Исправить на идеальное значение?
-    Title: Диагностика Self-hosted LiveSync
+    Title: Диагностика RuSync
     TitleAlmostDone: Почти готово!
     TitleFix: Исправление проблемы current/total
   Level:
@@ -305,7 +305,7 @@ liveSyncReplicator:
   markDeviceResolved: Отметить это устройство как «разрешённое».
   oneShotSyncBegin: Начало OneShot синхронизации... (syncMode)
   remoteDbCorrupted: Удалённая база данных новее или повреждена, убедитесь, что
-    установлена последняя версия self-hosted-livesync
+    установлена последняя версия rusync
   remoteDbCreatedOrConnected: Удалённая база данных создана или подключена
   remoteDbDestroyed: Удалённая база данных уничтожена
   remoteDbDestroyError: "Произошла ошибка при уничтожении удалённой базы данных:"
@@ -330,7 +330,7 @@ logPane:
   autoScroll: Автопрокрутка
   logWindowOpened: Окно лога открыто
   pause: Пауза
-  title: Лог Self-hosted LiveSync
+  title: Лог RuSync
   wrap: Перенос
 Maximum delay for batch database updating: Максимальная задержка пакетного обновления базы данных
 Maximum file size: Максимальный размер файла
@@ -371,7 +371,7 @@ moduleLiveSyncMain:
   logAdditionalSafetyScan: Дополнительная проверка безопасности...
   logLoadingPlugin: Загрузка плагина...
   logPluginInitCancelled: Инициализация плагина отменена модулем
-  logPluginVersion: Self-hosted LiveSync vmanifestVersion packageVersion
+  logPluginVersion: RuSync vmanifestVersion packageVersion
   logReadChangelog: LiveSync обновлён, пожалуйста, прочитайте список изменений!
   logSafetyScanCompleted: Дополнительная проверка безопасности завершена
   logSafetyScanFailed: Дополнительная проверка безопасности не удалась в модуле
@@ -380,7 +380,7 @@ moduleLiveSyncMain:
     автоматическая синхронизация временно отключена. Убедитесь, что все
     устройства обновлены перед включением.
   msgScramEnabled: >
-    Self-hosted LiveSync has been configured to ignore some events. Is this
+    RuSync has been configured to ignore some events. Is this
     correct?
 
 
@@ -437,10 +437,10 @@ moduleMigration:
   logMigrationFailed: Миграция не удалась или отменена с old на current
   logRedflag2CreationFail: Не удалось создать redflag2
   logRemoteTweakUnavailable: Не удалось получить удалённые настройки
-  logSetupCancelled: Настройка отменена, Self-hosted LiveSync ожидает вашей настройки!
+  logSetupCancelled: Настройка отменена, RuSync ожидает вашей настройки!
   msgFetchRemoteAgain: Удалённая база данных, похоже, уже была мигрирована.
     Конфигурация этого устройства несовместима.
-  msgSinceV02321: Начиная с v0.23.21, self-hosted LiveSync изменил поведение и
+  msgSinceV02321: Начиная с v0.23.21, RuSync изменил поведение и
     структуру базы данных.
   optionAdjustRemote: Настроить под удалённую
   optionDecideLater: Решить позже
@@ -486,7 +486,7 @@ obsidianLiveSyncSettingTab:
   btnUse: Использовать
   buttonFetch: Загрузить
   defaultLanguage: По умолчанию
-  descConnectSetupURI: Это рекомендуемый способ настройки Self-hosted LiveSync с помощью Setup URI.
+  descConnectSetupURI: Это рекомендуемый способ настройки RuSync с помощью Setup URI.
   descCopySetupURI: Идеально подходит для настройки нового устройства!
   descEnableLiveSync: Включайте это только после настройки одного из двух вариантов выше или после полного ручного завершения всей конфигурации.
   descFetchConfigFromRemote: Получить необходимые настройки с уже настроенного удалённого сервера.
@@ -759,7 +759,7 @@ Replicator:
 Requires restart of Obsidian: Требуется перезапуск Obsidian
 Requires restart of Obsidian.: Требуется перезапуск Obsidian.
 Rerun Onboarding Wizard: Перезапустить мастер настройки
-Rerun the onboarding wizard to set up Self-hosted LiveSync again.: Перезапустить мастер настройки для повторной настройки Self-hosted LiveSync.
+Rerun the onboarding wizard to set up RuSync again.: Перезапустить мастер настройки для повторной настройки RuSync.
 Rerun Wizard: Перезапустить мастер
 Resend: Повторно отправить
 Resend all chunks to the remote.: Повторно отправить все чанки в удалённое хранилище.
@@ -836,7 +836,7 @@ Setup:
     Buttons:
       No: Нет, использовать настройки из URI как есть
       Yes: Да, пожалуйста, запустить диагностику
-    Message: Self-hosted LiveSync постепенно набрал историю и некоторые
+    Message: RuSync постепенно набрал историю и некоторые
       рекомендуемые настройки изменились.
     Title: Хотите запустить диагностику?
   FetchRemoteConf:
@@ -1052,7 +1052,7 @@ Write credentials in the file: Записывать учётные данные 
 Write logs into the file: Записывать логи в файл
 xxhash32 (Fast but less collision resistance): xxhash32 (быстрый, но с меньшей устойчивостью к коллизиям)
 xxhash64 (Fastest): xxhash64 (самый быстрый)
-"Welcome to Self-hosted LiveSync": "Добро пожаловать в Self-hosted LiveSync"
+"Welcome to RuSync": "Добро пожаловать в RuSync"
 "We will now guide you through a few questions to simplify the synchronisation setup.": "Сейчас мы зададим несколько вопросов, чтобы упростить настройку синхронизации。"
 "First, please select the option that best describes your current situation.": "Сначала выберите вариант, который лучше всего описывает вашу текущую ситуацию。"
 "I am setting this up for the first time": "Я настраиваю это впервые"

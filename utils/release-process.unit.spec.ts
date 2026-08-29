@@ -39,15 +39,30 @@ function runNode(script: string, args: string[], cwd: string, env: Record<string
     return spawnSync(process.execPath, [script, ...args], {
         cwd,
         encoding: "utf8",
-        env: { ...process.env, ...env },
+        env: { ...cleanNpmPackageVersionEnv(), ...env },
+        maxBuffer: 10 * 1024 * 1024,
     });
 }
 
+function cleanNpmPackageVersionEnv(): NodeJS.ProcessEnv {
+    const childEnv = { ...process.env };
+    for (const key of Object.keys(childEnv)) {
+        if (key.toLowerCase() === "npm_package_version") {
+            delete childEnv[key];
+        }
+    }
+    return childEnv;
+}
+
 function runNpm(args: string[], cwd: string) {
-    return spawnSync(process.platform === "win32" ? "npm.cmd" : "npm", args, {
+    const npmExecPath = process.env.npm_execpath;
+    const command = npmExecPath ? process.execPath : process.platform === "win32" ? "npm.cmd" : "npm";
+    const commandArgs = npmExecPath ? [npmExecPath, ...args] : args;
+    return spawnSync(command, commandArgs, {
         cwd,
         encoding: "utf8",
-        env: process.env,
+        env: cleanNpmPackageVersionEnv(),
+        maxBuffer: 10 * 1024 * 1024,
     });
 }
 
@@ -186,7 +201,7 @@ describe("release workflow", () => {
         const prerelease = renderReleasePrBody("1.0.0-rc.0", "common-library-package-boundary");
 
         expect(prerelease).toContain("Merge intentionally on hold");
-        expect(prerelease).toContain("Self-hosted LiveSync `1.0.0-rc.0`");
+        expect(prerelease).toContain("RuSync `1.0.0-rc.0`");
         expect(prerelease).toContain("leave `common-library-package-boundary` unchanged");
         expect(prerelease).toContain("prerelease=true");
         expect(prerelease).toContain(
@@ -399,7 +414,7 @@ describe("workspace version update", () => {
             });
         }
         writeJson(directory, "package-lock.json", {
-            name: "obsidian-livesync",
+            name: "rusync",
             version: "0.25.80",
             lockfileVersion: 3,
             packages: {

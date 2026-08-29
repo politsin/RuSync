@@ -80,7 +80,7 @@ Presetsから、いずれかの同期方法を選び`Apply`を行うと、必要
 クリップボードにSetup URIが保存されますので、これを2台目以降のデバイスに何らかの方法で転送してください。
 
 # 2台目以降の設定方法
-2台目の端末にSelf-hosted LiveSyncをインストールしたあと、コマンドパレットから`Use the copied setup URI (Formerly Open setup URI)`を選択し、転送したsetup URIを入力します。その後、パスフレーズを入力するとセットアップ用のウィザードが開きます。  
+2台目の端末にRuSyncをインストールしたあと、コマンドパレットから`Use the copied setup URI (Formerly Open setup URI)`を選択し、転送したsetup URIを入力します。その後、パスフレーズを入力するとセットアップ用のウィザードが開きます。  
 下記のように答えてください。
 
 - `Importing LiveSync's conf, OK?` に `Yes`

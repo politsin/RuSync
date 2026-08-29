@@ -69,11 +69,11 @@ export async function enterSetupURI(
     captures: SetupCaptureNames
 ): Promise<string> {
     await withObsidianPage(port, async (page) => {
-        const invitation = page.locator(".notice").filter({ hasText: "Welcome to Self-hosted LiveSync" });
+        const invitation = page.locator(".notice").filter({ hasText: "Welcome to RuSync" });
         await invitation.waitFor({ state: "visible", timeout: uiTimeoutMs });
         await invitation.locator(".sls-onboarding-invitation-action").click({ timeout: uiTimeoutMs });
 
-        const intro = modalByTitle(page, "Welcome to Self-hosted LiveSync");
+        const intro = modalByTitle(page, "Welcome to RuSync");
         await intro.waitFor({ state: "visible", timeout: uiTimeoutMs });
         if (mode === "new") {
             await selectRadioOption(intro, "I am setting this up for the first time");
@@ -123,7 +123,7 @@ export async function generateSetupURIFromDevice(
                         app?: { commands?: { executeCommandById(id: string): boolean } };
                     }
                 ).app?.commands?.executeCommandById(commandId) === true,
-            "obsidian-livesync:livesync-copysetupuri"
+            "rusync:livesync-copysetupuri"
         );
     });
     if (!opened) throw new Error("The command for generating a Setup URI was not registered.");
@@ -335,7 +335,7 @@ export async function readSetupState(cliBinary: string, environment: NodeJS.Proc
         cliBinary,
         [
             "(()=>{",
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             "const settings=core.services.setting.currentSettings();",
             "return JSON.stringify({",
             "configured:settings.isConfigured===true,",

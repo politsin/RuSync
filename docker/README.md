@@ -1,6 +1,6 @@
-# Self-hosted LiveSync — Docker Setup
+# RuSync — Docker Setup
 
-A fully self-hosted CouchDB stack for the [obsidian-livesync](https://github.com/vrtmrz/obsidian-livesync) plugin.  
+A fully self-hosted CouchDB stack for the [rusync](https://github.com/politsin/RuSync) plugin.  
 **No fly.io. No IBM Cloudant. No cloud accounts required for basic use.**
 
 The optional [Coturn Compose starter](coturn/README.md) is a separate Linux-only service for P2P connectivity. It is not part of the CouchDB stack below.
@@ -71,7 +71,7 @@ curl -v -H "Origin: app://obsidian.md" \
 
 ### 5. Connect Obsidian
 
-In the Obsidian plugin settings (**Self-hosted LiveSync**):
+In the Obsidian plugin settings (**RuSync**):
 
 | Field | Value |
 |---|---|
@@ -143,7 +143,7 @@ TS_HOSTNAME=livesync
 2. Navigate to **Networks → Tunnels**
 3. Click **Create a tunnel**
 4. Choose **Cloudflared** as tunnel type
-5. Name your tunnel (e.g., `obsidian-livesync`)
+5. Name your tunnel (e.g., `rusync`)
 6. Click **Save tunnel**
 7. **Copy the tunnel token** — it looks like `eyJhIjoiZX...` (very long, ~400 characters)
 
@@ -210,7 +210,7 @@ If you get **404**, see Troubleshooting below.
 
 #### Step 6: Configure Obsidian Plugin
 
-In Obsidian → Settings → **Self-hosted LiveSync**:
+In Obsidian → Settings → **RuSync**:
 
 | Field | Value |
 |---|---|
@@ -274,7 +274,7 @@ docker logs livesync-couchdb --tail 50
 **Root cause**: Cloudflare's proxy has a **100-second idle timeout**. CouchDB's replication protocol uses long-polling on the `_changes` feed, which can idle for longer during quiet periods.
 
 **Fix**: Switch to short-polling mode in the Obsidian plugin:
-1. Obsidian → Settings → Self-hosted LiveSync
+1. Obsidian → Settings → RuSync
 2. **Remote Database Configuration → Advanced**
 3. Enable: ✅ **Use Request API to avoid inevitable CORS problem**
 4. Save and restart sync
@@ -291,12 +291,12 @@ All vault data lives in the `couchdb-data` Docker named volume.
 
 ```bash
 # Backup
-docker run --rm -v obsidian-livesync_couchdb-data:/data \
+docker run --rm -v rusync_couchdb-data:/data \
   -v $(pwd)/backup:/backup alpine \
   tar czf /backup/couchdb-backup-$(date +%Y%m%d).tar.gz -C /data .
 
 # Restore
-docker run --rm -v obsidian-livesync_couchdb-data:/data \
+docker run --rm -v rusync_couchdb-data:/data \
   -v $(pwd)/backup:/backup alpine \
   tar xzf /backup/couchdb-backup-20260218.tar.gz -C /data
 ```
@@ -311,7 +311,7 @@ docker run --rm -v obsidian-livesync_couchdb-data:/data \
 - The init container runs once and exits — it has no persistent access
 - Never expose CouchDB's admin interface (`/_utils`) to the public internet;  
   use a firewall rule or the path-based obfuscation trick from  
-  [self-hosted-livesync-server](https://github.com/vrtmrz/self-hosted-livesync-server)
+  [RuSync Docker setup](https://github.com/politsin/RuSync/tree/main/docker)
 
 ---
 

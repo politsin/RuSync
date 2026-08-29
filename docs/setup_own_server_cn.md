@@ -11,13 +11,13 @@
   - [设置你的域名](#设置你的域名)
 ---
 
-> 注：提供了 [docker-compose.yml 和 ini 文件](https://github.com/vrtmrz/self-hosted-livesync-server) 可以同时启动 Caddy 和 CouchDB。推荐直接使用该 docker-compose 配置进行搭建。（若使用，请查阅链接中的文档，而不是这个文档）
+> 注：提供了 [RuSync Docker setup](https://github.com/politsin/RuSync/tree/main/docker) 可以同时启动 Caddy 和 CouchDB。推荐直接使用该 docker-compose 配置进行搭建。（若使用，请查阅链接中的文档，而不是这个文档）
 
 ## 配置 CouchDB
 
 设置 CouchDB 的最简单方法是使用 [CouchDB docker image]((https://hub.docker.com/_/couchdb)).
 
-需要修改一些 `local.ini` 中的配置，以让它可以用于 Self-hosted LiveSync，如下：
+需要修改一些 `local.ini` 中的配置，以让它可以用于 RuSync，如下：
 
 ```
 [couchdb]
@@ -64,7 +64,7 @@ $ docker run -d --restart always -e COUCHDB_USER=admin -e COUCHDB_PASSWORD=passw
 ### Docker Compose
 创建一个文件夹, 将你的 `local.ini` 放在文件夹内, 然后在文件夹内创建 `docker-compose.yml`. 请确保对 `local.ini` 有读写权限并且确保在容器运行后能创建 `data` 文件夹. 文件夹结构大概如下:
 ```
-obsidian-livesync
+rusync
 ├── docker-compose.yml
 └── local.ini
 ```
@@ -74,7 +74,7 @@ obsidian-livesync
 services:
   couchdb:
     image: couchdb
-    container_name: obsidian-livesync
+    container_name: rusync
     user: 1000:1000
     environment:
       - COUCHDB_USER=admin
@@ -101,7 +101,7 @@ CouchDB 部署成功后, 需要手动创建一个数据库, 方便插件连接�
 2. 点击 Create Database, 然后根据个人喜好创建数据库
 
 ## 从移动设备访问
-如果你想要从移动设备访问 Self-hosted LiveSync，你需要一个合法的 SSL 证书。
+如果你想要从移动设备访问 RuSync，你需要一个合法的 SSL 证书。
 
 ### 移动设备测试
 测试时，[localhost.run](http://localhost.run/) 这一类的反向隧道服务很实用。（非必须，只是用于终端设备不方便 ssh 的时候的备选方案）
@@ -147,6 +147,6 @@ https://xxxxxxxx.localhost.run 即为临时服务器地址。
 Note: 不推荐将 CouchDB 挂载到根目录  
 可以使用 Caddy 很方便的给服务器加上 SSL 功能
 
-提供了 [docker-compose.yml 和 ini 文件](https://github.com/vrtmrz/self-hosted-livesync-server) 可以同时启动 Caddy 和 CouchDB。
+提供了 [RuSync Docker setup](https://github.com/politsin/RuSync/tree/main/docker) 可以同时启动 Caddy 和 CouchDB。
 
 注意检查服务器日志，当心恶意访问。

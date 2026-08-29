@@ -40,8 +40,8 @@ Default: Standard
 Delete: Löschen
 Delete all customization sync data: Alle Anpassungssynchronisationsdaten löschen
 Delete all data on the remote server.: Alle Daten auf dem Remote-Server löschen.
-Delete local database to reset or uninstall Self-hosted LiveSync:
-  Lokale Datenbank löschen, um Self-hosted LiveSync zurückzusetzen oder zu
+Delete local database to reset or uninstall RuSync:
+  Lokale Datenbank löschen, um RuSync zurückzusetzen oder zu
   deinstallieren
 Delete Remote Configuration: Remote-Konfiguration löschen
 Delete remote configuration '{name}'?: Remote-Konfiguration „{name}“ löschen?
@@ -277,7 +277,7 @@ Verify all: Alle prüfen
 Verify and repair all files: Alle Dateien prüfen und reparieren
 xxhash32 (Fast but less collision resistance): xxhash32 (schnell, aber geringere Kollisionsresistenz)
 xxhash64 (Fastest): xxhash64 (am schnellsten)
-"Welcome to Self-hosted LiveSync": "Willkommen bei Self-hosted LiveSync"
+"Welcome to RuSync": "Willkommen bei RuSync"
 "We will now guide you through a few questions to simplify the synchronisation setup.": "Wir führen Sie nun durch einige Fragen, um die Synchronisationseinrichtung zu vereinfachen."
 "First, please select the option that best describes your current situation.": "Wählen Sie bitte zuerst die Option aus, die Ihre aktuelle Situation am besten beschreibt."
 "I am setting this up for the first time": "Ich richte dies zum ersten Mal ein"

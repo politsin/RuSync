@@ -1,5 +1,5 @@
 #!/bin/sh
-# Entrypoint wrapper for the Self-hosted LiveSync CLI Docker image.
+# Entrypoint wrapper for the RuSync CLI Docker image.
 #
 # By default, /data is used as the database-path (the vault mount point).
 # Override this via the LIVESYNC_DB_PATH environment variable.

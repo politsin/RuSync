@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 #
-# Self-hosted LiveSync CLI — Docker image
+# RuSync CLI — Docker image
 #
 # Build (from the repository root):
 #   docker build -f src/apps/cli/Dockerfile -t livesync-cli .

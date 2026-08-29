@@ -48,10 +48,10 @@ export class ModuleBasicMenu extends AbstractModule {
             callback: async () => {
                 if (this.services.appLifecycle.isSuspended()) {
                     this.services.appLifecycle.setSuspended(false);
-                    this._log("Self-hosted LiveSync resumed", LOG_LEVEL_NOTICE);
+                    this._log("RuSync resumed", LOG_LEVEL_NOTICE);
                 } else {
                     this.services.appLifecycle.setSuspended(true);
-                    this._log("Self-hosted LiveSync suspended", LOG_LEVEL_NOTICE);
+                    this._log("RuSync suspended", LOG_LEVEL_NOTICE);
                 }
                 await this.services.control.applySettings();
                 await this.services.setting.saveSettingData();

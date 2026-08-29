@@ -18,7 +18,7 @@ export class ModuleObsidianSettingDialogue extends AbstractObsidianModule {
     }
 
     openSetting() {
-        openObsidianSettings(this.app, "obsidian-livesync");
+        openObsidianSettings(this.app, "rusync");
     }
 
     get appId() {

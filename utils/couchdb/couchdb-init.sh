@@ -6,7 +6,7 @@ if ! command -v deno >/dev/null 2>&1; then
     exit 1
 fi
 
-script_url="${provision_script_url:-https://raw.githubusercontent.com/vrtmrz/obsidian-livesync/main/utils/couchdb/provision.ts}"
+script_url="${provision_script_url:-https://raw.githubusercontent.com/politsin/RuSync/main/utils/couchdb/provision.ts}"
 script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" 2>/dev/null && pwd || true)"
 deno_dependency_options=()
 if [[ -n "$script_dir" && -f "$script_dir/provision.ts" ]]; then

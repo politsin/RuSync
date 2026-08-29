@@ -35,7 +35,7 @@
 
 1. **Compare time and take newer (newer-wins)**
    - ファイルの更新日時を比較し、より新しい方を採用します。
-   - **推奨されるケース:** すでに Self-hosted LiveSync を使用しており、複数のデバイスで編集した変更内容をタイムスタンプに基づいて統合したい場合。
+   - **推奨されるケース:** すでに RuSync を使用しており、複数のデバイスで編集した変更内容をタイムスタンプに基づいて統合したい場合。
 2. **Overwrite all with remote files (remote-wins)**
    - リモートデータベースの内容を正（Source of Truth）として扱います。
    - **推奨されるケース:** まったく新しいデバイスをセットアップする場合（空のVaultなど）。

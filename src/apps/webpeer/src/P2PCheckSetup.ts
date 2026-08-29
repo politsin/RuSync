@@ -9,7 +9,7 @@ import {
 import { generateP2PRoomId } from "@vrtmrz/livesync-commonlib/compat/common/utils";
 import { upsertRemoteConfigurationInPlace } from "@vrtmrz/livesync-commonlib/remote-configurations";
 
-export const P2P_CHECK_APP_ID = "self-hosted-livesync-p2p-check-v1";
+export const P2P_CHECK_APP_ID = "rusync-p2p-check-v1";
 export const P2P_CHECK_REMOTE_NAME = "P2P connection check";
 
 export type P2PCheckTarget = "desktop" | "mobile";

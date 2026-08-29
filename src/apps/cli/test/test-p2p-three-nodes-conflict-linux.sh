@@ -15,7 +15,7 @@ RELAY="${RELAY:-ws://localhost:4000/}"
 USE_INTERNAL_RELAY="${USE_INTERNAL_RELAY:-1}"
 ROOM_ID_PREFIX="${ROOM_ID_PREFIX:-p2p-room}"
 PASSPHRASE_PREFIX="${PASSPHRASE_PREFIX:-p2p-pass}"
-APP_ID="${APP_ID:-self-hosted-livesync-cli-tests}"
+APP_ID="${APP_ID:-rusync-cli-tests}"
 PEERS_TIMEOUT="${PEERS_TIMEOUT:-10}"
 SYNC_TIMEOUT="${SYNC_TIMEOUT:-15}"
 

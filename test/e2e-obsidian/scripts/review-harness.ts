@@ -49,7 +49,7 @@ const sensitiveDiagnosticLine =
     /security seed|passphrase|password|credential|secret|access.?key|jwt.?key|authori[sz]ation|obsidian:\/\/setuplivesync|sls\+/iu;
 const interruptedStartupMessages = [
     "No replicator has been activated or has not been initialised yet.",
-    "Self-hosted LiveSync cannot be initialised, exiting loading.",
+    "RuSync cannot be initialised, exiting loading.",
 ];
 
 function redactDiagnosticLine(line: string): string {
@@ -76,7 +76,7 @@ async function captureReadinessFailure(
     session: ObsidianLiveSyncSession,
     readinessError: unknown
 ): Promise<void> {
-    const outputDirectory = process.env.E2E_OBSIDIAN_DIAGNOSTICS_DIR ?? "/tmp/obsidian-livesync-e2e";
+    const outputDirectory = process.env.E2E_OBSIDIAN_DIAGNOSTICS_DIR ?? "/tmp/rusync-e2e";
     await mkdir(outputDirectory, { recursive: true });
 
     const captureErrors: string[] = [];
@@ -97,7 +97,7 @@ async function captureReadinessFailure(
             cliBinary,
             [
                 "(async()=>{",
-                "const core=app.plugins.plugins['obsidian-livesync']?.core;",
+                "const core=app.plugins.plugins['rusync']?.core;",
                 "if(!core)return JSON.stringify({coreAvailable:false,unresolvedMessages:[]});",
                 "const settings=core.services.setting.currentSettings();",
                 "let unresolvedMessages=[];",
@@ -131,7 +131,7 @@ async function captureReadinessFailure(
             const opened = await page.evaluate(
                 (commandId) =>
                     (globalThis as ReviewHarnessTestGlobal).app?.commands?.executeCommandById(commandId) === true,
-                "obsidian-livesync:view-log"
+                "rusync:view-log"
             );
             if (!opened) throw new Error("The Show log command was not registered.");
             const logPane = page.locator(".logpane");
@@ -167,7 +167,7 @@ async function openHarness(): Promise<void> {
     const opened = await withObsidianPage(obsidianRemoteDebuggingPort(), async (page) => {
         return await page.evaluate(
             (commandId) => (globalThis as ReviewHarnessTestGlobal).app?.commands?.executeCommandById(commandId) === true,
-            "obsidian-livesync:open-review-harness"
+            "rusync:open-review-harness"
         );
     });
     if (!opened) throw new Error("The Review Harness command was not registered.");
@@ -261,7 +261,7 @@ async function restartAndResumeHarness(): Promise<string> {
     await withObsidianPage(obsidianRemoteDebuggingPort(), async (page) => {
         await page.waitForFunction(
             () => {
-                const plugin = (globalThis as ReviewHarnessTestGlobal).app?.plugins?.plugins["obsidian-livesync"];
+                const plugin = (globalThis as ReviewHarnessTestGlobal).app?.plugins?.plugins["rusync"];
                 if (typeof plugin !== "object" || plugin === null || !("core" in plugin)) return false;
                 const core = (plugin as { core: { services: { appLifecycle: { isReady(): boolean } } } }).core;
                 return core.services.appLifecycle.isReady();
@@ -281,9 +281,9 @@ async function restartAndResumeHarness(): Promise<string> {
                 .locator('[data-testid="review-harness-resumed"]')
                 .waitFor({ state: "visible", timeout: uiTimeoutMs });
             const continuationRemoved = await page.evaluate((stateKey) => {
-                const plugin = (globalThis as ReviewHarnessTestGlobal).app?.plugins?.plugins["obsidian-livesync"];
+                const plugin = (globalThis as ReviewHarnessTestGlobal).app?.plugins?.plugins["rusync"];
                 if (typeof plugin !== "object" || plugin === null || !("core" in plugin)) {
-                    throw new Error("Self-hosted LiveSync is unavailable after restart.");
+                    throw new Error("RuSync is unavailable after restart.");
                 }
                 const core = (plugin as { core: { services: { setting: { getSmallConfig(key: string): string } } } })
                     .core;
@@ -343,15 +343,15 @@ async function verifyMobileHarness(): Promise<string> {
         const harness = page.locator('[data-testid="review-harness"]');
         if (await harness.isVisible()) return;
         await page.evaluate(async (viewType) => {
-            const plugin = (globalThis as ReviewHarnessTestGlobal).app?.plugins?.plugins["obsidian-livesync"];
+            const plugin = (globalThis as ReviewHarnessTestGlobal).app?.plugins?.plugins["rusync"];
             if (typeof plugin !== "object" || plugin === null || !("core" in plugin)) {
-                throw new Error("Self-hosted LiveSync is unavailable in mobile test mode.");
+                throw new Error("RuSync is unavailable in mobile test mode.");
             }
             const core = (plugin as {
                 core: { services: { API: { showWindow(type: string): Promise<void> } } };
             }).core;
             await core.services.API.showWindow(viewType);
-        }, "self-hosted-livesync-review-harness");
+        }, "rusync-review-harness");
     });
     return await captureObsidianDialogue(
         obsidianRemoteDebuggingPort(),
@@ -360,7 +360,7 @@ async function verifyMobileHarness(): Promise<string> {
             const harness = page.locator('[data-testid="review-harness"]');
             await harness.waitFor({ state: "visible", timeout: uiTimeoutMs });
             await assertNoHorizontalOverflow(page, harness, { label: "mobile Review Harness" });
-            const heading = harness.getByRole("heading", { name: "Self-hosted LiveSync review harness" });
+            const heading = harness.getByRole("heading", { name: "RuSync review harness" });
             await assertLocatorWithinSafeArea(page, heading, {
                 label: "mobile Review Harness heading",
                 safeAreaInsets: iPhoneSafeArea,
@@ -441,7 +441,7 @@ async function main(): Promise<void> {
         const resumedScreenshot = await restartAndResumeHarness();
         await completeResumedCompatibilityStep();
         const report = await copyAndReadReport();
-        if (!report.includes("## Self-hosted LiveSync Review Harness report")) {
+        if (!report.includes("## RuSync Review Harness report")) {
             throw new Error("The copied Review Harness report was not Markdown evidence.");
         }
         for (const forbidden of [vault.name, REVIEW_HARNESS_FIXTURE_ROOT]) {

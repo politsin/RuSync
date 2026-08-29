@@ -44,7 +44,7 @@ declare global {
 export * from "@vrtmrz/livesync-commonlib/compat/events/coreEvents";
 
 /**
- * Self-hosted LiveSync's host event channel.
+ * RuSync's host event channel.
  *
  * Commonlib does not own a process-global channel. Each LiveSync host context is
  * composed with this channel while legacy host UI modules migrate to context.events.

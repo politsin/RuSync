@@ -18,7 +18,7 @@ COPY src/apps/webpeer/package.json ./src/apps/webpeer/package.json
 RUN npm ci
 
 COPY . .
-RUN LIVESYNC_CLI_TEST_SUPPORT=1 npm run build -w self-hosted-livesync-cli
+RUN LIVESYNC_CLI_TEST_SUPPORT=1 npm run build -w rusync-cli
 
 WORKDIR /workspace/src/apps/cli/testdeno
 

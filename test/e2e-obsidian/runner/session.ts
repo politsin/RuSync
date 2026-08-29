@@ -28,7 +28,7 @@ export async function startObsidianLiveSyncSession(
         binary: options.binary,
         cliBinary: options.cliBinary,
         vault: options.vault,
-        pluginId: "obsidian-livesync",
+        pluginId: "rusync",
         artifactRoot: options.artifactRoot ?? process.cwd(),
         startupGraceMs: options.startupGraceMs,
         pluginData: options.pluginData,

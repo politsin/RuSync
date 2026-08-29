@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 #
-# Self-hosted LiveSync WebPeer — Docker image
+# RuSync WebPeer — Docker image
 # Browser-based P2P peer daemon served by nginx.
 #
 # Build (from the repository root):
@@ -13,7 +13,7 @@
 # What is WebPeer?
 # WebPeer acts as a pseudo P2P peer that runs entirely in the browser.
 # It can replace a CouchDB remote server by replying to sync requests from
-# other Self-hosted LiveSync instances over the WebRTC P2P channel.
+# other RuSync instances over the WebRTC P2P channel.
 #
 # P2P (WebRTC) networking notes
 # ─────────────────────────────

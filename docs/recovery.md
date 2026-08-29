@@ -62,7 +62,7 @@ Use this workflow when **Inspect conflicts and file/database differences** repor
 
 1. Back up this device. If other devices share the database, stop editing and pause synchronisation on them.
 2. Confirm that the current file-name case and path obfuscation settings are intended for this database. If either setting was deliberately changed for the whole database, stop this workflow and use Rebuild instead.
-3. Open **Self-hosted LiveSync settings** → **Hatch** → **Inspect conflicts and file/database differences**, then select **Begin inspection**.
+3. Open **RuSync settings** → **Hatch** → **Inspect conflicts and file/database differences**, then select **Begin inspection**.
 4. Find the affected Metadata card and review its recorded path, stored document ID, expected document ID, and source revision.
 5. Continue only when the card says `Repair is available for this entry.` Open its wrench menu and select **Repair this Metadata document ID**. If the action is unavailable, do not force an ID: the entry is ambiguous, conflicted, deleted, outside the normal-file namespace, or otherwise unsafe for one-entry repair.
 6. Review the warning and select **Repair Metadata ID**. LiveSync rechecks the source revision and expected ID, writes and verifies the target, then removes the obsolete ID.

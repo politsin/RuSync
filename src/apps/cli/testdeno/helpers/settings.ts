@@ -173,7 +173,7 @@ export async function applyP2pSettings(
     settingsFile: string,
     roomId: string,
     passphrase: string,
-    appId = "self-hosted-livesync-cli-tests",
+    appId = "rusync-cli-tests",
     relays = "ws://localhost:4000/",
     autoAccept = "~.*",
     turnServers = "turn:127.0.0.1:3478"

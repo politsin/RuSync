@@ -225,7 +225,7 @@
         "The project's public signalling relay is a best-effort convenience operated by the project author. It does not store Vault contents, but signalling metadata may be visible to the relay. Availability and log retention are not guaranteed. You can replace it with your own Nostr-compatible relay."
     )}
     <a
-        href="https://github.com/vrtmrz/obsidian-livesync/blob/main/docs/p2p.md"
+        href="https://github.com/politsin/RuSync/blob/main/docs/p2p.md"
         target="_blank"
         rel="noopener noreferrer">{translateMessage("Learn more about P2P connections")}</a
     >.
@@ -339,7 +339,7 @@
             "TURN relays the encrypted WebRTC connection only when a direct path cannot be established. A TURN provider cannot read encrypted Vault contents, but it can observe connection metadata and traffic volume. Use a provider you trust."
         )}
         <a
-            href="https://github.com/vrtmrz/obsidian-livesync/blob/main/docs/p2p.md#signalling-relay-and-turn-server"
+            href="https://github.com/politsin/RuSync/blob/main/docs/p2p.md#signalling-relay-and-turn-server"
             target="_blank"
             rel="noopener noreferrer">{translateMessage("Learn more about signalling and TURN")}</a
         >.

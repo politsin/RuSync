@@ -6,7 +6,7 @@ Accepted — implemented and verified against the locked Commonlib package.
 
 ## Context
 
-Self-hosted LiveSync stores multiple remote connections in `remoteConfigurations` and selects the ordinary replication target with `activeConfigurationId`. P2P features have a separate `P2P_ActiveRemoteConfigurationId`. Existing replication implementations still consume the older flat CouchDB, Object Storage, and P2P fields, so selecting a profile projects its connection settings onto those compatibility fields.
+RuSync stores multiple remote connections in `remoteConfigurations` and selects the ordinary replication target with `activeConfigurationId`. P2P features have a separate `P2P_ActiveRemoteConfigurationId`. Existing replication implementations still consume the older flat CouchDB, Object Storage, and P2P fields, so selecting a profile projects its connection settings onto those compatibility fields.
 
 The settings pane already creates and edits profiles directly. The Setup Wizard was inconsistent:
 
@@ -75,7 +75,7 @@ Replication, diagnostics, and older settings paths still consume the projected f
 
 Commonlib unit tests cover preserving existing profiles, opaque-ID insertion, generated display names, duplicate-name suffixes, main activation, independent P2P selection, and URI serialisation. Its packed-consumer test imports the focused entry point from the generated package.
 
-Self-hosted LiveSync unit tests cover preserving modern Setup URI profiles and their active selection, retaining legacy Setup URI and QR migration, adding CouchDB and Object Storage profiles beside an existing profile, independent P2P selection, fresh P2P selection as both main and P2P remote, and cancellation without mutation.
+RuSync unit tests cover preserving modern Setup URI profiles and their active selection, retaining legacy Setup URI and QR migration, adding CouchDB and Object Storage profiles beside an existing profile, independent P2P selection, fresh P2P selection as both main and P2P remote, and cancellation without mutation.
 
 The real-Obsidian onboarding E2E owns the invitation, dialogue presentation, safe-area and touch-target checks, cancellation, and reopening from the Setup pane. It does not contact a remote or submit credentials. Remote connection correctness remains owned by the CouchDB, Object Storage, P2P, and two-Vault suites. The end-to-end Setup URI and provisioning acceptance workflow remains a separate release gate.
 

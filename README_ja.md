@@ -1,5 +1,5 @@
 <!-- For translation: 20240227r0 -->
-# Self-hosted LiveSync
+# RuSync
 [英語版ドキュメント](./README.md) - [中国語版ドキュメント](./README_cn.md).
 
 Obsidianで利用可能なすべてのプラットフォームで使える、CouchDBをサーバに使用する、コミュニティ版の同期プラグイン
@@ -17,7 +17,7 @@ Obsidianで利用可能なすべてのプラットフォームで使える、Cou
   - 互換ソリューションも使用可能です
 - End-to-End暗号化実装済み
 - 設定・スニペット・テーマ、プラグインの同期が可能
--  [Webクリッパー](https://chrome.google.com/webstore/detail/obsidian-livesync-webclip/jfpaflmpckblieefkegjncjoceapakdf) もあります
+-  [Webクリッパー](https://chrome.google.com/webstore/detail/rusync-webclip/jfpaflmpckblieefkegjncjoceapakdf) もあります
 
 NDAや類似の契約や義務、倫理を守る必要のある、研究者、設計者、開発者のような方に特にオススメです。
 

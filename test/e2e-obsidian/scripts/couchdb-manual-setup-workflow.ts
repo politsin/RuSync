@@ -93,11 +93,11 @@ async function captureFailure(session: ObsidianLiveSyncSession, label: string): 
 async function enterManualCouchDBSettings(port: number, couchDb: CouchDbConfig, dbName: string): Promise<string[]> {
     const screenshots: string[] = [];
     await withObsidianPage(port, async (page) => {
-        const invitation = page.locator(".notice").filter({ hasText: "Welcome to Self-hosted LiveSync" });
+        const invitation = page.locator(".notice").filter({ hasText: "Welcome to RuSync" });
         await invitation.waitFor({ state: "visible", timeout: uiTimeoutMs });
         await invitation.locator(".sls-onboarding-invitation-action").click({ timeout: uiTimeoutMs });
 
-        const intro = modalByTitle(page, "Welcome to Self-hosted LiveSync");
+        const intro = modalByTitle(page, "Welcome to RuSync");
         await intro.waitFor({ state: "visible", timeout: uiTimeoutMs });
         await selectRadioOption(intro, "I am setting this up for the first time");
         await intro

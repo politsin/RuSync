@@ -226,7 +226,7 @@ async function configureCliSettings(
     unknown
   >;
   Object.assign(current, {
-    P2P_AppID: "self-hosted-livesync",
+    P2P_AppID: "rusync",
     P2P_AutoAcceptingPeers: "~.*",
     P2P_AutoBroadcast: false,
     P2P_AutoDenyingPeers: "",

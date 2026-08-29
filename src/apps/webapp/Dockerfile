@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 #
-# Self-hosted LiveSync WebApp — Docker image
+# RuSync WebApp — Docker image
 # Browser-based vault sync using the FileSystem API, served by nginx.
 #
 # Build (from the repository root):

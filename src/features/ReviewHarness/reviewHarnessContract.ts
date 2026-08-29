@@ -263,7 +263,7 @@ export function formatReviewHarnessReport(input: ReviewHarnessReportInput): stri
             detail,
         ])
     );
-    return `## Self-hosted LiveSync Review Harness report
+    return `## RuSync Review Harness report
 
 Generated at \`${tableCell(input.generatedAt)}\`.
 
@@ -283,6 +283,6 @@ ${JSON.stringify(input.transcript, null, 2)}
 \`\`\`
 </details>
 
-This report was copied locally and was not transmitted by Self-hosted LiveSync. It intentionally omits Vault identifiers, paths, file names, file contents, remote configuration, and secrets. Review the environment information before posting because a user agent and viewport may identify the device or operating system.
+This report was copied locally and was not transmitted by RuSync. It intentionally omits Vault identifiers, paths, file names, file contents, remote configuration, and secrets. Review the environment information before posting because a user agent and viewport may identify the device or operating system.
 `;
 }

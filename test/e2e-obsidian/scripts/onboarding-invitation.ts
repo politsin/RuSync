@@ -45,7 +45,7 @@ async function inspectUnconfiguredStartup(
         cliBinary,
         [
             "(async()=>{",
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             `const markerPath=${JSON.stringify(markerPath)};`,
             "let entry=false;",
             "try{entry=await core.localDatabase.getDBEntry(markerPath,undefined,false,false);}catch{}",
@@ -68,11 +68,11 @@ async function inspectUnconfiguredStartup(
 }
 
 function onboardingNotice(page: Parameters<Parameters<typeof withObsidianPage>[1]>[0]) {
-    return page.locator(".notice").filter({ hasText: "Welcome to Self-hosted LiveSync" });
+    return page.locator(".notice").filter({ hasText: "Welcome to RuSync" });
 }
 
 function onboardingDialogue(page: Parameters<Parameters<typeof withObsidianPage>[1]>[0]) {
-    return page.locator(".modal-container").filter({ hasText: "Welcome to Self-hosted LiveSync" });
+    return page.locator(".modal-container").filter({ hasText: "Welcome to RuSync" });
 }
 
 async function requireInvitationWithoutDialogue(): Promise<void> {
@@ -172,7 +172,7 @@ async function openOnboardingFromSettings(): Promise<void> {
                 .getByRole("button", { name: "Rerun Wizard", exact: true })
                 .click({ timeout: uiTimeoutMs });
         }
-        await waitForVisibleObsidianDialogue(settingsNavigator.page, "Welcome to Self-hosted LiveSync", uiTimeoutMs);
+        await waitForVisibleObsidianDialogue(settingsNavigator.page, "Welcome to RuSync", uiTimeoutMs);
     });
 }
 

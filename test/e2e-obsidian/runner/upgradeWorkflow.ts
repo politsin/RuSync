@@ -170,7 +170,7 @@ export async function configureStableRelease(
         cliBinary,
         [
             "(async()=>{",
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             `const partial=${JSON.stringify(partial)};`,
             "await core.services.setting.applyExternalSettings(partial,true);",
             "await core.services.control.applySettings();",
@@ -186,7 +186,7 @@ export async function prepareStableRemote(cliBinary: string, environment: NodeJS
         cliBinary,
         [
             "(async()=>{",
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             "const settings=core.services.setting.currentSettings();",
             "const replicator=core.services.replicator.getActiveReplicator();",
             "await replicator.tryCreateRemoteDatabase(settings);",
@@ -205,7 +205,7 @@ export async function prepareStableRemote(cliBinary: string, environment: NodeJS
             cliBinary,
             [
                 "(async()=>{",
-                "const core=app.plugins.plugins['obsidian-livesync'].core;",
+                "const core=app.plugins.plugins['rusync'].core;",
                 "const settings=core.services.setting.currentSettings();",
                 "const replicator=core.services.replicator.getActiveReplicator();",
                 "return JSON.stringify(!!(await replicator.ensurePBKDF2Salt(settings,true,false)));",
@@ -224,7 +224,7 @@ export async function prepareStableRemote(cliBinary: string, environment: NodeJS
         cliBinary,
         [
             "(async()=>{",
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             "const settings=core.services.setting.currentSettings();",
             "const replicator=core.services.replicator.getActiveReplicator();",
             "await replicator.markRemoteResolved(settings);",
@@ -245,7 +245,7 @@ export async function waitForPersistentNodeIdentity(
         [
             "(async()=>{",
             `const deadline=Date.now()+${JSON.stringify(timeoutMs)};`,
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             "const database=core.localDatabase.localDatabase;",
             "const sleep=(ms)=>new Promise((resolve)=>setTimeout(resolve,ms));",
             "let persistent='';let active='';",
@@ -271,7 +271,7 @@ export async function readRuntimeUpgradeState(
         cliBinary,
         [
             "(async()=>{",
-            "const plugin=app.plugins.plugins['obsidian-livesync'];",
+            "const plugin=app.plugins.plugins['rusync'];",
             "const core=plugin.core;",
             "const setting=core.services.setting;",
             "const settings=setting.currentSettings();",
@@ -281,7 +281,7 @@ export async function readRuntimeUpgradeState(
             "const nodeInfo=await core.localDatabase.localDatabase.get('_local/obsydian_livesync_nodeinfo').catch(()=>null);",
             "const migrationState=setting.getSettingsMigrationState?.();",
             "return JSON.stringify({",
-            "pluginVersion:app.plugins.manifests['obsidian-livesync']?.version??'unknown',",
+            "pluginVersion:app.plugins.manifests['rusync']?.version??'unknown',",
             "vaultName,",
             "localDatabaseName:databaseInfo.db_name,",
             "localDatabaseUpdateSequence:databaseInfo.update_seq,",
@@ -329,12 +329,12 @@ export async function readRuntimeSettingsUpgradeState(
         cliBinary,
         [
             "(async()=>{",
-            "const plugin=app.plugins.plugins['obsidian-livesync'];",
+            "const plugin=app.plugins.plugins['rusync'];",
             "const setting=plugin.core.services.setting;",
             "const settings=setting.currentSettings();",
             "const migrationState=setting.getSettingsMigrationState?.();",
             "return JSON.stringify({",
-            "pluginVersion:app.plugins.manifests['obsidian-livesync']?.version??'unknown',",
+            "pluginVersion:app.plugins.manifests['rusync']?.version??'unknown',",
             "compatibilityMarker:setting.getSmallConfig?.('database-compatibility-version')??'',",
             "migrationState,",
             "settings:{",
@@ -579,7 +579,7 @@ export async function dismissConfigDoctorIfShown(port: number): Promise<boolean>
     const timeoutMs = Number(process.env.E2E_OBSIDIAN_UI_TIMEOUT_MS ?? 10000);
     return await withObsidianPage(port, async (page) => {
         const doctor = page.locator(".modal-container").filter({
-            has: page.locator(".modal-title").filter({ hasText: "Self-hosted LiveSync Config Doctor" }),
+            has: page.locator(".modal-title").filter({ hasText: "RuSync Config Doctor" }),
         });
         const visible = await doctor
             .waitFor({ state: "visible", timeout: Math.min(timeoutMs, 5000) })
@@ -669,7 +669,7 @@ async function waitForChangedRevision(
             `const path=${JSON.stringify(path)};`,
             `const previousRevision=${JSON.stringify(previousRevision)};`,
             `const deadline=Date.now()+${JSON.stringify(timeoutMs)};`,
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             "const sleep=(ms)=>new Promise((resolve)=>setTimeout(resolve,ms));",
             "while(Date.now()<deadline){",
             "await core.services.fileProcessing.commitPendingFileEvents();",
@@ -778,7 +778,7 @@ export async function runCouchDbReplicationObserved(
         cliBinary,
         [
             "(async()=>{",
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             "const replicator=core.services.replicator.getActiveReplicator();",
             "await core.services.fileProcessing.commitPendingFileEvents();",
             "const beforeSent=Number(replicator.docSent??0);",
@@ -803,7 +803,7 @@ export async function runJournalReplicationObserved(
         cliBinary,
         [
             "(async()=>{",
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             "const replicator=core.services.replicator.getActiveReplicator();",
             "const client=replicator.client;",
             "const storage=client.storage;",
@@ -833,7 +833,7 @@ export async function readJournalCheckpoint(
         cliBinary,
         [
             "(async()=>{",
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             "const replicator=core.services.replicator.getActiveReplicator();",
             "const client=replicator.client;",
             "const checkpoint=await client.getCheckpointInfo();",
@@ -859,7 +859,7 @@ export async function readLocalCouchDbCheckpoints(
         [
             "(async()=>{",
             `const ids=${JSON.stringify(checkpointIds)};`,
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             "const database=core.localDatabase.localDatabase;",
             "const checkpoints=[];",
             "for(const id of ids){",

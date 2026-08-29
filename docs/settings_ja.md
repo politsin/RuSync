@@ -153,7 +153,7 @@ S3互換ストレージのエンドポイントURLです。ダイアログ内で
 - `forceV1` または `""` (V1: Legacy): レガシーな暗号化バージョンです。古いバージョンで暗号化された既存の保管庫（Vault）を同期する場合にのみ使用してください。
 
 ### Apply
-End to End 暗号化を行うに当たって、異なるパスフレーズで暗号化された同一の内容を入手されることは避けるべきです。また、Self-hosted LiveSyncはコンテンツのcrc32を重複回避に使用しているため、その点でも攻撃が有効になってしまいます。
+End to End 暗号化を行うに当たって、異なるパスフレーズで暗号化された同一の内容を入手されることは避けるべきです。また、RuSyncはコンテンツのcrc32を重複回避に使用しているため、その点でも攻撃が有効になってしまいます。
 
 そのため、End to End 暗号化を有効にする際には、ローカル、リモートすべてのデータベースをいったん破棄し、新しいパスフレーズで暗号化された内容のみを、改めて同期し直します。
 
@@ -249,7 +249,7 @@ TURNサーバーでの認証に使用するパスワード（クレデンシャ�
 ### minimum chunk size と LongLine threshold
 チャンクの分割についての設定です。※現在これらの項目はUIから直接設定することはできません（デフォルト値で自動処理されます）。
 
-Self-hosted LiveSyncは一つのチャンクのサイズを最低minimum chunk size文字確保した上で、できるだけ効率的に同期できるよう、ノートを分割してチャンクを作成します。  
+RuSyncは一つのチャンクのサイズを最低minimum chunk size文字確保した上で、できるだけ効率的に同期できるよう、ノートを分割してチャンクを作成します。  
 これは、同期を行う際に、一定の文字数で分割した場合、先頭の方を編集すると、その後の分割位置がすべてずれ、結果としてほぼまるごとのファイルのファイル送受信を行うことになっていた問題を避けるために実装されました。  
 具体的には、先頭から順に直近の下記の箇所を検索し、一番長く切れたものを一つのチャンクとします。
 
@@ -327,8 +327,8 @@ LiveSyncをONにするか、もしくはPeriodic Sync + Sync On File Openがオ�
 このオプションが有効になっている場合、実際に削除する代わりに、ゴミ箱に移動します。
 
 ### Do not delete empty folder
-Self-hosted LiveSyncは通常、フォルダ内のファイルがすべて削除された場合、フォルダを削除します。  
-備考:Self-hosted LiveSyncの同期対象はファイルです。
+RuSyncは通常、フォルダ内のファイルがすべて削除された場合、フォルダを削除します。  
+備考:RuSyncの同期対象はファイルです。
 
 ### Use newer file if conflicted (beta)
 競合が発生したとき、常に新しいファイルを使用して競合を自動的に解決します。
@@ -363,7 +363,7 @@ Therefore, the clock must be adjusted. If the modification time is old, the chan
 
 
 ### Advanced settings
-Self-hosted LiveSyncはPouchDBを使用し、リモートと[このプロトコル](https://docs.couchdb.org/en/stable/replication/protocol.html)で同期しています。  
+RuSyncはPouchDBを使用し、リモートと[このプロトコル](https://docs.couchdb.org/en/stable/replication/protocol.html)で同期しています。  
 そのため、全てのノートなどはデータベースが許容するペイロードサイズやドキュメントサイズに併せてチャンクに分割されています。
 
 しかしながら、それだけでは不十分なケースがあり、[Replicate Changes](https://docs.couchdb.org/en/stable/replication/protocol.html#replicate-changes)の[2.4.2.5.2. Upload Batch of Changed Documents](https://docs.couchdb.org/en/stable/replication/protocol.html#upload-batch-of-changed-documents)を参照すると、このリクエストは巨大になる可能性がありました。

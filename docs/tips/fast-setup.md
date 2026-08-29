@@ -34,7 +34,7 @@ You will be prompted to choose how the retrieved remote data will interact with 
 
 1. **Compare time and take newer (newer-wins)**
    - Compares the modified time of files and accepts the newer version.
-   - **Recommended if:** You have been using Self-hosted LiveSync and have made changes on multiple devices that you want to merge.
+   - **Recommended if:** You have been using RuSync and have made changes on multiple devices that you want to merge.
 2. **Overwrite all with remote files (remote-wins)**
    - Remote data is treated as the source of truth.
    - **Recommended if:** You are setting up a brand new device with an empty or clean vault.

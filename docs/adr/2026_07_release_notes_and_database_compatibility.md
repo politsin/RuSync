@@ -6,7 +6,7 @@ Accepted for the 1.0 release line.
 
 ## Context
 
-Self-hosted LiveSync historically used several unrelated kinds of version and settings state during start-up.
+RuSync historically used several unrelated kinds of version and settings state during start-up.
 
 The plug-in SemVer was converted into a numeric major/minor value and stored in `lastReadUpdates`. The settings dialogue used that value to open the change log automatically, and offered a button which marked the release line as read. Patch versions were intentionally ignored. Pre-release identifiers containing an additional dot did not fit this numeric representation and could be interpreted as a much larger release line.
 
@@ -29,7 +29,7 @@ Commonlib's `settingVersion` describes the stored settings shape, while `DEFAULT
 
 - Keep the Commonlib settings schema version independent of the plug-in SemVer and the internal database version `VER`. Increment it only for an ordered change to the stored settings shape.
 - Use Commonlib's conservative schema defaults to complete an existing settings document. Explicit stored values take precedence, and an ordinary migration does not disable or replace the person's synchronisation choices.
-- Use `createNewVaultSettings()` only for a store which has never held Self-hosted LiveSync settings, explicit new-user onboarding, a factory reset, or CLI settings creation. Setup URI, QR, Markdown, and other existing-setting imports retain conservative completion semantics.
+- Use `createNewVaultSettings()` only for a store which has never held RuSync settings, explicit new-user onboarding, a factory reset, or CLI settings creation. Setup URI, QR, Markdown, and other existing-setting imports retain conservative completion semantics.
 - Apply remote-specific preferred values only when that remote is explicitly selected during setup. Do not infer and merge new recommendations into an existing configuration.
 - Keep settings saved by a future Commonlib schema fail-closed and do not persist an apparent downgrade migration.
 

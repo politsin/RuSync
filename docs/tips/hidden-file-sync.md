@@ -19,14 +19,14 @@ Enabling Hidden File Sync requires an initialisation direction:
 
 ## Review the file selection
 
-1. Open Self-hosted LiveSync settings.
+1. Open RuSync settings.
 2. Open `Setup`, find `Enable extra and advanced features`, and enable `Advanced features`.
 
    ![Advanced features enabled](../../images/hidden-file-sync/guide-hidden-file-advanced-features.png)
 
 3. Open `Selector`, then review the `Hidden Files` section.
 4. Use `Target patterns` to limit the feature to the hidden files you intend to synchronise. An empty target list includes every otherwise eligible hidden file.
-5. Review `Ignore patterns`. The default excludes `node_modules`, `.git`, and Self-hosted LiveSync's own plug-in data. `Add default patterns` offers a `Cross-platform` set which also excludes Obsidian workspace files.
+5. Review `Ignore patterns`. The default excludes `node_modules`, `.git`, and RuSync's own plug-in data. `Add default patterns` offers a `Cross-platform` set which also excludes Obsidian workspace files.
 
    ![Hidden File target and ignore selectors](../../images/hidden-file-sync/guide-hidden-file-selector.png)
 

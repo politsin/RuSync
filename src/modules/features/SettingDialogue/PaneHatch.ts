@@ -97,7 +97,7 @@ export function paneHatch(this: ObsidianLiveSyncSettingTab, paneEl: HTMLElement,
                 .setCta()
                 .setDisabled(false)
                 .onClick(async () => {
-                    await this.app.commands.executeCommandById("obsidian-livesync:dump-debug-info");
+                    await this.app.commands.executeCommandById("rusync:dump-debug-info");
                 })
         );
         new Setting(paneEl)

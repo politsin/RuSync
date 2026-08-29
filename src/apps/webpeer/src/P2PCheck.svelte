@@ -285,7 +285,7 @@
 
 <main class="check-shell">
     <header class="hero">
-        <a class="eyebrow" href="./index.html">Self-hosted LiveSync · WebPeer</a>
+        <a class="eyebrow" href="./index.html">RuSync · WebPeer</a>
         <h1>P2P connection check</h1>
         <p class="hero-copy">
             See whether one LiveSync device can establish a WebRTC connection to this browser on
@@ -364,7 +364,7 @@
                     </p>
                 {:else}
                     <p class="section-copy">
-                        In a new empty Vault with Self-hosted LiveSync installed and enabled, scan
+                        In a new empty Vault with RuSync installed and enabled, scan
                         the QR code or open the Setup URI. Enter the separate passphrase when
                         prompted.
                     </p>

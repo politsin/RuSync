@@ -47,7 +47,7 @@ never settles during steps 2 to 4 is outside that cancellation scope. The
 shared one-shot result remains pending as well, so later triggers join the same
 pending operation rather than beginning a fresh attempt.
 
-Self-hosted LiveSync issue 1116 provides evidence of this failure shape. On one
+RuSync issue 1116 provides evidence of this failure shape. On one
 Linux and Electron combination, a one-shot attempt remained pending while
 writing the remote milestone document. Bypassing that write allowed the
 attempt to reach later replication requests. A local real-Obsidian exercise
@@ -217,7 +217,7 @@ Commonlib owns:
 - ownership transfer within the CouchDB replicator; and
 - timeout classification at the connectivity-preflight boundary.
 
-Self-hosted LiveSync owns:
+RuSync owns:
 
 - the concrete Obsidian fetch adapters and their declared capabilities;
 - user-facing logs or notices for a timed-out attempt;
@@ -301,7 +301,7 @@ After the change, focused Commonlib tests verify that:
 - close failures are logged without replacing timeout or replication results.
 
 Type checking and package-boundary checks verify the Commonlib-owned
-declarations and compatibility export. Self-hosted LiveSync must then validate
+declarations and compatibility export. RuSync must then validate
 the exact packed Commonlib artefact with its focused consumer tests and an
 ordinary real-Obsidian and CouchDB smoke test. The reporter's environment
 remains the validation boundary for the original platform-specific symptom.
@@ -325,5 +325,5 @@ remains the validation boundary for the original platform-specific symptom.
 - [Fast Fetch Persistence and Completion Semantics](2026_08_fast_fetch_persistence_and_completion.md)
 - Commonlib PR 112, which closes finite remote PouchDB handles after their
   logical owners settle
-- Self-hosted LiveSync issue 1116, which reports a one-shot compatibility write
+- RuSync issue 1116, which reports a one-shot compatibility write
   remaining pending on one Linux and Electron environment

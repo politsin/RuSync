@@ -1,6 +1,6 @@
-# Contributing to Self-hosted LiveSync
+# Contributing to RuSync
 
-Thank you for your interest in contributing to Self-hosted LiveSync! We welcome all contributions, including bug reports, feature requests, documentation improvements, translations, and pull requests.
+Thank you for your interest in contributing to RuSync! We welcome all contributions, including bug reports, feature requests, documentation improvements, translations, and pull requests.
 
 ## Getting Started
 
@@ -8,7 +8,7 @@ To set up the development environment, please follow these steps:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/vrtmrz/obsidian-livesync
+   git clone https://github.com/politsin/RuSync
    ```
 
 2. Install the package dependencies:

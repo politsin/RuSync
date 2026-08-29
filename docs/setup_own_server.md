@@ -18,7 +18,7 @@
   - [3. Expose CouchDB to the Internet](#3-expose-couchdb-to-the-internet)
   - [4. Client Setup](#4-client-setup)
     - [1. Generate the setup URI on a desktop device or server](#1-generate-the-setup-uri-on-a-desktop-device-or-server)
-    - [2. Setup Self-hosted LiveSync to Obsidian](#2-setup-self-hosted-livesync-to-obsidian)
+    - [2. Setup RuSync to Obsidian](#2-setup-rusync-to-obsidian)
   - [Manual setup information](#manual-setup-information)
     - [Setting up your domain](#setting-up-your-domain)
   - [Reverse Proxies](#reverse-proxies)
@@ -125,7 +125,7 @@ export hostname=http://localhost:5984
 export username=<INSERT COUCHDB ADMINISTRATOR USERNAME HERE>
 export password=<INSERT COUCHDB ADMINISTRATOR PASSWORD HERE>
 export database=obsidiannotes
-curl -s https://raw.githubusercontent.com/vrtmrz/obsidian-livesync/main/utils/couchdb/couchdb-init.sh | bash
+curl -s https://raw.githubusercontent.com/politsin/RuSync/main/utils/couchdb/couchdb-init.sh | bash
 ```
 
 If it results like the following:
@@ -137,7 +137,7 @@ The wrapper runs the exact registry-pinned Commonlib consumer. When `database` i
 
 If you are using Docker Compose and the above command does not work or displays `ERROR: Hostname missing`, you can try running the following command, replacing the placeholders with your own values:
 ```
-curl -s https://raw.githubusercontent.com/vrtmrz/obsidian-livesync/main/utils/couchdb/couchdb-init.sh | hostname=http://<YOUR SERVER IP>:5984 username=<INSERT COUCHDB ADMINISTRATOR USERNAME HERE> password=<INSERT COUCHDB ADMINISTRATOR PASSWORD HERE> database=obsidiannotes bash
+curl -s https://raw.githubusercontent.com/politsin/RuSync/main/utils/couchdb/couchdb-init.sh | hostname=http://<YOUR SERVER IP>:5984 username=<INSERT COUCHDB ADMINISTRATOR USERNAME HERE> password=<INSERT COUCHDB ADMINISTRATOR PASSWORD HERE> database=obsidiannotes bash
 ```
 
 ## 3. Expose CouchDB to the Internet
@@ -173,7 +173,7 @@ Now `https://tiles-photograph-routine-groundwater.trycloudflare.com` is our serv
 
 ### 1. Generate the setup URI on a desktop device or server
 
-The `username` and `password` here are the credentials which Self-hosted LiveSync will store for routine access to this database. They may be the administrator credentials from step 2. If you have separately configured a CouchDB account with the required access to this database, use that account instead. Neither the provisioning wrapper nor the Setup URI generator creates that separate account.
+The `username` and `password` here are the credentials which RuSync will store for routine access to this database. They may be the administrator credentials from step 2. If you have separately configured a CouchDB account with the required access to this database, use that account instead. Neither the provisioning wrapper nor the Setup URI generator creates that separate account.
 
 ```bash
 export hostname=https://tiles-photograph-routine-groundwater.trycloudflare.com
@@ -182,7 +182,7 @@ export username=<INSERT COUCHDB USERNAME FOR LIVESYNC>
 export password=<INSERT THE COUCHDB PASSWORD>
 export passphrase=<INSERT A STRONG VAULT ENCRYPTION PASSPHRASE>
 export uri_passphrase=<INSERT A SEPARATE SETUP URI PASSPHRASE> # Optional
-deno run --minimum-dependency-age=0 --allow-env https://raw.githubusercontent.com/vrtmrz/obsidian-livesync/main/utils/setup/generate_setup_uri.ts
+deno run --minimum-dependency-age=0 --allow-env https://raw.githubusercontent.com/politsin/RuSync/main/utils/setup/generate_setup_uri.ts
 ```
 
 > [!TIP]
@@ -203,7 +203,7 @@ obsidian://setuplivesync?settings=%5B%22tm2DpsOE74nJAryprZO2M93wF%2Fvg.......4b2
 
 Store the Setup URI and its passphrase separately.
 
-### 2. Setup Self-hosted LiveSync to Obsidian
+### 2. Setup RuSync to Obsidian
 
 Follow [Quick setup](./quick_setup.md#set-up-the-first-device) for the first device. It covers the current onboarding Notice, Setup URI import, server initialisation, and the safety prompts shown for a newly provisioned database.
 
@@ -219,7 +219,7 @@ Set the A record of your domain to point to your server, and host reverse proxy 
 Note: Mounting CouchDB on the top directory is not recommended.  
 Using Caddy is a handy way to serve the server with SSL automatically.
 
-I have published [docker-compose.yml and ini files](https://github.com/vrtmrz/self-hosted-livesync-server) that launch Caddy and CouchDB at once. If you are using Traefik you can check the [Reverse Proxies](#reverse-proxies) section below.
+The [RuSync Docker setup](https://github.com/politsin/RuSync/tree/main/docker) includes `docker-compose.yml` and configuration files that launch Caddy and CouchDB at once. If you are using Traefik you can check the [Reverse Proxies](#reverse-proxies) section below.
 
 And, be sure to check the server log and be careful of malicious access.
 
@@ -228,13 +228,13 @@ And, be sure to check the server log and be careful of malicious access.
 
 ### Traefik
 
-If you are using Traefik, this [docker-compose.yml](https://github.com/vrtmrz/obsidian-livesync/blob/main/docker-compose.traefik.yml) file (also pasted below) has all the right CORS parameters set. It assumes you have an external network called `proxy`.
+If you are using Traefik, this [docker-compose.yml](https://github.com/politsin/RuSync/blob/main/docker-compose.traefik.yml) file (also pasted below) has all the right CORS parameters set. It assumes you have an external network called `proxy`.
 
 ```yaml
 services:
   couchdb:
     image: couchdb:latest
-    container_name: obsidian-livesync
+    container_name: rusync
     user: 1000:1000
     environment:
       - COUCHDB_USER=username
@@ -252,16 +252,16 @@ services:
       - "traefik.enable=true"
       # The Traefik Network
       - "traefik.docker.network=proxy"
-      # Don't forget to replace 'obsidian-livesync.example.org' with your own domain
-      - "traefik.http.routers.obsidian-livesync.rule=Host(`obsidian-livesync.example.org`)"
+      # Don't forget to replace 'rusync.example.org' with your own domain
+      - "traefik.http.routers.rusync.rule=Host(`rusync.example.org`)"
       # The 'websecure' entryPoint is basically your HTTPS entrypoint. Check the next code snippet if you are encountering problems only; you probably have a working traefik configuration if this is not your first container you are reverse proxying.
-      - "traefik.http.routers.obsidian-livesync.entrypoints=websecure"
-      - "traefik.http.routers.obsidian-livesync.service=obsidian-livesync"
-      - "traefik.http.services.obsidian-livesync.loadbalancer.server.port=5984"
-      - "traefik.http.routers.obsidian-livesync.tls=true"
+      - "traefik.http.routers.rusync.entrypoints=websecure"
+      - "traefik.http.routers.rusync.service=rusync"
+      - "traefik.http.services.rusync.loadbalancer.server.port=5984"
+      - "traefik.http.routers.rusync.tls=true"
       # Replace the string 'letsencrypt' with your own certificate resolver
-      - "traefik.http.routers.obsidian-livesync.tls.certresolver=letsencrypt"
-      - "traefik.http.routers.obsidian-livesync.middlewares=obsidiancors"
+      - "traefik.http.routers.rusync.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.rusync.middlewares=obsidiancors"
       # The part needed for CORS to work on Traefik 2.x starts here
       - "traefik.http.middlewares.obsidiancors.headers.accesscontrolallowmethods=GET,PUT,POST,HEAD,DELETE"
       - "traefik.http.middlewares.obsidiancors.headers.accesscontrolallowheaders=accept,authorization,content-type,origin,referer"

@@ -1,8 +1,8 @@
 NOTE: This document not completed. I'll improve this doc in a while. but your contributions are always welcome.
 
-# Settings of Self-hosted LiveSync
+# Settings of RuSync
 
-There are many settings in Self-hosted LiveSync. This document describes each setting in detail (not how-to). Configuration and settings are divided into several categories and indicated by icons. The icon is as follows:
+There are many settings in RuSync. This document describes each setting in detail (not how-to). Configuration and settings are divided into several categories and indicated by icons. The icon is as follows:
 
 On Obsidian 1.13 or later, the root settings page is organised by task. On an unconfigured installation, **Quick Setup** appears first, followed by **Synchronisation** and **General Settings**. Once this plug-in has been configured, **Synchronisation** and **General Settings** appear first, followed by **Set up other devices** and **Quick Setup**. Earlier supported Obsidian versions retain a pane-based interface with the same controls; they open **Quick Setup** when unconfigured and **General Settings** when configured.
 
@@ -75,25 +75,25 @@ A configured Vault which was copied, restored, or opened in a new Obsidian profi
 
 ## 1. Quick Setup and Extra menus
 
-Quick Setup contains the actions used to configure Self-hosted LiveSync. On Obsidian 1.13 or later these actions appear on the root settings page. In the pane-based interface, they remain available together on the **Quick Setup** pane.
+Quick Setup contains the actions used to configure RuSync. On Obsidian 1.13 or later these actions appear on the root settings page. In the pane-based interface, they remain available together on the **Quick Setup** pane.
 
-An unconfigured installation does not open the onboarding dialogue automatically or scan the Vault into the local database. A long-lived Notice offers the onboarding action. If the Notice is dismissed, use **Rerun Onboarding Wizard** in the root **Quick Setup** group on Obsidian 1.13 or later. On earlier supported Obsidian versions, open **Self-hosted LiveSync settings** → **Quick Setup** → **Rerun Onboarding Wizard**.
+An unconfigured installation does not open the onboarding dialogue automatically or scan the Vault into the local database. A long-lived Notice offers the onboarding action. If the Notice is dismissed, use **Rerun Onboarding Wizard** in the root **Quick Setup** group on Obsidian 1.13 or later. On earlier supported Obsidian versions, open **RuSync settings** → **Quick Setup** → **Rerun Onboarding Wizard**.
 
 Choose the new-device path when this device owns the files which should initialise synchronisation. Choose the existing-device path when it should receive an established remote state. The wizard reserves Rebuild or Fetch respectively before enabling the settings and requesting a restart, so the selected initialisation runs before the ordinary start-up scan.
 
 ### 1. Setup actions
 
-Most preferred method to setup Self-hosted LiveSync. You can setup Self-hosted LiveSync with a few clicks.
+Most preferred method to setup RuSync. You can setup RuSync with a few clicks.
 
 #### Connect with Setup URI
 
-Setup the Self-hosted LiveSync with the `setup URI` which is [copied from another device](#copy-current-settings-as-a-new-setup-uri) or the setup script.
+Setup the RuSync with the `setup URI` which is [copied from another device](#copy-current-settings-as-a-new-setup-uri) or the setup script.
 
 A current Setup URI retains its remote profiles, display names, and separate main and P2P selections. Older Setup URIs containing only flat connection settings remain supported and are migrated to a remote profile when applied.
 
 #### Manual setup
 
-Step-by-step setup for Self-hosted LiveSync. You can setup Self-hosted LiveSync manually with Minimal setting items.
+Step-by-step setup for RuSync. You can setup RuSync manually with Minimal setting items.
 
 Completing manual CouchDB, Object Storage, or P2P setup creates the corresponding remote profile without replacing profiles which are already saved. CouchDB and Object Storage setup select the new profile as the main remote. P2P setup selects it for P2P use and, when the wizard is enabling LiveSync, also selects it as the main remote. A descriptive display name is generated and can be changed later.
 
@@ -201,7 +201,7 @@ Show verbose log. Please enable when you report the logs
 
 ### 1. Connection settings
 
-Self-hosted LiveSync stores multiple remote connection profiles under **Connection settings** → **Saved connections**. Each profile represents a CouchDB database, an Object Storage connection, or a P2P configuration, and several profiles can be kept in one Vault.
+RuSync stores multiple remote connection profiles under **Connection settings** → **Saved connections**. Each profile represents a CouchDB database, an Object Storage connection, or a P2P configuration, and several profiles can be kept in one Vault.
 
 Each profile has an opaque identifier and a presentation name. The name does not need to be unique and is not used to select the profile. The main remote and the P2P remote are selected independently, so code and settings imports must preserve both selections rather than relying on a special identifier such as `default`.
 
@@ -223,7 +223,7 @@ The active connection type. This is automatically projected to the legacy config
 
 Setting key: notifyThresholdOfRemoteStorageSize
 
-MB (0 to disable). At startup, Self-hosted LiveSync shows a long-lived, clickable notice when this value has not been configured or the estimated remote storage size exceeds it. Select **Review options** to open the detailed, untimed dialogue. Running the remote-size check explicitly opens that dialogue directly.
+MB (0 to disable). At startup, RuSync shows a long-lived, clickable notice when this value has not been configured or the estimated remote storage size exceeds it. Select **Review options** to open the detailed, untimed dialogue. Running the remote-size check explicitly opens that dialogue directly.
 
 ### 3. Privacy & Encryption
 
@@ -1117,6 +1117,6 @@ Use it only when the Vault, local database, and remote are healthy, and every re
 
 #### Discard existing settings and databases
 
-Reset the Self-hosted LiveSync settings and local database. This is a hazardous operation; make a backup before using it.
+Reset the RuSync settings and local database. This is a hazardous operation; make a backup before using it.
 
-#### Delete local database to reset or uninstall Self-hosted LiveSync
+#### Delete local database to reset or uninstall RuSync

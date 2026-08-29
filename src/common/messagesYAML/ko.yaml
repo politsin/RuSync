@@ -156,7 +156,7 @@ Delete: 삭제
 Delete all customization sync data: 모든 사용자 설정 동기화 데이터 삭제
 Delete all data on the remote server.: 원격 서버의 모든 데이터를 삭제합니다.
 Delete All of: 모두 삭제할 대상
-Delete local database to reset or uninstall Self-hosted LiveSync: Self-hosted LiveSync를 초기화하거나 제거하기 위해 로컬 데이터베이스를 삭제
+Delete local database to reset or uninstall RuSync: RuSync를 초기화하거나 제거하기 위해 로컬 데이터베이스를 삭제
 Delete old metadata of deleted files on start-up: 시작 시 삭제된 파일의 오래된 메타데이터 삭제
 Delete Remote Configuration: 원격 구성 삭제
 Delete remote configuration '{name}'?: "'{name}' 원격 구성을 삭제할까요?"
@@ -181,7 +181,7 @@ Diagnostic RTCPeerConnection is enabled: 진단용 RTCPeerConnection이 활성�
 dialog:
   yourLanguageAvailable:
     _value: |-
-      Self-hosted LiveSync가 사용 중인 언어의 번역을 제공하므로 %{Display Language} 설정이 활성화되었습니다.
+      RuSync가 사용 중인 언어의 번역을 제공하므로 %{Display Language} 설정이 활성화되었습니다.
 
       참고: 모든 메시지가 번역되어 있지는 않습니다. 여러분의 기여를 기다리고 있습니다!
       참고 2: 이슈를 등록할 때는 **%{lang-def} 로 되돌린 뒤** 스크린샷과 메시지, 로그를 첨부해 주세요. 설정 대화 상자에서 되돌릴 수 있습니다.
@@ -236,7 +236,7 @@ Doctor:
       ${note}
 
       이상적인 값으로 수정할까요?
-    Title: Self-hosted LiveSync 구성 진단 마법사
+    Title: RuSync 구성 진단 마법사
     TitleAlmostDone: 거의 완료되었습니다!
     TitleFix: 문제 해결 ${current}/${total}
   Level:
@@ -388,7 +388,7 @@ Ignore patterns: 무시 패턴
 Import connection: 연결 가져오기
 IMPORTANT: 중요
 In most cases, you should stick with the default algorithm (${algorithm}), This setting is only required if you have an existing Vault encrypted in a different format.: 대부분의 경우 기본 알고리즘(${algorithm})을 그대로 사용하는 것이 좋습니다. 이 설정은 기존 보관함이 다른 형식으로 암호화되어 있는 경우에만 필요합니다.
-In this scenario, Self-hosted LiveSync will recreate metadata for every file and deliberately generate conflicts. Where the file content is identical, these conflicts will be resolved automatically.: 이 경우 Self-hosted LiveSync는 모든 파일의 메타데이터를 다시 만들면서 의도적으로 충돌을 발생시킵니다. 파일 내용이 동일한 경우 이러한 충돌은 자동으로 해결됩니다.
+In this scenario, RuSync will recreate metadata for every file and deliberately generate conflicts. Where the file content is identical, these conflicts will be resolved automatically.: 이 경우 RuSync는 모든 파일의 메타데이터를 다시 만들면서 의도적으로 충돌을 발생시킵니다. 파일 내용이 동일한 경우 이러한 충돌은 자동으로 해결됩니다.
 "Incoming:": "수신:"
 Incubate Chunks in Document: 문서 내 청크 임시 보관
 Initial Action: 초기 작업
@@ -446,7 +446,7 @@ liveSyncReplicator:
   markDeviceResolved: 이 기기를 '해결됨'으로 표시합니다.
   mismatchedTweakDetected: 기기 간 구성에서 일부 불일치가 감지되었습니다. 수동으로 복제를 실행하면 이 문제를 해결하려고 시도합니다.
   oneShotSyncBegin: OneShot 동기화 시작... (${syncMode})
-  remoteDbCorrupted: 원격 데이터베이스가 더 최신이거나 손상되었습니다. 최신 버전의 self-hosted-livesync가 설치되어 있는지 확인하세요
+  remoteDbCorrupted: 원격 데이터베이스가 더 최신이거나 손상되었습니다. 최신 버전의 rusync가 설치되어 있는지 확인하세요
   remoteDbCreatedOrConnected: 원격 데이터베이스가 생성되거나 연결되었습니다
   remoteDbDestroyed: 원격 데이터베이스가 삭제되었습니다
   remoteDbDestroyError: "원격 데이터베이스 삭제 중 오류가 발생했습니다:"
@@ -470,7 +470,7 @@ logPane:
   autoScroll: 자동 스크롤
   logWindowOpened: 로그 창이 열렸습니다
   pause: 일시 정지
-  title: Self-hosted LiveSync 로그
+  title: RuSync 로그
   wrap: 줄 바꿈
 Lower (${local} < ${remote}): 더 낮음 (${local} < ${remote})
 Maintenance Commands: 유지보수 명령
@@ -504,7 +504,7 @@ moduleCheckRemoteSize:
     > [!MORE]-
     > 오랜 기간 사용했다면 참조되지 않는 청크, 즉 쓰레기 데이터가 데이터베이스에 쌓였을 수 있습니다. 이 경우 전체 재구축을 권장합니다. 용량이 훨씬 줄어들 것입니다.
     >
-    > 단순히 보관함 용량이 커지고 있는 것이라면, 파일을 정리한 뒤에 전체를 재구축하는 것이 좋습니다. Self-hosted LiveSync는 처리 속도를 위해 파일을 삭제해도 실제 데이터를 바로 지우지 않습니다. 이 내용은 [기술 문서](https://github.com/vrtmrz/obsidian-livesync/blob/main/docs/tech_info.md)에 간략히 정리되어 있습니다.
+    > 단순히 보관함 용량이 커지고 있는 것이라면, 파일을 정리한 뒤에 전체를 재구축하는 것이 좋습니다. RuSync는 처리 속도를 위해 파일을 삭제해도 실제 데이터를 바로 지우지 않습니다. 이 내용은 [기술 문서](https://github.com/politsin/RuSync/blob/main/docs/tech_info.md)에 간략히 정리되어 있습니다.
     >
     > 용량 증가가 괜찮다면 알림 한도를 100MB 단위로 높일 수 있습니다. 직접 서버를 운영하는 경우에 적합한 방법입니다. 다만 가끔은 전체를 재구축해 주는 것이 좋습니다.
     >
@@ -544,14 +544,14 @@ moduleLiveSyncMain:
   logAdditionalSafetyScan: 추가 안전 검사 중...
   logLoadingPlugin: 플러그인 로딩 중...
   logPluginInitCancelled: 모듈에 의해 플러그인 초기화가 취소되었습니다
-  logPluginVersion: Self-hosted LiveSync v${manifestVersion} ${packageVersion}
+  logPluginVersion: RuSync v${manifestVersion} ${packageVersion}
   logReadChangelog: LiveSync가 업데이트되었습니다. 변경사항을 읽어보세요!
   logSafetyScanCompleted: 추가 안전 검사가 완료되었습니다
   logSafetyScanFailed: 모듈에서 추가 안전 검사가 실패했습니다
   logUnloadingPlugin: 플러그인 언로딩 중...
   logVersionUpdate: LiveSync가 업데이트되었습니다. 호환성 문제가 있는 업데이트의 경우 모든 자동 동기화가 일시적으로 비활성화되었습니다. 활성화하기 전에 모든 기기가 최신 상태인지 확인하세요.
   msgScramEnabled: |
-    Self-hosted LiveSync가 일부 이벤트를 무시하도록 설정되어 있습니다. 이 설정이 맞습니까?
+    RuSync가 일부 이벤트를 무시하도록 설정되어 있습니다. 이 설정이 맞습니까?
 
     | 유형 | 상태 | 설명 |
     |:---:|:---:|---|
@@ -610,7 +610,7 @@ moduleMigration:
 
       원격 데이터베이스에 SSL이 설정되어 있지 않거나 보안이 취약한 자격 증명을 사용하고 있다면, **민감한 데이터가 노출될 위험이 있습니다.**
 
-      참고: 모든 기기의 Self-hosted LiveSync를 v0.25.6 이상으로 업그레이드하고, 보관함을 반드시 백업해 주세요.
+      참고: 모든 기기의 RuSync를 v0.25.6 이상으로 업그레이드하고, 보관함을 반드시 백업해 주세요.
       참고 2: 모두 재구축과 가져오기는 시간과 트래픽을 다소 소모하므로, 사용량이 적은 시간대에 안정적인 네트워크 환경에서 진행해 주세요.
     title: 안전하지 않은 청크가 발견되었습니다!
   logBulkSendCorrupted: 청크 일괄 전송이 활성화되었지만, 이 기능에 문제가 있었습니다. 불편을 드려 죄송합니다. 자동으로 비활성화되었습니다.
@@ -620,9 +620,9 @@ moduleMigration:
   logMigrationFailed: ${old}에서 ${current}로의 데이터 구조 전환이 실패했거나 중단되었습니다
   logRedflag2CreationFail: redflag2 생성에 실패했습니다
   logRemoteTweakUnavailable: 원격 조정 값을 가져올 수 없습니다
-  logSetupCancelled: 설정이 취소되었습니다. Self-hosted LiveSync가 설정을 기다리고 있습니다!
+  logSetupCancelled: 설정이 취소되었습니다. RuSync가 설정을 기다리고 있습니다!
   msgFetchRemoteAgain: |-
-    이미 알고 계시겠지만, Self-hosted LiveSync의 기본 동작 방식과 데이터베이스 구조가 변경되었습니다.
+    이미 알고 계시겠지만, RuSync의 기본 동작 방식과 데이터베이스 구조가 변경되었습니다.
 
     다행히도 여러분의 노력 덕분에 원격 데이터베이스는 이미 성공적으로 데이터 구조 전환이 완료된 것으로 보입니다. 축하드립니다!
 
@@ -631,7 +631,7 @@ moduleMigration:
     ___참고: 설정이 변경되고 데이터베이스를 다시 불러오기 전까지는 동기화가 불가능합니다.___
     ___참고2: 청크는 변경이 불가능한 구조이므로, 메타데이터와 차이점만 가져올 수 있습니다.___
   msgSinceV02321: |-
-    v0.23.21부터 Self-hosted LiveSync의 기본 동작 방식과 데이터베이스 구조가 변경되었습니다. 변경 내용은 다음과 같습니다:
+    v0.23.21부터 RuSync의 기본 동작 방식과 데이터베이스 구조가 변경되었습니다. 변경 내용은 다음과 같습니다:
 
     1. **파일명의 대소문자 구분**
        이제 파일명을 대소문자 구분 없이 처리합니다. 파일명의 대소문자를 제대로 관리하지 못하는 Linux와 iOS를 제외한 대부분의 플랫폼에서 유리한 변경입니다.
@@ -705,7 +705,7 @@ obsidianLiveSyncSettingTab:
   btnUse: 사용
   buttonFetch: 가져오기
   defaultLanguage: 기본값
-  descConnectSetupURI: 이것은 Setup URI로 Self-hosted LiveSync를 설정하는 권장 방법입니다.
+  descConnectSetupURI: 이것은 Setup URI로 RuSync를 설정하는 권장 방법입니다.
   descCopySetupURI: 새 기기 설정에 완벽합니다!
   descEnableLiveSync: 위의 두 옵션 중 하나를 구성하거나 모든 구성을 수동으로 완료한 후에만 활성화하세요.
   descFetchConfigFromRemote: 이미 구성된 원격 서버에서 필요한 설정을 가져옵니다.
@@ -1112,7 +1112,7 @@ Replicator:
 Requires restart of Obsidian: Obsidian 재시작 필요
 Requires restart of Obsidian.: Obsidian 재시작이 필요합니다.
 Rerun Onboarding Wizard: 온보딩 마법사 다시 실행
-Rerun the onboarding wizard to set up Self-hosted LiveSync again.: 온보딩 마법사를 다시 실행하여 Self-hosted LiveSync를 다시 설정합니다.
+Rerun the onboarding wizard to set up RuSync again.: 온보딩 마법사를 다시 실행하여 RuSync를 다시 설정합니다.
 Rerun Wizard: 마법사 다시 실행
 Resend: 다시 보내기
 Resend all chunks to the remote.: 모든 청크를 원격으로 다시 보냅니다.
@@ -1260,7 +1260,7 @@ Setup:
       No: 아니요, URI에 담긴 설정을 그대로 사용합니다
       Yes: 예, 설정 진단 마법사를 실행합니다
     Message: |-
-      Self-hosted LiveSync는 오랜 기간에 걸쳐 발전해 왔고, 그동안 권장 설정도 일부 바뀌었습니다.
+      RuSync는 오랜 기간에 걸쳐 발전해 왔고, 그동안 권장 설정도 일부 바뀌었습니다.
 
       지금 설정 단계가 이를 점검하기에 아주 좋은 시점입니다.
 
@@ -1574,7 +1574,7 @@ Ui:
     Maintenance:
       Cleanup: 정리 실행
       CleanupDesc: 최신 버전이 아닌 모든 리비전을 제거하여 저장 공간을 줄입니다. 이 작업을 수행하려면 원격 서버와 로컬 클라이언트에 동일한 양의 여유 공간이 필요합니다.
-      DeleteLocalDatabase: Self-hosted LiveSync를 초기화하거나 제거하기 위해 로컬 데이터베이스를 삭제
+      DeleteLocalDatabase: RuSync를 초기화하거나 제거하기 위해 로컬 데이터베이스를 삭제
       EmergencyRestart: 긴급 재시작
       EmergencyRestartDesc: 모든 동기화를 비활성화하고 재시작합니다.
       FreshStartWipe: 초기화 후 새로 시작
@@ -1704,7 +1704,7 @@ Ui:
       TargetPatternsDesc: 동기화할 파일을 판별하는 패턴
     Setup:
       RerunWizardButton: 마법사 다시 실행
-      RerunWizardDesc: 온보딩 마법사를 다시 실행하여 Self-hosted LiveSync를 다시 설정합니다.
+      RerunWizardDesc: 온보딩 마법사를 다시 실행하여 RuSync를 다시 설정합니다.
       RerunWizardName: 온보딩 마법사 다시 실행
     SyncSettings:
       Fetch: 가져오기
@@ -1724,7 +1724,7 @@ Ui:
       ProceedExisting: 예, 이 기기를 기존 동기화 구성에 추가하겠습니다
       ProceedNew: 예, 새 동기화를 설정하겠습니다
       Question: 먼저 현재 상황에 가장 잘 맞는 항목을 선택해 주세요.
-      Title: Self-hosted LiveSync에 오신 것을 환영합니다
+      Title: RuSync에 오신 것을 환영합니다
     Invitation:
       Start: 설정 시작
     OutroAskUserMode:
@@ -1828,7 +1828,7 @@ We have to configure the device name: 기기 이름을 설정해야 합니다
 We recommend that you copy your Vault folder to a safe location. This will provide a safeguard in case a large number of conflicts arise, or if you accidentally synchronise with an incorrect destination.: 보관함 폴더를 안전한 위치에 복사해 두시기를 권장합니다. 충돌이 대량으로 발생하거나 실수로 잘못된 대상과 동기화한 경우에 대비할 수 있습니다.
 We will now guide you through a few questions to simplify the synchronisation setup.: 동기화 설정을 간단히 마칠 수 있도록 몇 가지 질문으로 안내해 드리겠습니다.
 We will now proceed with the server configuration.: 이제 서버 구성을 진행하겠습니다.
-Welcome to Self-hosted LiveSync: Self-hosted LiveSync에 오신 것을 환영합니다
+Welcome to RuSync: RuSync에 오신 것을 환영합니다
 When you save a file in the editor, start a sync automatically: 편집기에서 파일을 저장할 때 자동으로 동기화를 시작합니다
 Write credentials in the file: 파일에 자격 증명 저장
 Write logs into the file: 파일에 로그 기록

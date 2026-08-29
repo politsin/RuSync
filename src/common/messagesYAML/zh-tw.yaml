@@ -276,7 +276,7 @@ I understand the risks and will proceed without a backup.: 我了解風險，並
 I Understand, Overwrite Server: 我了解，覆寫伺服器
 If you have unsynchronised changes in your Vault on this device, they will likely diverge from the server's versions after the reset. This may result in a large number of file conflicts.: 如果此裝置的 Vault 中有尚未同步的變更，重設後這些變更很可能會與伺服器上的版本產生分歧，可能導致大量檔案衝突。
 If you understand the risks and still wish to proceed, select so.: 如果你了解風險，仍希望繼續，請選取此項。
-In this scenario, Self-hosted LiveSync will recreate metadata for every file and deliberately generate conflicts. Where the file content is identical, these conflicts will be resolved automatically.: 在這種情況下，Self-hosted LiveSync 會為每個檔案重新建立中繼資料，並刻意產生衝突。若檔案內容相同，這些衝突會自動解決。
+In this scenario, RuSync will recreate metadata for every file and deliberately generate conflicts. Where the file content is identical, these conflicts will be resolved automatically.: 在這種情況下，RuSync 會為每個檔案重新建立中繼資料，並刻意產生衝突。若檔案內容相同，這些衝突會自動解決。
 It is strongly advised to create a backup before proceeding. Continuing without a backup may lead to data loss.: 強烈建議在繼續之前先建立備份。若不備份就繼續，可能導致資料遺失。
 Of course, we can back up the data before proceeding.: 當然，你也可以在繼續之前先備份資料。
 Prevent fetching configuration from server: 阻止從伺服器擷取設定
@@ -409,7 +409,7 @@ Default: 預設
 Delete: 刪除
 Delete all customization sync data: 刪除所有自訂同步資料
 Delete all data on the remote server.: 刪除遠端伺服器上的所有資料。
-Delete local database to reset or uninstall Self-hosted LiveSync: 刪除本機資料庫以重設或解除安裝 Self-hosted LiveSync
+Delete local database to reset or uninstall RuSync: 刪除本機資料庫以重設或解除安裝 RuSync
 Delete Remote Configuration: 刪除遠端設定
 Delete remote configuration '{name}'?: 要刪除遠端設定「{name}」嗎？
 Delete remote configuration '${name}'?: 要刪除遠端設定「${name}」嗎？
@@ -422,7 +422,7 @@ Duplicate remote: 複製遠端設定
 dialog:
   yourLanguageAvailable:
     _value: |-
-      Self-hosted LiveSync 已提供你目前語言的翻譯，因此已啟用顯示語言設定。
+      RuSync 已提供你目前語言的翻譯，因此已啟用顯示語言設定。
 
       注意：並非所有訊息都已完成翻譯，歡迎協助補充！
       注意 2：如果你要回報問題，請先切回預設語言，再附上截圖、訊息與日誌。
@@ -526,7 +526,7 @@ Doctor:
       ${note}
 
       要將此項修正為建議值嗎？
-    Title: Self-hosted LiveSync 設定診斷
+    Title: RuSync 設定診斷
     TitleAlmostDone: 快完成了！
     TitleFix: "修正問題 ${current}/${total}"
   Level:
@@ -556,7 +556,7 @@ liveSyncReplicator:
   markDeviceResolved: 將此裝置標記為「已處理」。
   mismatchedTweakDetected: 偵測到裝置之間的設定有不一致之處。執行手動複寫將嘗試解決此問題。
   oneShotSyncBegin: "OneShot 同步開始⋯（${syncMode}）"
-  remoteDbCorrupted: 遠端資料庫版本較新或已損毀，請確保已安裝最新版本的 Self-hosted LiveSync
+  remoteDbCorrupted: 遠端資料庫版本較新或已損毀，請確保已安裝最新版本的 RuSync
   remoteDbCreatedOrConnected: 遠端資料庫已建立或已連線
   remoteDbDestroyed: 遠端資料庫已銷毀
   remoteDbDestroyError: "銷毀遠端資料庫時發生問題："
@@ -576,7 +576,7 @@ logPane:
   autoScroll: 自動捲動
   logWindowOpened: 日誌視窗已開啟
   pause: 暫停
-  title: Self-hosted LiveSync 日誌
+  title: RuSync 日誌
   wrap: 自動換行
 Lock Server: 鎖定伺服器
 Lock the remote server to prevent synchronization with other devices.: 鎖定遠端伺服器，以防止其他裝置進行同步。
@@ -596,7 +596,7 @@ moduleCheckRemoteSize:
     > [!MORE]-
     > 如果你已經使用了好幾年，資料庫中可能累積了未被參照的 chunks，也就是垃圾資料。因此，我們建議重建全部內容，通常會讓資料庫變得小很多。
     >
-    > 如果你的 Vault 容量只是持續增加，最好先整理檔案再重建全部內容。即使你為了加快速度而刪除了檔案，Self-hosted LiveSync 也不會刪除實際資料，詳情大致記載在[文件](https://github.com/vrtmrz/obsidian-livesync/blob/main/docs/tech_info.md)中。
+    > 如果你的 Vault 容量只是持續增加，最好先整理檔案再重建全部內容。即使你為了加快速度而刪除了檔案，RuSync 也不會刪除實際資料，詳情大致記載在[文件](https://github.com/politsin/RuSync/blob/main/docs/tech_info.md)中。
     >
     > 如果你不在意容量增加，可以將通知上限調高 100MB，這在你自行架設伺服器時較適用。不過，還是建議偶爾重建全部內容。
     >
@@ -642,7 +642,7 @@ moduleLiveSyncMain:
   logSafetyScanFailed: 額外的安全掃描在某個模組上失敗
   logUnloadingPlugin: 正在卸載外掛⋯
   msgScramEnabled: |
-    Self-hosted LiveSync 已設定為忽略某些事件。這樣正確嗎？
+    RuSync 已設定為忽略某些事件。這樣正確嗎？
 
     | 類型 | 狀態 | 說明 |
     |:---:|:---:|---|
@@ -701,7 +701,7 @@ moduleMigration:
 
       如果你的遠端資料庫未設定 SSL，或使用了安全性較低的憑證，**敏感資料就有外洩風險**。
 
-      注意：請將所有裝置上的 Self-hosted LiveSync 升級到 v0.25.6 或更新版本，並確實備份你的 Vault。
+      注意：請將所有裝置上的 RuSync 升級到 v0.25.6 或更新版本，並確實備份你的 Vault。
       注意 2：重建全部與抓取會耗用一些時間與流量，請在離峰時段進行，並確保網路連線穩定。
     title: 發現不安全的 chunks！
   logBulkSendCorrupted: 已啟用批次傳送 chunks，但此功能已損壞。造成不便，敬請見諒。已自動停用。
@@ -711,9 +711,9 @@ moduleMigration:
   logMigrationFailed: "從 ${old} 遷移到 ${current} 失敗或已取消"
   logRedflag2CreationFail: 無法建立 redflag2
   logRemoteTweakUnavailable: 無法取得遠端調校值
-  logSetupCancelled: 設定已取消，Self-hosted LiveSync 正在等候你完成設定！
+  logSetupCancelled: 設定已取消，RuSync 正在等候你完成設定！
   msgFetchRemoteAgain: |-
-    你可能已經知道，Self-hosted LiveSync 變更了預設行為與資料庫結構。
+    你可能已經知道，RuSync 變更了預設行為與資料庫結構。
 
     值得慶幸的是，在你的努力下，遠端資料庫似乎已經完成遷移。恭喜！
 
@@ -722,7 +722,7 @@ moduleMigration:
     ___注意：在變更設定並再次抓取資料庫之前，我們無法進行同步。___
     ___注意 2：chunks 完全不可變，我們只需要抓取中繼資料與差異部分。___
   msgSinceV02321: |-
-    自 v0.23.21 起，Self-hosted LiveSync 變更了預設行為與資料庫結構，進行了以下變更：
+    自 v0.23.21 起，RuSync 變更了預設行為與資料庫結構，進行了以下變更：
 
     1. **檔名的大小寫敏感性**
        現在處理檔名時不區分大小寫。這對多數平台是有益的變更，除了 Linux 與 iOS，它們無法有效處理檔名的大小寫敏感性。
@@ -767,7 +767,7 @@ obsidianLiveSyncSettingTab:
   btnFix: 修正
   btnUse: 使用
   defaultLanguage: 預設語言
-  descConnectSetupURI: 這是使用 Setup URI 設定 Self-hosted LiveSync 的建議方式。
+  descConnectSetupURI: 這是使用 Setup URI 設定 RuSync 的建議方式。
   descCopySetupURI: 設定新裝置時非常方便！
   descEnableLiveSync: 請先完成上述兩個選項之一，或手動完成所有設定，再啟用此選項。
   descFetchConfigFromRemote: 從已設定完成的遠端伺服器抓取必要的設定。
@@ -1348,7 +1348,7 @@ Ui:
     Maintenance:
       Cleanup: 執行清理
       CleanupDesc: 透過捨棄所有非最新版本減少儲存空間占用。執行此操作時，遠端伺服器與本機用戶端都需要具備相同數量的可用空間。
-      DeleteLocalDatabase: 刪除本機資料庫以重設或解除安裝 Self-hosted LiveSync
+      DeleteLocalDatabase: 刪除本機資料庫以重設或解除安裝 RuSync
       EmergencyRestart: 緊急重新啟動
       EmergencyRestartDesc: 停用所有同步並重新啟動。
       FreshStartWipe: 全新開始清除
@@ -1538,7 +1538,7 @@ Ui:
       TransferTweak: 傳輸調校
     Setup:
       RerunWizardButton: 重新執行精靈
-      RerunWizardDesc: 重新執行導覽精靈以再次設定 Self-hosted LiveSync。
+      RerunWizardDesc: 重新執行導覽精靈以再次設定 RuSync。
       RerunWizardName: 重新執行導覽精靈
     SyncSettings:
       Fetch: 抓取
@@ -1558,7 +1558,7 @@ Ui:
       ProceedExisting: 是的，我要把這台裝置加入既有同步
       ProceedNew: 是的，我要設定新的同步
       Question: 首先，請選擇最符合你目前情況的選項。
-      Title: 歡迎使用 Self-hosted LiveSync
+      Title: 歡迎使用 RuSync
     Invitation:
       Start: 開始設定
     OutroAskUserMode:
@@ -1643,7 +1643,7 @@ Analyse database usage: 分析資料庫使用情況
 Analyse database usage and generate a TSV report for diagnosis yourself. You can paste the generated report with any spreadsheet you like.:
   分析資料庫使用情況並產生 TSV 報告，方便你自行診斷。你可以將產生的報告貼到任何慣用的試算表中查看。
 Rerun Onboarding Wizard: 重新執行導覽精靈
-Rerun the onboarding wizard to set up Self-hosted LiveSync again.: 重新執行導覽精靈以再次設定 Self-hosted LiveSync。
+Rerun the onboarding wizard to set up RuSync again.: 重新執行導覽精靈以再次設定 RuSync。
 Rerun Wizard: 重新執行精靈
 Reset notification threshold and check the remote database usage: 重設通知閾值並檢查遠端資料庫使用情況
 Reset the remote storage size threshold and check the remote storage size again.: 重設遠端儲存空間大小閾值，並再次檢查遠端儲存空間大小。
@@ -1661,7 +1661,7 @@ Minimum interval for syncing: 同步最小間隔
 The minimum interval for automatic synchronisation on event.: 事件觸發自動同步的最小間隔。
 xxhash32 (Fast but less collision resistance): xxhash32（速度快，但抗碰撞能力較弱）
 xxhash64 (Fastest): xxhash64（最快）
-"Welcome to Self-hosted LiveSync": "歡迎使用 Self-hosted LiveSync"
+"Welcome to RuSync": "歡迎使用 RuSync"
 "We will now guide you through a few questions to simplify the synchronisation setup.": "接下來我們會透過幾個問題，引導你更輕鬆地完成同步設定。"
 "First, please select the option that best describes your current situation.": "首先，請選擇最符合你目前情況的選項。"
 "I am setting this up for the first time": "我是第一次進行設定"
@@ -1726,7 +1726,7 @@ Setup:
       No: 不用，請直接使用 URI 中的設定
       Yes: 要，請諮詢診斷
     Message: |-
-      Self-hosted LiveSync 的歷史逐漸變長，部分建議設定也隨之改變。
+      RuSync 的歷史逐漸變長，部分建議設定也隨之改變。
 
       現在正是進行這項檢查的好時機。
 

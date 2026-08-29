@@ -190,7 +190,7 @@ function buildCommonConfig() {
         workRoot: join(baseWorkRoot, runId),
         resultRoot: readEnvString("BENCH_SPLIT_RESULT_ROOT", "/workspace/src/apps/cli/testdeno/bench-results"),
         relay: readEnvString("BENCH_RELAY", "ws://nostr-relay:7777/"),
-        appId: readEnvString("BENCH_APP_ID", "self-hosted-livesync-cli-benchmark"),
+        appId: readEnvString("BENCH_APP_ID", "rusync-cli-benchmark"),
         roomId: readEnvString("BENCH_ROOM_ID", "bench-split-room"),
         passphrase: readEnvString("BENCH_PASSPHRASE", "bench-split-passphrase"),
         turnServers: readEnvString("BENCH_TURN_SERVERS", ""),

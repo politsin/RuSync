@@ -1,6 +1,6 @@
-# Self-hosted LiveSync WebApp
+# RuSync WebApp
 
-WebApp is an experimental proof of concept for running Self-hosted LiveSync against a browser-authorised local Vault. It is not a replacement for the Obsidian plug-in, and it does not provide the plug-in's settings screen, command palette, or setup wizard.
+WebApp is an experimental proof of concept for running RuSync against a browser-authorised local Vault. It is not a replacement for the Obsidian plug-in, and it does not provide the plug-in's settings screen, command palette, or setup wizard.
 
 ## Capabilities
 
@@ -109,4 +109,4 @@ The production files are written to `src/apps/webapp/dist/`. App-owned unit test
 
 ## Licence
 
-The same licence as the main Self-hosted LiveSync project applies.
+The same licence as the main RuSync project applies.

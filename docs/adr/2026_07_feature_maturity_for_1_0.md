@@ -6,7 +6,7 @@ Proposed for the 1.0 integration branch.
 
 ## Context
 
-Self-hosted LiveSync accumulated several labels such as 'experimental', 'Beta', 'obsolete', and 'sunset' over the 0.x line. Those labels did not consistently describe the current implementation. Some formerly experimental features now have maintained unit, Compose, and real-Obsidian coverage, while some old database-format options remain executable only because existing data must still be opened safely.
+RuSync accumulated several labels such as 'experimental', 'Beta', 'obsolete', and 'sunset' over the 0.x line. Those labels did not consistently describe the current implementation. Some formerly experimental features now have maintained unit, Compose, and real-Obsidian coverage, while some old database-format options remain executable only because existing data must still be opened safely.
 
 Version 1.0 needs to distinguish supported opt-in features from previews and from compatibility paths. Removing a label does not make a network environment reliable, and retaining a setting key does not make it a recommendation.
 

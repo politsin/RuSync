@@ -60,12 +60,12 @@ All guidelines and conventions listed below are disclosed and maintained solely 
     - An experimental authentication option for CouchDB allowing secure token-based authentication instead of standard credentials. It requires a configured private key/secret, algorithm, expiration duration, subject, and key ID.
 - LiveSync
     - A very confusing term.
-        - As a shortened form of `Self-hosted LiveSync`.
+        - As a shortened form of `RuSync`.
         - As the name of a synchronisation mode. This should be changed to `Continuous`, in contrast to `Periodic`.
 - livesync-serverpeer / webpeer
     - Pseudo-clients that assist in WebRTC peer-to-peer communication.
 - Metadata (File metadata)
-    - A database document that stores properties of a file, including its filename, path, size, modification time, and references (hashes) of the chunks that comprise the file's content. Conflict state is carried by the surrounding PouchDB/CouchDB revision metadata rather than by a separate history field inside the file metadata document. In Self-hosted LiveSync, file metadata is stored separately from the actual file content to enable efficient synchronisation and versioning.
+    - A database document that stores properties of a file, including its filename, path, size, modification time, and references (hashes) of the chunks that comprise the file's content. Conflict state is carried by the surrounding PouchDB/CouchDB revision metadata rather than by a separate history field inside the file metadata document. In RuSync, file metadata is stored separately from the actual file content to enable efficient synchronisation and versioning.
 - OneShot Sync
     - A single, immediate bidirectional synchronisation (pull then push) triggered on demand or on specific events, as opposed to continuous (live) replication.
 - Overwrite Server Data with This Device's Files
@@ -100,7 +100,7 @@ Avoid **live revision** in prose because it can ambiguously mean either a curren
     - Emergency controls in the settings that allow users to suspend file watching or database writes to prevent corruption.
 - Segmenter (Segmented-splitter)
     - A chunking method that divides files on semantic boundaries (such as paragraphs or sections) rather than arbitrary byte boundaries.
-- Self-hosted LiveSync
+- RuSync
     - The name of this plug-in. `Self-hosted` is one word.
 - Setting Doctor (Config Doctor)
     - A diagnostic utility that checks for mismatches or suboptimal configurations, presenting users with ideal values and recommendation reasons to easily resolve issues during migration, configuration import, or general troubleshooting.

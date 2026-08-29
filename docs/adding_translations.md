@@ -1,14 +1,14 @@
 # How to add translations
 
-Self-hosted LiveSync owns its multilingual catalogue. Commonlib supplies only the typed English messages which its services request; the plug-in combines those keys with its application messages and injects the selected translator at each service composition root.
+RuSync owns its multilingual catalogue. Commonlib supplies only the typed English messages which its services request; the plug-in combines those keys with its application messages and injects the selected translator at each service composition root.
 
 ## Getting ready
 
 1. Clone this repository.
 
     ```sh
-    git clone https://github.com/vrtmrz/obsidian-livesync
-    cd obsidian-livesync
+    git clone https://github.com/politsin/RuSync
+    cd rusync
     npm ci
     ```
 
@@ -23,7 +23,7 @@ Self-hosted LiveSync owns its multilingual catalogue. Commonlib supplies only th
     npm run i18n:bake
     ```
 
-3. Build the plug-in in development mode, install it in the test Vault, and run Self-hosted LiveSync.
+3. Build the plug-in in development mode, install it in the test Vault, and run RuSync.
 4. Review any `missing-translation-yyyy-mm-dd.jsonl` file written below `.obsidian/ls-debug`, and add the required translations to the YAML catalogue.
 5. Bake and build again, then confirm the displayed text and placeholder substitution in the relevant workflow.
 

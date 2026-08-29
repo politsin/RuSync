@@ -1,4 +1,4 @@
-# Caddy config for Self-hosted LiveSync CouchDB
+# Caddy config for RuSync CouchDB
 # =============================================================================
 # IMPORTANT: CouchDB handles CORS itself.
 # Do NOT add CORS headers here — they will conflict with CouchDB's own headers.

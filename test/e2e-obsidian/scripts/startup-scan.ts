@@ -84,7 +84,7 @@ async function main(): Promise<void> {
             localStorageEntries: createE2eObsidianDeviceLocalState(vault.name),
         });
         const initialReadiness = await waitForLiveSyncCoreReady(cli.binary, session.cliEnv);
-        assertEqual(initialReadiness.configured, true, "Self-hosted LiveSync did not start configured.");
+        assertEqual(initialReadiness.configured, true, "RuSync did not start configured.");
         await prepareRemote(cli.binary, session.cliEnv);
         await session.app.stop();
         session = undefined;
@@ -98,7 +98,7 @@ async function main(): Promise<void> {
             startupGraceMs: Number(process.env.E2E_OBSIDIAN_STARTUP_GRACE_MS ?? 1000),
         });
         const restartedReadiness = await waitForLiveSyncCoreReady(cli.binary, session.cliEnv);
-        assertEqual(restartedReadiness.configured, true, "Self-hosted LiveSync lost its configuration on restart.");
+        assertEqual(restartedReadiness.configured, true, "RuSync lost its configuration on restart.");
 
         const localEntry = await waitForLocalDatabaseEntry(cli.binary, session.cliEnv, notePath);
         await pushLocalChanges(cli.binary, session.cliEnv);

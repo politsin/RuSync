@@ -21,7 +21,7 @@ export function paneQuickSetup(
 
         new Setting(panelEl)
             .setName($msg("Rerun Onboarding Wizard"))
-            .setDesc($msg("Rerun the onboarding wizard to set up Self-hosted LiveSync again."))
+            .setDesc($msg("Rerun the onboarding wizard to set up RuSync again."))
             .addButton((button) => {
                 button.setButtonText($msg("Rerun Wizard")).onClick(async () => {
                     await this.rerunOnboardingWizard();

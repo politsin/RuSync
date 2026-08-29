@@ -94,9 +94,9 @@ return _id;
 - Why obfuscate the path?
   - E2EE only encrypts the content of the file, not metadata. Hence, E2EE alone is not enough to protect the vault completely. The path is also part of the metadata, so it should be obfuscated. This is a trade-off between security and performance. However, if you title a note with sensitive information, you should obfuscate the path.
 - What is `f:`?
-  - It is a prefix to indicate that the path is obfuscated. It is used to distinguish between normal paths and obfuscated paths. Due to file enumeration, Self-hosted LiveSync should scan the files to find the metadata, excluding chunks and other information.
+  - It is a prefix to indicate that the path is obfuscated. It is used to distinguish between normal paths and obfuscated paths. Due to file enumeration, RuSync should scan the files to find the metadata, excluding chunks and other information.
   - Why does an unobfuscated path not start with `f:`?
-  - For compatibility. Self-hosted LiveSync, by its nature, must also be able to handle files created with newer versions as far as possible.
+  - For compatibility. RuSync, by its nature, must also be able to handle files created with newer versions as far as possible.
 
 ### Chunk Design
 

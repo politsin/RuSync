@@ -10,14 +10,14 @@ please ensure the engine's terms of service are compatible with our project's li
 Your diligence in this matter helps maintain compliance and avoid potential licensing issues.
 Thank you for your consideration.
 
-Usually, our projects (Self-hosted LiveSync and its families) are licensed under MIT License.
+Usually, our projects (RuSync and its families) are licensed under MIT License.
 To see details, please refer to the LICENSES file on each repository.
 
 ## How to internationalise untranslated items?
 1. Change the message literal to use `$msg`
    "Could not parse YAML" -> $msg('anyKey')
 2. Create `ls-debug` folder under the `.obsidian` folder of your vault.
-3. Run Self-hosted LiveSync in dev mode (npm run dev).
+3. Run RuSync in dev mode (npm run dev).
 4. You will get the `missing-translation-YYYY-MM-DD.jsonl` under `ls-debug`. Please copy and paste inside `allMessages` and write the translations.
 5. Send me the PR!
 */

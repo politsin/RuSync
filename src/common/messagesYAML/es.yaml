@@ -195,9 +195,8 @@ Delete: Eliminar
 Delete all customization sync data: Eliminar todos los datos de sincronización de personalización
 Delete all data on the remote server.: Eliminar todos los datos del servidor remoto.
 Delete All of: Eliminar todo de
-Delete local database to reset or uninstall Self-hosted LiveSync:
-  Eliminar la base de datos local para restablecer o desinstalar Self-hosted
-  LiveSync
+Delete local database to reset or uninstall RuSync:
+  Eliminar la base de datos local para restablecer o desinstalar RuSync
 Delete old metadata of deleted files on start-up: Borrar metadatos viejos al iniciar
 Delete Remote Configuration: Eliminar configuración remota
 Delete remote configuration '{name}'?: ¿Eliminar la configuración remota '{name}'?
@@ -223,7 +222,7 @@ Diagnostic RTCPeerConnection is enabled: El RTCPeerConnection de diagnóstico es
 dialog:
   yourLanguageAvailable:
     _value: >-
-      Self-hosted LiveSync tenía traducciones para tu idioma, así que se ha
+      RuSync tenía traducciones para tu idioma, así que se ha
       activado el ajuste %{Display language}.
 
 
@@ -287,7 +286,7 @@ Doctor:
       ${note}
 
       ¿Ajustarlo al valor ideal?
-    Title: Doctor de configuración de Self-hosted LiveSync
+    Title: Doctor de configuración de RuSync
     TitleAlmostDone: ¡Casi hemos terminado!
     TitleFix: Corregir el problema ${current}/${total}
   Level:
@@ -510,8 +509,8 @@ In most cases, you should stick with the default algorithm (${algorithm}), This 
   En la mayoría de los casos deberías mantener el algoritmo predeterminado
   (${algorithm}). Este ajuste solo es necesario si ya tienes un Vault cifrado en
   otro formato.
-In this scenario, Self-hosted LiveSync will recreate metadata for every file and deliberately generate conflicts. Where the file content is identical, these conflicts will be resolved automatically.:
-  En este caso, Self-hosted LiveSync recreará los metadatos de todos los
+In this scenario, RuSync will recreate metadata for every file and deliberately generate conflicts. Where the file content is identical, these conflicts will be resolved automatically.:
+  En este caso, RuSync recreará los metadatos de todos los
   archivos y generará conflictos a propósito. Cuando el contenido del archivo
   sea idéntico, esos conflictos se resolverán automáticamente.
 "Incoming:": "Entrantes:"
@@ -588,7 +587,7 @@ liveSyncReplicator:
   markDeviceResolved: Marcar este dispositivo como 'resuelto'.
   oneShotSyncBegin: Inicio de sincronización OneShot... (${syncMode})
   remoteDbCorrupted: La base de datos remota es más nueva o está dañada, asegúrese
-    de tener la última versión de self-hosted-livesync instalada
+    de tener la última versión de rusync instalada
   remoteDbCreatedOrConnected: Base de datos remota creada o conectada
   remoteDbDestroyed: Base de datos remota destruida
   remoteDbDestroyError: "Algo ocurrió al destruir base de datos remota:"
@@ -616,7 +615,7 @@ logPane:
   autoScroll: Autodesplazamiento
   logWindowOpened: Ventana de registro abierta
   pause: Pausar
-  title: Registro de Self-hosted LiveSync
+  title: Registro de RuSync
   wrap: Ajustar
 Lower (${local} < ${remote}): Inferior (${local} < ${remote})
 Maintenance Commands: Comandos de mantenimiento
@@ -651,7 +650,7 @@ moduleCheckRemoteSize:
     > [!MORE]-
     > Si lo has estado utilizando durante muchos años, puede haber fragmentos no referenciados - es decir, basura - acumulándose en la base de datos. Por lo tanto, recomendamos reconstruir todo. Probablemente se volverá mucho más pequeño.
     >
-    > Si el volumen de tu bóveda simplemente está aumentando, es mejor reconstruir todo después de organizar los archivos. Self-hosted LiveSync no elimina los datos reales incluso si los eliminas para acelerar el proceso. Está aproximadamente [documentado](https://github.com/vrtmrz/obsidian-livesync/blob/main/docs/tech_info.md).
+    > Si el volumen de tu bóveda simplemente está aumentando, es mejor reconstruir todo después de organizar los archivos. RuSync no elimina los datos reales incluso si los eliminas para acelerar el proceso. Está aproximadamente [documentado](https://github.com/politsin/RuSync/blob/main/docs/tech_info.md).
     >
     > Si no te importa el aumento, puedes aumentar el límite de notificación en 100 MB. Este es el caso si lo estás ejecutando en tu propio servidor. Sin embargo, es mejor reconstruir todo de vez en cuando.
     >
@@ -707,7 +706,7 @@ moduleLiveSyncMain:
   logAdditionalSafetyScan: Escanéo de seguridad adicional...
   logLoadingPlugin: Cargando complemento...
   logPluginInitCancelled: La inicialización del complemento fue cancelada por un módulo
-  logPluginVersion: Self-hosted LiveSync v${manifestVersion} ${packageVersion}
+  logPluginVersion: RuSync v${manifestVersion} ${packageVersion}
   logReadChangelog: LiveSync se ha actualizado, ¡por favor lee el registro de cambios!
   logSafetyScanCompleted: Escanéo de seguridad adicional completado
   logSafetyScanFailed: El escaneo de seguridad adicional ha fallado en un módulo
@@ -717,7 +716,7 @@ moduleLiveSyncMain:
     Asegúrate de que todos los dispositivos estén actualizados antes de
     habilitar.
   msgScramEnabled: >
-    Self-hosted LiveSync se ha configurado para ignorar algunos eventos. ¿Es
+    RuSync se ha configurado para ignorar algunos eventos. ¿Es
     esto correcto?
 
 
@@ -760,10 +759,10 @@ moduleMigration:
   logMigrationFailed: La migración falló o se canceló de ${old} a ${current}
   logRedflag2CreationFail: Error al crear redflag2
   logRemoteTweakUnavailable: No se pudieron obtener los valores de ajuste remoto
-  logSetupCancelled: La configuración ha sido cancelada, ¡Self-hosted LiveSync
+  logSetupCancelled: La configuración ha sido cancelada, ¡RuSync
     está esperando tu configuración!
   msgFetchRemoteAgain: >-
-    Como ya sabrás, Self-hosted LiveSync ha cambiado su comportamiento
+    Como ya sabrás, RuSync ha cambiado su comportamiento
     predeterminado y la estructura de la base de datos.
 
 
@@ -782,7 +781,7 @@ moduleMigration:
     ___Nota2: Los fragmentos son completamente inmutables, solo podemos obtener
     los metadatos y diferencias.___
   msgSinceV02321: >-
-    Desde la versión v0.23.21, Self-hosted LiveSync ha cambiado el
+    Desde la versión v0.23.21, RuSync ha cambiado el
     comportamiento predeterminado y la estructura de la base de datos. Se han
     realizado los siguientes cambios:
 
@@ -876,7 +875,7 @@ moduleMigration:
       poco seguras, **corres el riesgo de exponer datos sensibles**.
 
 
-      Nota: actualiza Self-hosted LiveSync a la v0.25.6 o superior en todos tus
+      Nota: actualiza RuSync a la v0.25.6 o superior en todos tus
       dispositivos y haz una copia de seguridad fiable de tu vault.
 
       Nota 2: reconstruir todo y obtener los datos consume algo de tiempo y de
@@ -1174,9 +1173,9 @@ Replicator:
     VersionUpFlash: Se ha detectado una actualización. Abre el diálogo de ajustes y
       consulta el registro de cambios. La replicación se ha cancelado.
 Rerun Onboarding Wizard: Volver a ejecutar el asistente de configuración inicial
-Rerun the onboarding wizard to set up Self-hosted LiveSync again.:
+Rerun the onboarding wizard to set up RuSync again.:
   Vuelve a ejecutar el asistente de configuración inicial para configurar
-  Self-hosted LiveSync de nuevo.
+  RuSync de nuevo.
 Rerun Wizard: Volver a ejecutar el asistente
 Reset and Resume Synchronisation: Restablecer y reanudar la sincronización
 Reset notification threshold and check the remote database usage: Restablecer el umbral de aviso y comprobar el uso de la base de datos remota
@@ -1372,7 +1371,7 @@ Setup:
   optionYesFetchAgain: Sí, obtener nuevamente
   titleCaseSensitivity: Sensibilidad a mayúsculas
   titleRecommendSetupUri: Recomendación de uso de URI de configuración
-  titleWelcome: Bienvenido a Self-hosted LiveSync
+  titleWelcome: Bienvenido a RuSync
   Apply:
     Buttons:
       ApplyAndFetch: Aplicar y obtener
@@ -1403,7 +1402,7 @@ Setup:
       No: No, usar los ajustes del URI tal cual
       Yes: Sí, consultar al doctor
     Message: >-
-      Self-hosted LiveSync tiene ya una historia larga y algunos ajustes
+      RuSync tiene ya una historia larga y algunos ajustes
       recomendados han cambiado.
 
 
@@ -1478,8 +1477,8 @@ obsidianLiveSyncSettingTab:
   btnUse: Usar
   buttonFetch: Obtener
   defaultLanguage: Predeterminado
-  descConnectSetupURI: Este es el método recomendado para configurar Self-hosted
-    LiveSync con una URI de configuración.
+  descConnectSetupURI: Este es el método recomendado para configurar RuSync con
+    una URI de configuración.
   descCopySetupURI: ¡Perfecto para configurar un nuevo dispositivo!
   descEnableLiveSync: Solo habilita esto después de configurar cualquiera de las
     dos opciones anteriores o completar toda la configuración manualmente.
@@ -2248,7 +2247,7 @@ Ui:
         revisiones que no sean la última. Requiere la misma cantidad de espacio
         libre en el servidor remoto y en el cliente local.
       DeleteLocalDatabase: Eliminar la base de datos local para restablecer o
-        desinstalar Self-hosted LiveSync
+        desinstalar RuSync
       EmergencyRestart: Reinicio de emergencia
       EmergencyRestartDesc: Desactiva toda la sincronización y reinicia.
       FreshStartWipe: Borrado para empezar de cero
@@ -2414,7 +2413,7 @@ Ui:
     Setup:
       RerunWizardButton: Volver a ejecutar el asistente
       RerunWizardDesc: Vuelve a ejecutar el asistente de configuración inicial para
-        configurar Self-hosted LiveSync de nuevo.
+        configurar RuSync de nuevo.
       RerunWizardName: Volver a ejecutar el asistente de configuración inicial
     SyncSettings:
       Fetch: Obtener
@@ -2439,7 +2438,7 @@ Ui:
       ProceedExisting: Sí, quiero añadir este dispositivo a mi sincronización existente
       ProceedNew: Sí, quiero configurar una sincronización nueva
       Question: Primero, selecciona la opción que mejor describa tu situación actual.
-      Title: Bienvenido a Self-hosted LiveSync
+      Title: Bienvenido a RuSync
     Invitation:
       Start: Comenzar la configuración
     OutroAskUserMode:
@@ -2597,7 +2596,7 @@ Write credentials in the file: Escribir credenciales en archivo
 Write logs into the file: Escribir logs en archivo
 xxhash32 (Fast but less collision resistance): xxhash32 (rápido, pero con menor resistencia a colisiones)
 xxhash64 (Fastest): xxhash64 (el más rápido)
-"Welcome to Self-hosted LiveSync": "Bienvenido a Self-hosted LiveSync"
+"Welcome to RuSync": "Bienvenido a RuSync"
 "We will now guide you through a few questions to simplify the synchronisation setup.":
   "Ahora le guiaremos con unas pocas preguntas para simplificar la configuración
   de la sincronización。"

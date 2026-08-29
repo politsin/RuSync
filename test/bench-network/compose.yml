@@ -252,7 +252,7 @@ services:
       BENCH_SPLIT_WORK_ROOT: /p2p-work
       BENCH_SPLIT_RESULT_ROOT: /workspace/src/apps/cli/testdeno/bench-results
       BENCH_RELAY: ws://nostr-relay:7777/
-      BENCH_APP_ID: ${BENCH_APP_ID:-self-hosted-livesync-cli-benchmark}
+      BENCH_APP_ID: ${BENCH_APP_ID:-rusync-cli-benchmark}
       BENCH_ROOM_ID: ${BENCH_ROOM_ID:-bench-split-room}
       BENCH_PASSPHRASE: ${BENCH_PASSPHRASE:-bench-split-passphrase}
       BENCH_TURN_SERVERS: ${BENCH_TURN_SERVERS:-}
@@ -298,7 +298,7 @@ services:
       BENCH_SPLIT_WORK_ROOT: /p2p-work
       BENCH_SPLIT_RESULT_ROOT: /workspace/src/apps/cli/testdeno/bench-results
       BENCH_RELAY: ws://nostr-relay:7777/
-      BENCH_APP_ID: ${BENCH_APP_ID:-self-hosted-livesync-cli-benchmark}
+      BENCH_APP_ID: ${BENCH_APP_ID:-rusync-cli-benchmark}
       BENCH_ROOM_ID: ${BENCH_ROOM_ID:-bench-split-room}
       BENCH_PASSPHRASE: ${BENCH_PASSPHRASE:-bench-split-passphrase}
       BENCH_TURN_SERVERS: ${BENCH_TURN_SERVERS:-}

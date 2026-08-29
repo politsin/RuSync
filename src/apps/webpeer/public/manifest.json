@@ -1,5 +1,5 @@
 {
-    "name": "WebPeer - Pseudo client for Self-hosted LiveSync Peer-to-Peer Replication",
+    "name": "WebPeer - Pseudo client for RuSync Peer-to-Peer Replication",
     "short_name": "WepPeer",
     "description": "A web-based pseudo peer-to-peer replication client using as like  server for background sync.",
     "start_url": "./",

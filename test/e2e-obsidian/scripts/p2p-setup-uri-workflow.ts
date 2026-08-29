@@ -84,7 +84,7 @@ async function generateBootstrapSetupURI(relay: string): Promise<SetupArtifact> 
         p2p_relays: relay,
         p2p_room_id: `real-obsidian-${randomBytes(12).toString("hex")}`,
         p2p_passphrase: randomBytes(24).toString("base64url"),
-        p2p_app_id: "self-hosted-livesync-real-obsidian-e2e",
+        p2p_app_id: "rusync-real-obsidian-e2e",
         p2p_auto_start: "false",
         p2p_auto_broadcast: "false",
         passphrase: randomBytes(24).toString("base64url"),
@@ -201,7 +201,7 @@ async function readReflectionDiagnostics(
         [
             "(async()=>{",
             `const path=${JSON.stringify(path)};`,
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             "const settings=core.services.setting.currentSettings();",
             "const entry=await core.localDatabase.getDBEntry(path,undefined,false,true).catch(()=>false);",
             "const chunks=entry&&Array.isArray(entry.children)?await Promise.all(entry.children.map(async(id)=>{",
@@ -240,7 +240,7 @@ async function executeCommand(port: number, commandId: string): Promise<void> {
 }
 
 async function openP2PStatus(port: number, filename: string): Promise<string> {
-    await executeCommand(port, "obsidian-livesync:open-p2p-server-status");
+    await executeCommand(port, "rusync:open-p2p-server-status");
     await withObsidianPage(port, async (page) => {
         const heading = page.getByRole("heading", { name: "Signalling Status" }).last();
         await heading.waitFor({ state: "visible", timeout: uiTimeoutMs });
@@ -273,7 +273,7 @@ async function openP2PStatus(port: number, filename: string): Promise<string> {
 }
 
 async function reconnectP2PStatus(port: number): Promise<void> {
-    await executeCommand(port, "obsidian-livesync:open-p2p-server-status");
+    await executeCommand(port, "rusync:open-p2p-server-status");
     await withObsidianPage(port, async (page) => {
         const heading = page.getByRole("heading", { name: "Signalling Status" }).last();
         await heading.waitFor({ state: "visible", timeout: uiTimeoutMs });

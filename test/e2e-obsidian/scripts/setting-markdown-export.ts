@@ -39,7 +39,7 @@ async function configureSettingMarkdown(cliBinary: string, env: NodeJS.ProcessEn
         cliBinary,
         [
             "(async()=>{",
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             "await core.services.setting.applyExternalSettings({",
             `settingSyncFile:${JSON.stringify(settingPath)},`,
             "writeCredentialsForSettingSync:false,",

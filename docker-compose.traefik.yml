@@ -1,10 +1,10 @@
 # For details and other explanations about this file refer to:
-# https://github.com/vrtmrz/obsidian-livesync/blob/main/docs/setup_own_server.md#traefik
+# https://github.com/politsin/RuSync/blob/main/docs/setup_own_server.md#traefik
 
 services:
   couchdb:
     image: couchdb:latest
-    container_name: obsidian-livesync
+    container_name: rusync
     user: 1000:1000
     environment:
       - COUCHDB_USER=username
@@ -22,16 +22,16 @@ services:
       - "traefik.enable=true"
       # The Traefik Network
       - "traefik.docker.network=proxy"
-      # Don't forget to replace 'obsidian-livesync.example.org' with your own domain
-      - "traefik.http.routers.obsidian-livesync.rule=Host(`obsidian-livesync.example.org`)"
+      # Don't forget to replace 'rusync.example.org' with your own domain
+      - "traefik.http.routers.rusync.rule=Host(`rusync.example.org`)"
       # The 'websecure' entryPoint is basically your HTTPS entrypoint. Check the next code snippet if you are encountering problems only; you probably have a working traefik configuration if this is not your first container you are reverse proxying.
-      - "traefik.http.routers.obsidian-livesync.entrypoints=websecure"
-      - "traefik.http.routers.obsidian-livesync.service=obsidian-livesync"
-      - "traefik.http.services.obsidian-livesync.loadbalancer.server.port=5984"
-      - "traefik.http.routers.obsidian-livesync.tls=true"
+      - "traefik.http.routers.rusync.entrypoints=websecure"
+      - "traefik.http.routers.rusync.service=rusync"
+      - "traefik.http.services.rusync.loadbalancer.server.port=5984"
+      - "traefik.http.routers.rusync.tls=true"
       # Replace the string 'letsencrypt' with your own certificate resolver
-      - "traefik.http.routers.obsidian-livesync.tls.certresolver=letsencrypt"
-      - "traefik.http.routers.obsidian-livesync.middlewares=obsidiancors"
+      - "traefik.http.routers.rusync.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.rusync.middlewares=obsidiancors"
       # The part needed for CORS to work on Traefik 2.x starts here
       - "traefik.http.middlewares.obsidiancors.headers.accesscontrolallowmethods=GET,PUT,POST,HEAD,DELETE"
       - "traefik.http.middlewares.obsidiancors.headers.accesscontrolallowheaders=accept,authorization,content-type,origin,referer"

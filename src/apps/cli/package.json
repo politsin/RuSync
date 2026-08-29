@@ -1,5 +1,5 @@
 {
-    "name": "self-hosted-livesync-cli",
+    "name": "rusync-cli",
     "private": true,
     "version": "1.0.21-cli",
     "main": "dist/index.cjs",

@@ -96,9 +96,9 @@ export async function askSimpleFetchMode(
 Firstly, how shall we handle the data retrieved from this remote source?
 
 - **${SIMPLE_FETCH_STAGE1_NEWER_WINS}**: Compares the modified time of files and takes the newer one.
-  If you have been using Self-hosted LiveSync and have made changes on multiple devices, this option may be suitable for you as it tries to merge changes based on modified time.
+  If you have been using RuSync and have made changes on multiple devices, this option may be suitable for you as it tries to merge changes based on modified time.
 - **${SIMPLE_FETCH_STAGE1_REMOTE_WINS}**: Remote data is the source of truth.
-  If you are new to using Self-hosted LiveSync. This option may be easiest to understand and get started with.
+  If you are new to using RuSync. This option may be easiest to understand and get started with.
   It will overwrite all your local files with the remote data, so please make sure you have a backup if there is any important data in your vault.
 - **${SIMPLE_FETCH_STAGE1_DETAILED}**: Opens the detailed setup wizard.
   If you want to have more control over the synchronisation process, or want to review the changes before applying, you can choose this option to use the detailed flow.

@@ -1,6 +1,6 @@
 # Review Harness
 
-The Review Harness is an opt-in, real-device review tool for Self-hosted LiveSync maintainers. It replaces the disabled legacy Test Pane with fixed, auditable scenarios, a device-local one-shot continuation, and a Markdown report which can be pasted into a pull request.
+The Review Harness is an opt-in, real-device review tool for RuSync maintainers. It replaces the disabled legacy Test Pane with fixed, auditable scenarios, a device-local one-shot continuation, and a Markdown report which can be pasted into a pull request.
 
 It supplies supporting evidence rather than a release gate by itself. Unit, integration, Compose, CLI E2E, and real-Obsidian E2E remain authoritative for the boundaries they own.
 
@@ -9,7 +9,7 @@ It supplies supporting evidence rather than a release gate by itself. Unit, inte
 1. Use a dedicated test Vault.
 2. Enable **Power users → Enable Developers' Debug Tools**.
 3. Restart Obsidian.
-4. Run **Self-hosted LiveSync: Open review harness** from the command palette.
+4. Run **RuSync: Open review harness** from the command palette.
 
 The command and view are registered only when developer tools are enabled. Disabling the setting and restarting removes the entry point from an ordinary user session.
 
@@ -28,7 +28,7 @@ These observations deliberately do not repeat stronger automated workflows. They
 
 ### Vault fixture boundary
 
-The Vault scenario owns only `__self-hosted-livesync-review-harness__`. It refuses to run if that path already exists, so it cannot assume ownership of a user's existing file or folder. Once it creates the root, it removes the complete owned tree from a `finally` block whether the round trip passes or fails.
+The Vault scenario owns only `__rusync-review-harness__`. It refuses to run if that path already exists, so it cannot assume ownership of a user's existing file or folder. Once it creates the root, it removes the complete owned tree from a `finally` block whether the round trip passes or fails.
 
 The Harness accepts no path, command, code, remote configuration, or credential through plug-in data or its continuation state. New write scenarios must use a distinct fixed fixture root, describe their side effects in the interface, require confirmation, and clean up in `finally`.
 

@@ -1,6 +1,6 @@
-# Self-hosted LiveSync
+# RuSync
 
-Self-hosted LiveSync (自搭建在线同步) 是一个社区实现的在线同步插件。  
+RuSync (自搭建在线同步) 是一个社区实现的在线同步插件。  
 它利用诸如CouchDB或对象存储系统（例如MinIO、S3、R2等）等强大的服务器解决方案，以确保数据同步的可靠性。。兼容所有支持 Obsidian 的平台。
 
 此外，它现在支持使用WebRTC进行点对点同步（实验性功能），使您无需依赖服务器即可直接在设备之间同步笔记。
@@ -96,7 +96,7 @@ Self-hosted LiveSync (自搭建在线同步) 是一个社区实现的在线同�
 
 ## 致谢
 本项目得以持续顺利推进，离不开以下各方的贡献：  
-- 众多[贡献者](https://github.com/vrtmrz/obsidian-livesync/graphs/contributors)。  
+- 众多[贡献者](https://github.com/politsin/RuSync/graphs/contributors)。  
 - 许多[GitHub 赞助人](https://github.com/sponsors/vrtmrz#sponsors)。  
 - JetBrains 社区计划／对开源项目的支持。<img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.png" alt="JetBrains logo" height="24">  
 

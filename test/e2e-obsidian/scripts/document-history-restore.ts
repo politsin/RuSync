@@ -98,7 +98,7 @@ async function createSoftDeletion(cliBinary: string, env: NodeJS.ProcessEnv): Pr
             `const path=${JSON.stringify(notePath)};`,
             `const expectedContent=${JSON.stringify(noteContent)};`,
             "const timeoutMs=30000;",
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             "const file=app.vault.getAbstractFileByPath(path);",
             "if(!file) throw new Error(`Recovery fixture is missing from the Vault: ${path}`);",
             "const id=await core.services.path.path2id(path);",
@@ -140,7 +140,7 @@ async function openHistoryPicker(cliBinary: string, env: NodeJS.ProcessEnv): Pro
             "(async()=>{",
             "document.querySelectorAll('.modal-close-button').forEach((button)=>button.click());",
             "await new Promise((resolve)=>setTimeout(resolve,300));",
-            "await app.commands.executeCommandById('obsidian-livesync:livesync-filehistory');",
+            "await app.commands.executeCommandById('rusync:livesync-filehistory');",
             "await new Promise((resolve)=>setTimeout(resolve,500));",
             "return JSON.stringify({opened:!!document.querySelector('.prompt-input')});",
             "})()",
@@ -157,7 +157,7 @@ async function waitForVaultRestore(cliBinary: string, env: NodeJS.ProcessEnv): P
             `const path=${JSON.stringify(notePath)};`,
             `const expectedContent=${JSON.stringify(noteContent)};`,
             "const timeoutMs=30000;",
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             "const id=await core.services.path.path2id(path);",
             "const deadline=Date.now()+timeoutMs;",
             "const sleep=(ms)=>new Promise((resolve)=>setTimeout(resolve,ms));",
@@ -198,7 +198,7 @@ async function openActiveFileHistory(cliBinary: string, env: NodeJS.ProcessEnv):
             "if(!file) throw new Error(`Restored file is missing before reopening history: ${path}`);",
             "await app.workspace.getLeaf(false).openFile(file);",
             "await new Promise((resolve)=>setTimeout(resolve,300));",
-            "await app.commands.executeCommandById('obsidian-livesync:livesync-history');",
+            "await app.commands.executeCommandById('rusync:livesync-history');",
             "await new Promise((resolve)=>setTimeout(resolve,500));",
             "return JSON.stringify({opened:!!document.querySelector('.modal-container .modal-title')});",
             "})()",
@@ -224,7 +224,7 @@ async function main(): Promise<void> {
     let session: ObsidianLiveSyncSession | undefined;
     const screenshotDir =
         process.env.E2E_OBSIDIAN_HISTORY_RESTORE_SCREENSHOT_DIR ??
-        join(process.env.E2E_OBSIDIAN_DIAGNOSTICS_DIR ?? "/tmp/obsidian-livesync-e2e", "document-history-restore");
+        join(process.env.E2E_OBSIDIAN_DIAGNOSTICS_DIR ?? "/tmp/rusync-e2e", "document-history-restore");
     const reportPath =
         process.env.E2E_OBSIDIAN_HISTORY_RESTORE_REPORT ?? join(screenshotDir, "document-history-restore.json");
 

@@ -1,7 +1,7 @@
 ---
 date: 2026-08-25
 commonlib-version: "0.1.19"
-self-hosted-livesync-version: "1.0.20"
+rusync-version: "1.0.20"
 status: accepted
 ---
 
@@ -35,7 +35,7 @@ only after the settings-loaded lifecycle. On start-up this ordering could emit
 a spurious missing-replicator warning and produce a landing-page order from
 transient state.
 
-Self-hosted LiveSync still supports Obsidian versions before 1.13 through its
+RuSync still supports Obsidian versions before 1.13 through its
 `minAppVersion` of 1.7.2. It must therefore retain an imperative `display()`
 fallback unless the minimum supported Obsidian version is raised separately.
 Maintaining an unrelated declarative definition and imperative implementation

@@ -400,7 +400,7 @@ export function paneMaintenance(
             .addOnUpdate(visibleOnly(() => this.isConfiguredAs("isConfigured", true)));
 
         new Setting(paneEl)
-            .setName("Delete local database to reset or uninstall Self-hosted LiveSync")
+            .setName("Delete local database to reset or uninstall RuSync")
             .addButton((button) =>
                 setButtonDestructiveState(button)
                     .setButtonText("Delete")

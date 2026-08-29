@@ -40,7 +40,7 @@ export async function captureObsidianPage(
     filename: string,
     assertReady: (page: Page) => Promise<void>
 ): Promise<string> {
-    const outputDirectory = process.env.E2E_OBSIDIAN_DIAGNOSTICS_DIR ?? "/tmp/obsidian-livesync-e2e";
+    const outputDirectory = process.env.E2E_OBSIDIAN_DIAGNOSTICS_DIR ?? "/tmp/rusync-e2e";
     const screenshotPath = join(outputDirectory, filename);
     await mkdir(dirname(screenshotPath), { recursive: true });
 
@@ -91,7 +91,7 @@ function escapeRegExp(value: string): string {
 }
 
 /**
- * Open the Self-hosted LiveSync settings tab through the renderer selected by
+ * Open the RuSync settings tab through the renderer selected by
  * the running Obsidian version.
  *
  * Obsidian 1.13 may open settings in a separate window. The returned navigator
@@ -115,7 +115,7 @@ export async function openLiveSyncSettings(page: Page, timeoutMs = 10_000): Prom
         const setting = host.app?.setting;
         if (setting === undefined) throw new Error("Obsidian settings are unavailable");
         setting.open();
-        setting.openTabById("obsidian-livesync");
+        setting.openTabById("rusync");
     });
 
     const deadline = Date.now() + timeoutMs;
@@ -272,7 +272,7 @@ export async function captureObsidianElement(
     filename: string,
     resolveElement: (page: Page) => Locator | Promise<Locator>
 ): Promise<string> {
-    const outputDirectory = process.env.E2E_OBSIDIAN_DIAGNOSTICS_DIR ?? "/tmp/obsidian-livesync-e2e";
+    const outputDirectory = process.env.E2E_OBSIDIAN_DIAGNOSTICS_DIR ?? "/tmp/rusync-e2e";
     const screenshotPath = join(outputDirectory, filename);
     await mkdir(dirname(screenshotPath), { recursive: true });
 

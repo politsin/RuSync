@@ -3,10 +3,10 @@ import type { CompatibilityPause } from "@/common/databaseCompatibility.ts";
 import { REVIEW_HARNESS_STATE_KEY } from "@/features/ReviewHarness/reviewHarnessController.ts";
 import { useReviewHarness } from "./useReviewHarness.ts";
 
-const VIEW_TYPE_REVIEW_HARNESS = "self-hosted-livesync-review-harness";
+const VIEW_TYPE_REVIEW_HARNESS = "rusync-review-harness";
 
 vi.mock("@/features/ReviewHarness/ReviewHarnessView", () => ({
-    VIEW_TYPE_REVIEW_HARNESS: "self-hosted-livesync-review-harness",
+    VIEW_TYPE_REVIEW_HARNESS: "rusync-review-harness",
     ReviewHarnessView: class {},
 }));
 

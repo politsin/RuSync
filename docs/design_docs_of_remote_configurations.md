@@ -9,7 +9,7 @@
 
 ## Motivation
 
-Historically, Self-hosted LiveSync stored one effective remote configuration directly in the main settings. This was simple, but it had several limitations.
+Historically, RuSync stored one effective remote configuration directly in the main settings. This was simple, but it had several limitations.
 
 - We could only keep one CouchDB, one bucket, or one Peer-to-Peer target as the effective configuration at a time.
 - Switching between same-type-remotes required manually rewriting the active settings.

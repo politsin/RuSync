@@ -100,7 +100,7 @@ async function readRemoteActivitySnapshotFromPage(page: Page): Promise<RemoteAct
         },
         {
             operationIcon: REMOTE_OPERATION_ACTIVITY_ICON,
-            pluginId: "obsidian-livesync",
+            pluginId: "rusync",
             requestIcon: REMOTE_REQUEST_ACTIVITY_ICON,
             stateKey: REMOTE_ACTIVITY_E2E_STATE_KEY,
         }
@@ -197,7 +197,7 @@ export async function waitForRemoteActivityState(
                     expectedStates: REMOTE_ACTIVITY_EXPECTED_STATE,
                     gateKinds: REMOTE_ACTIVITY_GATE_KIND,
                     operationIcon: REMOTE_OPERATION_ACTIVITY_ICON,
-                    pluginId: "obsidian-livesync",
+                    pluginId: "rusync",
                     requestIcon: REMOTE_REQUEST_ACTIVITY_ICON,
                     stateKey: REMOTE_ACTIVITY_E2E_STATE_KEY,
                 },
@@ -221,7 +221,7 @@ export async function captureRemoteActivityDiagnostics(
     port: number,
     label: string
 ): Promise<RemoteActivityDiagnostics> {
-    const outputDirectory = process.env.E2E_OBSIDIAN_DIAGNOSTICS_DIR ?? "/tmp/obsidian-livesync-e2e";
+    const outputDirectory = process.env.E2E_OBSIDIAN_DIAGNOSTICS_DIR ?? "/tmp/rusync-e2e";
     await mkdir(outputDirectory, { recursive: true });
     const safeLabel = label.replace(/[^a-z0-9_-]+/gi, "-").replace(/^-+|-+$/g, "") || "remote-activity";
     const prefix = `${safeLabel}-${new Date().toISOString().replace(/[:.]/g, "-")}`;

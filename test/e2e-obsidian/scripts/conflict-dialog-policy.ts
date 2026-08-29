@@ -58,7 +58,7 @@ async function createManualConflict(
             `const path=${JSON.stringify(path)};`,
             `const baseRev=${JSON.stringify(baseRev)};`,
             `const contents=${JSON.stringify(contents)};`,
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             "const id=await core.services.path.path2id(path);",
             "for(const [index,content] of contents.entries()){",
             "  const blob=new Blob([content],{type:'text/plain'});",
@@ -87,7 +87,7 @@ async function readConflictFixture(cliBinary: string, env: NodeJS.ProcessEnv): P
         [
             "(async()=>{",
             `const path=${JSON.stringify(path)};`,
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             "const meta=await core.localDatabase.getDBEntryMeta(path,{conflicts:true,revs:true},true);",
             "if(!meta?._rev){",
             "  throw new Error(`Could not read the conflict fixture: ${path}`);",
@@ -129,7 +129,7 @@ async function requestConflictCheck(cliBinary: string, env: NodeJS.ProcessEnv, w
             "(async()=>{",
             `const path=${JSON.stringify(path)};`,
             `const waitForCompletion=${JSON.stringify(waitForCompletion)};`,
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             "await core.services.conflict.queueCheckFor(path);",
             "if(waitForCompletion){",
             "  await core.services.conflict.ensureAllProcessed();",
@@ -146,7 +146,7 @@ async function waitForConflictChecks(cliBinary: string, env: NodeJS.ProcessEnv):
         cliBinary,
         [
             "(async()=>{",
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             "await core.services.conflict.ensureAllProcessed();",
             "return JSON.stringify({ok:true});",
             "})()",
@@ -168,7 +168,7 @@ async function applyReplicatedConflictResolution(
             `const path=${JSON.stringify(path)};`,
             `const revisionToDelete=${JSON.stringify(revisionToDelete)};`,
             `const expectedConflictCount=${JSON.stringify(expectedConflictCount)};`,
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             "if(!(await core.fileHandler.deleteRevisionFromDB(path,revisionToDelete))){",
             "  throw new Error(`Could not apply the replicated conflict resolution: ${path} ${revisionToDelete}`);",
             "}",
@@ -205,7 +205,7 @@ async function main(): Promise<void> {
     }
     const cliBinary = cli.binary;
 
-    const vault = await createTemporaryVault("obsidian-livesync-conflict-dialog-");
+    const vault = await createTemporaryVault("rusync-conflict-dialog-");
     let session: ObsidianLiveSyncSession | undefined;
     try {
         session = await startObsidianLiveSyncSession({
@@ -397,7 +397,7 @@ async function main(): Promise<void> {
         const laterCommandExecuted = await withObsidianPage(session.remoteDebuggingPort, async (page) => {
             return await page.evaluate(
                 (commandId) => (globalThis as ObsidianTestGlobal).app?.commands?.executeCommandById(commandId) === true,
-                "obsidian-livesync:livesync-checkdoc-conflicted"
+                "rusync:livesync-checkdoc-conflicted"
             );
         });
         if (!laterCommandExecuted) {

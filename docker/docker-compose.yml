@@ -1,4 +1,4 @@
-# Self-hosted LiveSync — Docker Compose
+# RuSync — Docker Compose
 # =============================================================================
 #  PROFILES
 #  --------
@@ -22,7 +22,7 @@
 #    curl -u admin:yourpassword http://localhost:5984/_up
 # =============================================================================
 
-name: obsidian-livesync
+name: rusync
 
 services:
 

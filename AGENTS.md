@@ -40,7 +40,7 @@ Always adhere to the following stylistic and spelling rules:
 ## Technical & Architecture Rules
 
 1. **Database Structure**:
-   - Remember that Self-hosted LiveSync splits files into **Metadata** (file properties, size, paths) and **Chunks** (actual content). Do not store raw content in the metadata document directly.
+   - Remember that RuSync splits files into **Metadata** (file properties, size, paths) and **Chunks** (actual content). Do not store raw content in the metadata document directly.
 2. **Setup and Recovery**:
    - **Fast Setup (Simple Fetch)** is the preferred flow for initial replication on secondary devices. It utilises stream-based replication for high speed and delays local file reflection to suppress temporary synchronisation warnings.
    - **Flag files** (such as `redflag.md`, `redflag2.md`, and `redflag3.md`) at the root of the vault control the boot-up sequence and trigger automated fetch/rebuild tasks.

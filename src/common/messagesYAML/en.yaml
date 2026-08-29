@@ -187,7 +187,7 @@ Delete: Delete
 Delete all customization sync data: Delete all customization sync data
 Delete all data on the remote server.: Delete all data on the remote server.
 Delete All of: Delete All of
-Delete local database to reset or uninstall Self-hosted LiveSync: Delete local database to reset or uninstall Self-hosted LiveSync
+Delete local database to reset or uninstall RuSync: Delete local database to reset or uninstall RuSync
 Delete old metadata of deleted files on start-up: Delete old metadata of deleted files on start-up
 Delete Remote Configuration: Delete Remote Configuration
 Delete remote configuration '{name}'?: Delete remote configuration '{name}'?
@@ -212,7 +212,7 @@ Diagnostic RTCPeerConnection is enabled: Diagnostic RTCPeerConnection is enabled
 dialog:
     yourLanguageAvailable:
         _value: >-
-            Self-hosted LiveSync had translations for your language, so the %{Display
+            RuSync had translations for your language, so the %{Display
             language} setting was enabled.
 
 
@@ -282,7 +282,7 @@ Doctor:
             ${note}
 
             Fix this to the ideal value?
-        Title: Self-hosted LiveSync Config Doctor
+        Title: RuSync Config Doctor
         TitleAlmostDone: Almost done!
         TitleFix: Fix issue ${current}/${total}
     Level:
@@ -492,8 +492,8 @@ In most cases, you should stick with the default algorithm (${algorithm}), This 
     In most cases, you should stick with the default algorithm (${algorithm}),
     This setting is only required if you have an existing Vault encrypted in a
     different format.
-In this scenario, Self-hosted LiveSync will recreate metadata for every file and deliberately generate conflicts. Where the file content is identical, these conflicts will be resolved automatically.:
-    In this scenario, Self-hosted LiveSync will recreate metadata for every file
+In this scenario, RuSync will recreate metadata for every file and deliberately generate conflicts. Where the file content is identical, these conflicts will be resolved automatically.:
+    In this scenario, RuSync will recreate metadata for every file
     and deliberately generate conflicts. Where the file content is identical,
     these conflicts will be resolved automatically.
 "Incoming:": "Incoming:"
@@ -568,7 +568,7 @@ liveSyncReplicator:
     markDeviceResolved: Mark this device as 'resolved'.
     oneShotSyncBegin: OneShot Sync begin... (${syncMode})
     remoteDbCorrupted: Remote database is newer or corrupted, make sure to latest
-        version of self-hosted-livesync installed
+        version of rusync installed
     remoteDbCreatedOrConnected: Remote Database Created or Connected
     remoteDbDestroyed: Remote Database Destroyed
     remoteDbDestroyError: "Something happened on Remote Database Destroy:"
@@ -593,7 +593,7 @@ logPane:
     autoScroll: Auto scroll
     logWindowOpened: Log window opened
     pause: Pause
-    title: Self-hosted LiveSync Log
+    title: RuSync Log
     wrap: Wrap
 Lower (${local} < ${remote}): Lower (${local} < ${remote})
 Maintenance Commands: Maintenance Commands
@@ -628,7 +628,7 @@ moduleCheckRemoteSize:
         > [!MORE]-
         > If you have been using it for many years, there may be unreferenced chunks - that is, garbage - accumulating in the database. Therefore, we recommend rebuilding everything. It will probably become much smaller.
         >
-        > If the volume of your vault is simply increasing, it is better to rebuild everything after organizing the files. Self-hosted LiveSync does not delete the actual data even if you delete it to speed up the process. It is roughly [documented](https://github.com/vrtmrz/obsidian-livesync/blob/main/docs/tech_info.md).
+        > If the volume of your vault is simply increasing, it is better to rebuild everything after organizing the files. RuSync does not delete the actual data even if you delete it to speed up the process. It is roughly [documented](https://github.com/politsin/RuSync/blob/main/docs/tech_info.md).
         >
         > If you don't mind the increase, you can increase the notification limit by 100MB. This is the case if you are running it on your own server. However, it is better to rebuild everything from time to time.
         >
@@ -683,7 +683,7 @@ moduleLiveSyncMain:
     logAdditionalSafetyScan: Additional safety scan...
     logLoadingPlugin: Loading plugin...
     logPluginInitCancelled: Plugin initialisation was cancelled by a module
-    logPluginVersion: Self-hosted LiveSync v${manifestVersion} ${packageVersion}
+    logPluginVersion: RuSync v${manifestVersion} ${packageVersion}
     logReadChangelog: LiveSync has updated, please read the changelog!
     logSafetyScanCompleted: Additional safety scan completed
     logSafetyScanFailed: Additional safety scan has failed on a module
@@ -692,7 +692,7 @@ moduleLiveSyncMain:
         automatic synchronization has been temporarily disabled. Ensure that all
         devices are up to date before enabling.
     msgScramEnabled: >
-        Self-hosted LiveSync has been configured to ignore some events. Is this
+        RuSync has been configured to ignore some events. Is this
         correct?
 
 
@@ -783,7 +783,7 @@ moduleMigration:
             credentials, **you are at risk of exposing sensitive data**.
 
 
-            Note: Please upgrade your Self-hosted LiveSync v0.25.6 or higher on all
+            Note: Please upgrade your RuSync v0.25.6 or higher on all
             your devices, and back your vault up surely.
 
             Note2: Rebuild Everything and Fetch consumes a bit of time and traffic,
@@ -798,9 +798,9 @@ moduleMigration:
     logMigrationFailed: Migration failed or cancelled from ${old} to ${current}
     logRedflag2CreationFail: Failed to create redflag2
     logRemoteTweakUnavailable: Could not get remote tweak values
-    logSetupCancelled: The setup has been cancelled, Self-hosted LiveSync waiting for your setup!
+    logSetupCancelled: The setup has been cancelled, RuSync waiting for your setup!
     msgFetchRemoteAgain: >-
-        As you may already know, the self-hosted LiveSync has changed its default
+        As you may already know, the RuSync has changed its default
         behaviour and database structure.
 
 
@@ -819,7 +819,7 @@ moduleMigration:
         ___Note2: The chunks are completely immutable, we can fetch only the
         metadata and difference.___
     msgSinceV02321: >-
-        Since v0.23.21, the self-hosted LiveSync has changed the default behaviour
+        Since v0.23.21, the RuSync has changed the default behaviour
         and database structure. The following changes have been made:
 
 
@@ -912,8 +912,8 @@ obsidianLiveSyncSettingTab:
     btnUse: Use
     buttonFetch: Fetch
     defaultLanguage: Default
-    descConnectSetupURI: This is the recommended method to set up Self-hosted
-        LiveSync with a Setup URI.
+    descConnectSetupURI: This is the recommended method to set up RuSync with a
+        Setup URI.
     descCopySetupURI: Perfect for setting up a new device!
     descEnableLiveSync: Only enable this after configuring either of the above two
         options or completing all configuration manually.
@@ -1443,7 +1443,7 @@ Replicator:
 Requires restart of Obsidian: Requires restart of Obsidian
 Requires restart of Obsidian.: Requires restart of Obsidian.
 Rerun Onboarding Wizard: Rerun Onboarding Wizard
-Rerun the onboarding wizard to set up Self-hosted LiveSync again.: Rerun the onboarding wizard to set up Self-hosted LiveSync again.
+Rerun the onboarding wizard to set up RuSync again.: Rerun the onboarding wizard to set up RuSync again.
 Rerun Wizard: Rerun Wizard
 Resend: Resend
 Resend all chunks to the remote.: Resend all chunks to the remote.
@@ -1636,7 +1636,7 @@ Setup:
             No: No, please use the settings in the URI as is
             Yes: Yes, please consult the doctor
         Message: >-
-            Self-hosted LiveSync has gradually become longer in history and some
+            RuSync has gradually become longer in history and some
             recommended settings have changed.
 
 
@@ -2064,7 +2064,7 @@ Write credentials in the file: Write credentials in the file
 Write logs into the file: Write logs into the file
 xxhash32 (Fast but less collision resistance): xxhash32 (Fast but less collision resistance)
 xxhash64 (Fastest): xxhash64 (Fastest)
-"Welcome to Self-hosted LiveSync": "Welcome to Self-hosted LiveSync"
+"Welcome to RuSync": "Welcome to RuSync"
 "We will now guide you through a few questions to simplify the synchronisation setup.": "We will now guide you through a few questions to simplify the synchronisation setup."
 "First, please select the option that best describes your current situation.": "First, please select the option that best describes your current situation."
 "I am setting this up for the first time": "I am setting this up for the first time"
@@ -2172,7 +2172,7 @@ Ui:
         Maintenance:
             Cleanup: Perform cleanup
             CleanupDesc: Reduces storage space by discarding all non-latest revisions. This requires the same amount of free space on the remote server and the local client.
-            DeleteLocalDatabase: Delete local database to reset or uninstall Self-hosted LiveSync
+            DeleteLocalDatabase: Delete local database to reset or uninstall RuSync
             EmergencyRestart: Emergency restart
             EmergencyRestartDesc: Disable all synchronisation and restart.
             FreshStartWipe: Fresh Start Wipe
@@ -2302,7 +2302,7 @@ Ui:
             TargetPatternsDesc: Patterns to match files for syncing
         Setup:
             RerunWizardButton: Rerun Wizard
-            RerunWizardDesc: Rerun the onboarding wizard to set up Self-hosted LiveSync again.
+            RerunWizardDesc: Rerun the onboarding wizard to set up RuSync again.
             RerunWizardName: Rerun Onboarding Wizard
         SyncSettings:
             Merge: Merge
@@ -2346,7 +2346,7 @@ Ui:
             ProceedExisting: Yes, I want to add this device to my existing synchronisation
             ProceedNew: Yes, I want to set up a new synchronisation
             Question: First, please select the option that best describes your current situation.
-            Title: Welcome to Self-hosted LiveSync
+            Title: Welcome to RuSync
             Guidance: We will now guide you through a few questions to simplify the synchronisation setup.
         SelectExisting:
             Guidance: You are adding this device to an existing synchronisation setup.

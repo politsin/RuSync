@@ -1,5 +1,5 @@
 [Unit]
-Description=Self-hosted LiveSync CLI Daemon
+Description=RuSync CLI Daemon
 After=network-online.target
 Wants=network-online.target
 

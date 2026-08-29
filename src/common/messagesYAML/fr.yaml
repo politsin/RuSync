@@ -52,7 +52,7 @@ Device name: Nom de l'appareil
 dialog:
   yourLanguageAvailable:
     _value: >-
-      Self-hosted LiveSync dispose d'une traduction pour votre langue, le
+      RuSync dispose d'une traduction pour votre langue, le
       paramètre %{Display language} a donc été activé.
 
 
@@ -116,7 +116,7 @@ Doctor:
       ${note}
 
       Corriger à la valeur idéale ?
-    Title: Docteur Config Self-hosted LiveSync
+    Title: Docteur Config RuSync
     TitleAlmostDone: Presque terminé !
     TitleFix: Corriger le problème ${current}/${total}
   Level:
@@ -242,7 +242,7 @@ liveSyncReplicator:
   markDeviceResolved: Marquer cet appareil comme « résolu ».
   oneShotSyncBegin: Démarrage de la synchronisation OneShot... (${syncMode})
   remoteDbCorrupted: La base distante est plus récente ou corrompue, assurez-vous
-    d'avoir installé la dernière version de self-hosted-livesync
+    d'avoir installé la dernière version de rusync
   remoteDbCreatedOrConnected: Base distante créée ou connectée
   remoteDbDestroyed: Base distante détruite
   remoteDbDestroyError: "Un problème est survenu lors de la destruction de la base distante :"
@@ -261,7 +261,7 @@ logPane:
   autoScroll: Défilement automatique
   logWindowOpened: Fenêtre des journaux ouverte
   pause: Pause
-  title: Journaux Self-hosted LiveSync
+  title: Journaux RuSync
   wrap: Retour à la ligne
 Maximum delay for batch database updating: Délai maximum pour la mise à jour groupée de la base
 Maximum file size: Taille maximale de fichier
@@ -290,7 +290,7 @@ moduleCheckRemoteSize:
     > [!MORE]-
     > Si vous l'utilisez depuis de nombreuses années, il peut y avoir des fragments non référencés — des déchets, en somme — accumulés dans la base. Nous recommandons donc de tout reconstruire. Cela réduira probablement beaucoup la taille.
     >
-    > Si le volume de votre coffre augmente simplement, il est préférable de tout reconstruire après avoir organisé les fichiers. Self-hosted LiveSync ne supprime pas réellement les données même si vous les effacez, afin d'accélérer le processus. Ceci est documenté grossièrement [ici](https://github.com/vrtmrz/obsidian-livesync/blob/main/docs/tech_info.md).
+    > Si le volume de votre coffre augmente simplement, il est préférable de tout reconstruire après avoir organisé les fichiers. RuSync ne supprime pas réellement les données même si vous les effacez, afin d'accélérer le processus. Ceci est documenté grossièrement [ici](https://github.com/politsin/RuSync/blob/main/docs/tech_info.md).
     >
     > Si cela ne vous dérange pas, vous pouvez augmenter la limite de notification de 100 Mo. C'est le cas si vous l'exécutez sur votre propre serveur. Il reste toutefois préférable de tout reconstruire de temps en temps.
     >
@@ -340,7 +340,7 @@ moduleLiveSyncMain:
   logAdditionalSafetyScan: Analyse de sécurité supplémentaire...
   logLoadingPlugin: Chargement du plugin...
   logPluginInitCancelled: L'initialisation du plugin a été annulée par un module
-  logPluginVersion: Self-hosted LiveSync v${manifestVersion} ${packageVersion}
+  logPluginVersion: RuSync v${manifestVersion} ${packageVersion}
   logReadChangelog: LiveSync a été mis à jour, veuillez lire le journal des modifications !
   logSafetyScanCompleted: Analyse de sécurité supplémentaire terminée
   logSafetyScanFailed: L'analyse de sécurité supplémentaire a échoué sur un module
@@ -350,7 +350,7 @@ moduleLiveSyncMain:
     désactivée. Assurez-vous que tous les appareils sont à jour avant
     d'activer.
   msgScramEnabled: >
-    Self-hosted LiveSync a été configuré pour ignorer certains événements.
+    RuSync a été configuré pour ignorer certains événements.
     Est-ce correct ?
 
 
@@ -444,7 +444,7 @@ moduleMigration:
       identifiants peu sûrs, **vous risquez d'exposer des données sensibles**.
 
 
-      Note : Veuillez mettre à jour Self-hosted LiveSync en v0.25.6 ou
+      Note : Veuillez mettre à jour RuSync en v0.25.6 ou
       supérieur sur tous vos appareils, et sauvegardez votre coffre avec soin.
 
       Note 2 : Tout reconstruire et Récupérer consomme un peu de temps et de
@@ -460,9 +460,9 @@ moduleMigration:
   logMigrationFailed: Migration échouée ou annulée de ${old} vers ${current}
   logRedflag2CreationFail: Échec de création de redflag2
   logRemoteTweakUnavailable: Impossible d'obtenir les valeurs d'ajustement distantes
-  logSetupCancelled: La configuration a été annulée, Self-hosted LiveSync attend votre configuration !
+  logSetupCancelled: La configuration a été annulée, RuSync attend votre configuration !
   msgFetchRemoteAgain: >-
-    Comme vous le savez peut-être déjà, Self-hosted LiveSync a modifié son
+    Comme vous le savez peut-être déjà, RuSync a modifié son
     comportement par défaut et la structure de sa base de données.
 
 
@@ -482,7 +482,7 @@ moduleMigration:
     ___Note 2 : Les fragments sont complètement immuables, nous ne pouvons
     récupérer que les métadonnées et les différences.___
   msgSinceV02321: >-
-    Depuis la v0.23.21, Self-hosted LiveSync a modifié son comportement par
+    Depuis la v0.23.21, RuSync a modifié son comportement par
     défaut et la structure de sa base. Les changements suivants ont été
     effectués :
 
@@ -545,7 +545,7 @@ obsidianLiveSyncSettingTab:
   btnUse: Utiliser
   buttonFetch: Récupérer
   defaultLanguage: Par défaut
-  descConnectSetupURI: Méthode recommandée pour configurer Self-hosted LiveSync
+  descConnectSetupURI: Méthode recommandée pour configurer RuSync
     avec une URI de configuration.
   descCopySetupURI: Parfait pour configurer un nouvel appareil !
   descEnableLiveSync: N'activez ceci qu'après avoir configuré l'une des deux
@@ -982,7 +982,7 @@ Replicator:
 Requires restart of Obsidian: Nécessite un redémarrage d'Obsidian
 Requires restart of Obsidian.: Nécessite un redémarrage d'Obsidian.
 Rerun Onboarding Wizard: Relancer l'assistant d'intégration
-Rerun the onboarding wizard to set up Self-hosted LiveSync again.: Relancer l'assistant d'intégration pour reconfigurer Self-hosted LiveSync.
+Rerun the onboarding wizard to set up RuSync again.: Relancer l'assistant d'intégration pour reconfigurer RuSync.
 Rerun Wizard: Relancer l'assistant
 Reset notification threshold and check the remote database usage: Réinitialiser le seuil de notification et vérifier l'utilisation de la base distante
 Reset the remote storage size threshold and check the remote storage size again.:
@@ -1118,7 +1118,7 @@ Setup:
       No: Non, utiliser les paramètres de l'URI tels quels
       Yes: Oui, consulter le docteur
     Message: >-
-      Self-hosted LiveSync s'est progressivement étoffé et certains paramètres
+      RuSync s'est progressivement étoffé et certains paramètres
       recommandés ont évolué.
 
 

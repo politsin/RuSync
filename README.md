@@ -1,8 +1,8 @@
-# Self-hosted LiveSync
+# RuSync
 [Japanese docs](./README_ja.md) - [Chinese docs](./README_cn.md).
 
 
-Self-hosted LiveSync is a community-developed synchronisation plug-in available on all Obsidian-compatible platforms. It leverages robust server solutions such as CouchDB or object storage systems (e.g., MinIO, S3, R2, etc.) to ensure reliable data synchronisation.
+RuSync is a community-developed synchronisation plug-in available on all Obsidian-compatible platforms. It leverages robust server solutions such as CouchDB or object storage systems (e.g., MinIO, S3, R2, etc.) to ensure reliable data synchronisation.
 
 Additionally, it supports peer-to-peer synchronisation using WebRTC, enabling devices to exchange notes without a central data-storage server. A signalling relay is still required for peer discovery. See [How peer-to-peer synchronisation works](./docs/p2p.md).
 
@@ -23,7 +23,7 @@ Additionally, it supports peer-to-peer synchronisation using WebRTC, enabling de
   - No central data-storage server is required, but a signalling relay is still required for peer discovery.
   - At least one device containing the required data must be online while another device synchronises.
   - Follow the [Peer-to-Peer Setup](docs/setup_p2p.md) after reviewing the [P2P communication model](docs/p2p.md).
-  - If you would like to see how P2P setup and connectivity behave on your devices, try the guided connection check in the experimental [WebPeer browser utility](https://vrtmrz.github.io/obsidian-livesync/webpeer/). It uses an empty Vault and does not test note synchronisation. See the [WebPeer documentation](src/apps/webpeer/README.md) for its scope and limitations.
+  - If you would like to see how P2P setup and connectivity behave on your devices, try the guided connection check in the experimental [WebPeer browser utility](https://vrtmrz.github.io/rusync/webpeer/). It uses an empty Vault and does not test note synchronisation. See the [WebPeer documentation](src/apps/webpeer/README.md) for its scope and limitations.
 
 This plug-in may be particularly useful for researchers, engineers, and developers who need to keep their notes fully self-hosted for security reasons. It is also suitable for anyone seeking the peace of mind that comes with knowing their notes remain entirely private.
 
@@ -71,9 +71,9 @@ Each workflow establishes ordinary note synchronisation on the first device, gen
 ### Third-party managed CouchDB hosting
 
 > [!NOTE]
-> The following is a third-party hosting option proposed by Zenith Hosting. It is not an official Self-hosted LiveSync service, and it is neither endorsed nor recommended by this project.
+> The following is a third-party hosting option proposed by Zenith Hosting. It is not an official RuSync service, and it is neither endorsed nor recommended by this project.
 
-If you would rather not set up and maintain a server yourself, Zenith Hosting offers a managed CouchDB server which this plug-in can be configured to connect to: [Zenith Hosting](https://zenith.hosting/host/obsidian-livesync). As with any hosted service, your data will reside on a server operated by a third party, so please consider whether that is acceptable for your vault before using it.
+If you would rather not set up and maintain a server yourself, Zenith Hosting offers a managed CouchDB server which this plug-in can be configured to connect to: [Zenith Hosting](https://zenith.hosting/host/rusync). As with any hosted service, your data will reside on a server operated by a third party, so please consider whether that is acceptable for your vault before using it.
 
 ## Information in the Status Bar
 
@@ -107,12 +107,12 @@ To prevent file and database corruption, please avoid closing Obsidian until all
 - If you want a faster and simpler initial replication when setting up subsequent devices, see the [Fast Setup Guide](docs/tips/fast-setup.md).
 - Configure [Hidden File Sync](docs/tips/hidden-file-sync.md) only after ordinary note synchronisation works.
 - If Obsidian or LiveSync cannot start normally, use [Recovery and flag files](docs/recovery.md) before changing or resetting a remote database.
-- Self-hosted LiveSync 1.0 requires Obsidian 1.7.2 or later. If you need to use 1.0 on an earlier Obsidian version, please [open an issue](https://github.com/vrtmrz/obsidian-livesync/issues/new?template=issue-report.md) with your version, platform, and reason for remaining on it so that we can assess whether extending support is practical. The standard Community Plugins installer otherwise selects an older compatible plug-in release.
+- RuSync 1.0 requires Obsidian 1.7.2 or later. If you need to use 1.0 on an earlier Obsidian version, please [open an issue](https://github.com/politsin/RuSync/issues/new?template=issue-report.md) with your version, platform, and reason for remaining on it so that we can assess whether extending support is practical. The standard Community Plugins installer otherwise selects an older compatible plug-in release.
 - If you are having problems getting the plug-in working, see [Tips and Troubleshooting](docs/troubleshooting.md).
 
 ## Acknowledgements
 The project has been in continual progress and harmony thanks to the following:  
-- Many [Contributors](https://github.com/vrtmrz/obsidian-livesync/graphs/contributors).  
+- Many [Contributors](https://github.com/politsin/RuSync/graphs/contributors).  
 - Many [GitHub Sponsors](https://github.com/sponsors/vrtmrz#sponsors).  
 - JetBrains Community Programs / Support for Open-Source Projects. <img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.png" alt="JetBrains logo" height="24">  
 

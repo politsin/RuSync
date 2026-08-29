@@ -271,7 +271,7 @@ async function storeFileRevision(
             `const path=${JSON.stringify(path)};`,
             `const content=${JSON.stringify(content)};`,
             `const baseRev=${JSON.stringify(baseRev ?? "")};`,
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             "const blob=new Blob([content],{type:'text/plain'});",
             "const id=await core.services.path.path2id(path);",
             "const now=Date.now();",
@@ -306,7 +306,7 @@ async function readFileConflictState(
         [
             "(async()=>{",
             `const path=${JSON.stringify(path)};`,
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             "const meta=await core.localDatabase.getDBEntryMeta(path,{conflicts:true},true);",
             "if(!meta) throw new Error(`Could not find conflict metadata: ${path}`);",
             "const revisions=[meta._rev,...(meta._conflicts??[])];",
@@ -372,7 +372,7 @@ async function readFileReflectionProvenance(
         [
             "(async()=>{",
             `const path=${JSON.stringify(path)};`,
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             "const store=core.services.keyValueDB.openSimpleStore('file-reflection-provenance-v1');",
             "return JSON.stringify((await store.get(path))??null);",
             "})()",
@@ -391,7 +391,7 @@ async function readPathIdentity(
         [
             "(async()=>{",
             `const paths=${JSON.stringify(paths)};`,
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             "const ids={};",
             "for(const path of paths) ids[path]=await core.services.path.path2id(path);",
             "return JSON.stringify({",
@@ -410,7 +410,7 @@ async function calculateMarkdownAutoMerge(cliBinary: string, env: NodeJS.Process
         [
             "(async()=>{",
             `const path=${JSON.stringify(path)};`,
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             "const result=await core.localDatabase.managers.conflictManager.tryAutoMerge(path,true);",
             "if(!('result' in result)){",
             "  throw new Error(`Markdown conflict was not auto-mergeable: ${path}; ${JSON.stringify(result)}`);",
@@ -435,7 +435,7 @@ async function deleteRevisionAndReflect(
             "(async()=>{",
             `const path=${JSON.stringify(path)};`,
             `const revision=${JSON.stringify(revision)};`,
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             "if(!(await core.fileHandler.deleteRevisionFromDB(path,revision))){",
             "  throw new Error(`Could not delete conflicted revision: ${path} ${revision}`);",
             "}",

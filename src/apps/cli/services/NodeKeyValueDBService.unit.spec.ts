@@ -18,7 +18,7 @@ describe("NodeKeyValueDBService.openSimpleStore", () => {
         const service = new NodeKeyValueDBService(
             createServiceContext(),
             dependencies,
-            "/tmp/obsidian-livesync-node-kv-handle-test.json"
+            "/tmp/rusync-node-kv-handle-test.json"
         );
 
         expect(() => service.openSimpleStore("early-composition")).not.toThrow();
@@ -38,7 +38,7 @@ describe("NodeKeyValueDBService.openSimpleStore", () => {
         const service = new NodeKeyValueDBService(
             createServiceContext(),
             dependencies,
-            "/tmp/obsidian-livesync-node-kv-uninitialised-test.json"
+            "/tmp/rusync-node-kv-uninitialised-test.json"
         );
         const store = service.openSimpleStore("early-composition");
 

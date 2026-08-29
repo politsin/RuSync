@@ -1,10 +1,10 @@
-# Self-hosted LiveSync CLI
-Command-line version of Self-hosted LiveSync plug-in for syncing vaults without Obsidian.
+# RuSync CLI
+Command-line version of RuSync plug-in for syncing vaults without Obsidian.
 
 ## Features
 
 - ✅ Sync Obsidian vaults using CouchDB without running Obsidian
-- ✅ Compatible with Self-hosted LiveSync plug-in settings
+- ✅ Compatible with RuSync plug-in settings
 - ✅ Supports all core sync features (encryption, conflict resolution, etc.)
 - ✅ Lightweight and headless operation
 - ✅ Cross-platform (Windows, macOS, Linux)
@@ -117,13 +117,13 @@ livesync-cli ./my-db pull folder/note.md ./note.md
 ```bash
 # Clone the repository
 git clone <repository-url>
-cd obsidian-livesync
+cd rusync
 
 # Install dependencies from the repository root
 npm install
 
 # Build the CLI from the repository root
-npm run build -w self-hosted-livesync-cli
+npm run build -w rusync-cli
 
 # Or from the package directory
 cd src/apps/cli
@@ -136,7 +136,7 @@ Run the CLI:
 
 ```bash
 # Run with npm workspace script (from repository root)
-npm run cli -w self-hosted-livesync-cli -- [database-path] [command] [args...]
+npm run cli -w rusync-cli -- [database-path] [command] [args...]
 
 # Or from the package directory
 cd src/apps/cli
@@ -301,7 +301,7 @@ The CLI uses the same settings format as the Obsidian plug-in. Create a `.livesy
     "couchDB_URI": "http://localhost:5984",
     "couchDB_USER": "admin",
     "couchDB_PASSWORD": "password",
-    "couchDB_DBNAME": "obsidian-livesync",
+    "couchDB_DBNAME": "rusync",
     "liveSync": true,
     "syncOnSave": true,
     "syncOnStart": true,

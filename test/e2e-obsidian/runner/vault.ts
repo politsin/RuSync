@@ -5,10 +5,10 @@ import {
 
 export type { TemporaryVault };
 
-export async function createTemporaryVault(prefix = "obsidian-livesync-e2e-"): Promise<TemporaryVault> {
+export async function createTemporaryVault(prefix = "rusync-e2e-"): Promise<TemporaryVault> {
     return await createGenericTemporaryVault({
         prefix,
-        pluginIds: ["obsidian-livesync"],
+        pluginIds: ["rusync"],
         idPrefix: "livesync-e2e",
     });
 }

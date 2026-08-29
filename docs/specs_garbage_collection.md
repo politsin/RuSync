@@ -60,6 +60,6 @@ Commonlib tests use real in-memory PouchDB revision trees to verify:
 - propagation of chunk deletion to another PouchDB database; and
 - recreation and propagation when the same content is written again.
 
-Self-hosted LiveSync unit tests verify that Garbage Collection V3 uses Commonlib's revision-aware result, deletes only unreachable chunks, performs the initial bidirectional and final push-only replications in order, and requests remote compaction.
+RuSync unit tests verify that Garbage Collection V3 uses Commonlib's revision-aware result, deletes only unreachable chunks, performs the initial bidirectional and final push-only replications in order, and requests remote compaction.
 
 A disposable real-CouchDB integration test verifies logical deletion on the server, retention of shared and conflict chunks, compaction completion, replication after collection, and recreation of a content-addressed chunk. CouchDB's choice and timing of physical byte reclamation remain an external database boundary, so the test does not assert a particular reduction in database size.

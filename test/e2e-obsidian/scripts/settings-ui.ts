@@ -22,7 +22,7 @@ import type { Locator, Page } from "playwright";
 
 const uiTimeoutMs = Number(process.env.E2E_OBSIDIAN_SETTINGS_TIMEOUT_MS ?? 10000);
 const settingsOnly = process.env.E2E_OBSIDIAN_SETTINGS_ONLY === "true";
-const diagnosticsDirectory = process.env.E2E_OBSIDIAN_DIAGNOSTICS_DIR ?? "/tmp/obsidian-livesync-e2e";
+const diagnosticsDirectory = process.env.E2E_OBSIDIAN_DIAGNOSTICS_DIR ?? "/tmp/rusync-e2e";
 const settingsInitialisationRunStateKey = "__livesyncE2ESettingsInitialisation";
 const settingsScreenshotOptions = {
     animations: "disabled" as const,
@@ -148,13 +148,13 @@ async function scrollDeclarativeLandingToTop(root: Locator, configured: boolean)
 
 async function setConfiguredStateForLandingInspection(page: Page, configured: boolean): Promise<void> {
     await page.evaluate((nextConfigured) => {
-        const plugin = (globalThis as ObsidianTestGlobal).app?.plugins?.plugins["obsidian-livesync"];
-        if (plugin === undefined) throw new Error("Self-hosted LiveSync is unavailable");
+        const plugin = (globalThis as ObsidianTestGlobal).app?.plugins?.plugins["rusync"];
+        if (plugin === undefined) throw new Error("RuSync is unavailable");
         const settingDialogue = plugin.core.modules.find(
             (module) => module.constructor.name === "ModuleObsidianSettingDialogue"
         );
         if (settingDialogue?.settingTab === undefined) {
-            throw new Error("The Self-hosted LiveSync setting tab is unavailable");
+            throw new Error("The RuSync setting tab is unavailable");
         }
         settingDialogue.settingTab.editingSettings.isConfigured = nextConfigured;
         if (settingDialogue.settingTab.initialSettings !== undefined) {
@@ -358,8 +358,8 @@ async function openSettingsInitialisationDialogueForInspection(isP2P: boolean): 
     await withObsidianPage(obsidianRemoteDebuggingPort(), async (page) => {
         await page.evaluate(
             ({ stateKey, isP2P }) => {
-                const plugin = (globalThis as ObsidianTestGlobal).app?.plugins?.plugins["obsidian-livesync"];
-                if (plugin === undefined) throw new Error("Self-hosted LiveSync is unavailable");
+                const plugin = (globalThis as ObsidianTestGlobal).app?.plugins?.plugins["rusync"];
+                if (plugin === undefined) throw new Error("RuSync is unavailable");
                 const manager = plugin.core.modules.find((module) => module.constructor.name === "SetupManager");
                 if (typeof manager?.applySettingsWithInitialisationChoice !== "function") {
                     throw new Error("Could not find the pending-settings initialisation workflow");
@@ -484,8 +484,8 @@ async function verifyCompatibilityReview(): Promise<void> {
 
     await withObsidianPage(port, async (page) => {
         const markerBeforeAcknowledgement = await page.evaluate(() => {
-            const plugin = (globalThis as ObsidianTestGlobal).app?.plugins?.plugins["obsidian-livesync"];
-            if (plugin === undefined) throw new Error("Self-hosted LiveSync is unavailable");
+            const plugin = (globalThis as ObsidianTestGlobal).app?.plugins?.plugins["rusync"];
+            if (plugin === undefined) throw new Error("RuSync is unavailable");
             return plugin.core.services.setting.getSmallConfig("database-compatibility-version");
         });
         if (markerBeforeAcknowledgement !== null && markerBeforeAcknowledgement !== "") {
@@ -508,7 +508,7 @@ async function verifyCompatibilityReview(): Promise<void> {
             await summary.waitFor({ state: "visible", timeout: uiTimeoutMs });
             await assertMobileDialogueLayout(page, summary, "compatibility review summary");
             const doctor = page.locator(".modal-container").filter({
-                has: page.locator(".modal-title").filter({ hasText: "Self-hosted LiveSync Config Doctor" }),
+                has: page.locator(".modal-title").filter({ hasText: "RuSync Config Doctor" }),
             });
             if (await doctor.isVisible()) {
                 throw new Error("Config Doctor must wait until the initial compatibility review has closed.");
@@ -579,7 +579,7 @@ async function verifyCompatibilityReview(): Promise<void> {
         await summary.waitFor({ state: "hidden", timeout: uiTimeoutMs });
         await page.waitForFunction(
             (expectedVersion) => {
-                const plugin = (globalThis as ObsidianTestGlobal).app?.plugins?.plugins["obsidian-livesync"];
+                const plugin = (globalThis as ObsidianTestGlobal).app?.plugins?.plugins["rusync"];
                 if (plugin === undefined) return false;
                 const setting = plugin.core.services.setting;
                 return (
@@ -600,7 +600,7 @@ async function verifyCompatibilityReview(): Promise<void> {
 async function verifyConfigDoctorFollowsCompatibilityReview(): Promise<void> {
     await withObsidianPage(obsidianRemoteDebuggingPort(), async (page) => {
         const doctor = page.locator(".modal-container").filter({
-            has: page.locator(".modal-title").filter({ hasText: "Self-hosted LiveSync Config Doctor" }),
+            has: page.locator(".modal-title").filter({ hasText: "RuSync Config Doctor" }),
         });
         await doctor.waitFor({ state: "visible", timeout: uiTimeoutMs });
         await doctor.getByText("Per-file-saved customization sync", { exact: true }).waitFor({
@@ -622,8 +622,8 @@ async function verifyConfigDoctorFollowsCompatibilityReview(): Promise<void> {
 async function verifyEffectiveSettings(): Promise<"declarative" | "imperative"> {
     return await withObsidianPage(obsidianRemoteDebuggingPort(), async (page) => {
         const sleepPreferences = await page.evaluate(() => {
-            const plugin = (globalThis as ObsidianTestGlobal).app?.plugins?.plugins["obsidian-livesync"];
-            if (plugin === undefined) throw new Error("Self-hosted LiveSync is unavailable");
+            const plugin = (globalThis as ObsidianTestGlobal).app?.plugins?.plugins["rusync"];
+            if (plugin === undefined) throw new Error("RuSync is unavailable");
             const settings = plugin.core.services.setting.currentSettings();
             return {
                 general: settings.allowSleepDuringSynchronisation,
@@ -704,7 +704,7 @@ async function verifyEffectiveSettings(): Promise<"declarative" | "imperative"> 
         await advancedModeSetting.locator(".checkbox-container").click();
         await page.waitForFunction(
             () => {
-                const plugin = (globalThis as ObsidianTestGlobal).app?.plugins?.plugins["obsidian-livesync"];
+                const plugin = (globalThis as ObsidianTestGlobal).app?.plugins?.plugins["rusync"];
                 return plugin?.core.services.setting.currentSettings().useAdvancedMode === true;
             },
             undefined,
@@ -722,7 +722,7 @@ async function verifyEffectiveSettings(): Promise<"declarative" | "imperative"> 
                 await modeSetting.locator(".checkbox-container").click({ timeout: uiTimeoutMs });
                 await page.waitForFunction(
                     (key) => {
-                        const plugin = (globalThis as ObsidianTestGlobal).app?.plugins?.plugins["obsidian-livesync"];
+                        const plugin = (globalThis as ObsidianTestGlobal).app?.plugins?.plugins["rusync"];
                         return plugin?.core.services.setting.currentSettings()[key] === true;
                     },
                     mode.key,
@@ -747,7 +747,7 @@ async function verifyEffectiveSettings(): Promise<"declarative" | "imperative"> 
         }
         await page.waitForFunction(
             () => {
-                const plugin = (globalThis as ObsidianTestGlobal).app?.plugins?.plugins["obsidian-livesync"];
+                const plugin = (globalThis as ObsidianTestGlobal).app?.plugins?.plugins["rusync"];
                 return plugin?.core.services.setting.currentSettings().hashCacheMaxCount === 321;
             },
             undefined,
@@ -781,7 +781,7 @@ async function verifyEffectiveSettings(): Promise<"declarative" | "imperative"> 
                 .click({ timeout: uiTimeoutMs });
             const onboarding = await waitForVisibleObsidianDialogue(
                 page,
-                "Welcome to Self-hosted LiveSync",
+                "Welcome to RuSync",
                 uiTimeoutMs
             );
             await onboarding
@@ -862,7 +862,7 @@ async function verifyPendingSettingsInitialisationFlow(): Promise<{ choice: stri
             await edgeCaseMode.locator(".checkbox-container").click({ timeout: uiTimeoutMs });
             await page.waitForFunction(
                 () => {
-                    const plugin = (globalThis as ObsidianTestGlobal).app?.plugins?.plugins["obsidian-livesync"];
+                    const plugin = (globalThis as ObsidianTestGlobal).app?.plugins?.plugins["rusync"];
                     return plugin?.core.services.setting.currentSettings().useEdgeCaseMode === true;
                 },
                 undefined,
@@ -941,8 +941,8 @@ async function verifyPendingSettingsInitialisationFlow(): Promise<{ choice: stri
         await fallbackDialogue.waitFor({ state: "hidden", timeout: uiTimeoutMs });
 
         const persistedCaseSensitivity = await page.evaluate(() => {
-            const plugin = (globalThis as ObsidianTestGlobal).app?.plugins?.plugins["obsidian-livesync"];
-            if (plugin === undefined) throw new Error("Self-hosted LiveSync is unavailable");
+            const plugin = (globalThis as ObsidianTestGlobal).app?.plugins?.plugins["rusync"];
+            if (plugin === undefined) throw new Error("RuSync is unavailable");
             return plugin.core.settings.handleFilenameCaseSensitive;
         });
         if (persistedCaseSensitivity !== false) {

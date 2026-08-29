@@ -97,7 +97,7 @@
             {translateMessage("(e.g., after editing many files whilst offline)")}
             <InfoNote info>
                 {translateMessage(
-                    "In this scenario, Self-hosted LiveSync will recreate metadata for every file and deliberately generate conflicts. Where the file content is identical, these conflicts will be resolved automatically."
+                    "In this scenario, RuSync will recreate metadata for every file and deliberately generate conflicts. Where the file content is identical, these conflicts will be resolved automatically."
                 )}
             </InfoNote>
         </Option>

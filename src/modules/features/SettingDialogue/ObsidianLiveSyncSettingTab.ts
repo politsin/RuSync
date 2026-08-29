@@ -808,7 +808,7 @@ export class ObsidianLiveSyncSettingTab extends PluginSettingTab {
             },
             {
                 name: $msg("Rerun Onboarding Wizard"),
-                desc: $msg("Rerun the onboarding wizard to set up Self-hosted LiveSync again."),
+                desc: $msg("Rerun the onboarding wizard to set up RuSync again."),
                 action: () => fireAndForget(async () => await this.rerunOnboardingWizard()),
             },
             {

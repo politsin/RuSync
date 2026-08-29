@@ -234,7 +234,7 @@ export class ReplicateResultProcessor {
                 // Incompatible version, stop replication.
                 this.core.replicator.closeReplication();
                 this.log(
-                    `Remote database updated to incompatible version. update your Self-hosted LiveSync plugin.`,
+                    `Remote database updated to incompatible version. update your RuSync plugin.`,
                     LOG_LEVEL_NOTICE
                 );
             }

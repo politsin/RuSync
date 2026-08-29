@@ -46,7 +46,7 @@ Device name: שם מכשיר
 dialog:
   yourLanguageAvailable:
     _value: >-
-      ל-Self-hosted LiveSync יש תרגום לשפתך, ולכן הגדרת %{Display language} הופעלה.
+      ל-RuSync יש תרגום לשפתך, ולכן הגדרת %{Display language} הופעלה.
 
 
       הערה: לא כל ההודעות מתורגמות. אנחנו ממתינים לתרומותיך!
@@ -105,7 +105,7 @@ Doctor:
       ${note}
 
       לתקן לערך האידאלי?
-    Title: Self-hosted LiveSync Config Doctor
+    Title: RuSync Config Doctor
     TitleAlmostDone: כמעט סיימנו!
     TitleFix: תקן בעיה ${current}/${total}
   Level:
@@ -212,7 +212,7 @@ liveSyncReplicator:
   lockRemoteDb: נועל מסד נתונים מרוחק למניעת פגיעה בנתונים
   markDeviceResolved: סמן מכשיר זה כ'נפתר'.
   oneShotSyncBegin: סנכרון OneShot מתחיל... (${syncMode})
-  remoteDbCorrupted: מסד הנתונים המרוחק חדש יותר או פגום, ודא שגרסת self-hosted-livesync
+  remoteDbCorrupted: מסד הנתונים המרוחק חדש יותר או פגום, ודא שגרסת rusync
     המותקנת היא העדכנית ביותר
   remoteDbCreatedOrConnected: מסד הנתונים המרוחק נוצר או חובר
   remoteDbDestroyed: מסד הנתונים המרוחק נהרס
@@ -232,7 +232,7 @@ logPane:
   autoScroll: גלילה אוטומטית
   logWindowOpened: חלון יומן נפתח
   pause: השהה
-  title: יומן Self-hosted LiveSync
+  title: יומן RuSync
   wrap: גלישת שורות
 Maximum delay for batch database updating: עיכוב מקסימלי לעדכון אצווה של מסד נתונים
 Maximum file size: גודל קובץ מקסימלי
@@ -260,7 +260,7 @@ moduleCheckRemoteSize:
     > [!MORE]-
     > אם אתה משתמש בפלאגין כבר שנים רבות, ייתכן שנצברו נתחים לא מקושרים — כלומר, זבל — במסד הנתונים. לכן, אנו ממליצים לבנות הכל מחדש. ככל הנראה מסד הנתונים יהיה קטן בהרבה לאחר מכן.
     >
-    > אם נפח הכספת שלך פשוט גדל, עדיף לבנות מחדש לאחר ארגון הקבצים. Self-hosted LiveSync אינו מוחק נתונים בפועל גם כאשר אתה מוחק קבצים כדי להאיץ את התהליך. הדבר [מתועד בפירוט](https://github.com/vrtmrz/obsidian-livesync/blob/main/docs/tech_info.md).
+    > אם נפח הכספת שלך פשוט גדל, עדיף לבנות מחדש לאחר ארגון הקבצים. RuSync אינו מוחק נתונים בפועל גם כאשר אתה מוחק קבצים כדי להאיץ את התהליך. הדבר [מתועד בפירוט](https://github.com/politsin/RuSync/blob/main/docs/tech_info.md).
     >
     > אם אינך מוטרד מהגידול, ניתן להגדיל את סף ההתראה ב-100MB. הדבר מתאים אם השרת הוא שלך. עם זאת, מומלץ לבנות מחדש מעת לעת.
     >
@@ -307,7 +307,7 @@ moduleLiveSyncMain:
   logAdditionalSafetyScan: סריקת בטיחות נוספת...
   logLoadingPlugin: טוען תוסף...
   logPluginInitCancelled: אתחול התוסף בוטל על ידי מודול
-  logPluginVersion: Self-hosted LiveSync גרסה ${manifestVersion} ${packageVersion}
+  logPluginVersion: RuSync גרסה ${manifestVersion} ${packageVersion}
   logReadChangelog: LiveSync עודכן, אנא קרא את יומן השינויים!
   logSafetyScanCompleted: סריקת הבטיחות הנוספת הושלמה
   logSafetyScanFailed: סריקת הבטיחות הנוספת נכשלה במודול
@@ -315,7 +315,7 @@ moduleLiveSyncMain:
   logVersionUpdate: LiveSync עודכן. במקרה של עדכונים משמעותיים, כל הסנכרון האוטומטי
     הושבת זמנית. ודא שכל המכשירים מעודכנים לפני ההפעלה.
   msgScramEnabled: >
-    Self-hosted LiveSync הוגדר להתעלם מאירועים מסוימים. האם זה נכון?
+    RuSync הוגדר להתעלם מאירועים מסוימים. האם זה נכון?
 
 
     | סוג | סטטוס | הערה |
@@ -398,7 +398,7 @@ moduleMigration:
       **אתה בסיכון של חשיפת מידע רגיש**.
 
 
-      הערה: אנא שדרג את Self-hosted LiveSync לגרסה 0.25.6 ומעלה על כל מכשיריך,
+      הערה: אנא שדרג את RuSync לגרסה 0.25.6 ומעלה על כל מכשיריך,
       וגבה את הכספת שלך.
 
       הערה 2: בנייה מחדש ומשיכה דורשות זמן ותעבורת רשת. אנא עשה זאת בשעות שיא נמוך
@@ -412,9 +412,9 @@ moduleMigration:
   logMigrationFailed: הגירה נכשלה או בוטלה מ-${old} ל-${current}
   logRedflag2CreationFail: יצירת redflag2 נכשלה
   logRemoteTweakUnavailable: לא ניתן לקבל ערכי כיוונון מרוחקים
-  logSetupCancelled: ההגדרה בוטלה, Self-hosted LiveSync ממתין להגדרתך!
+  logSetupCancelled: ההגדרה בוטלה, RuSync ממתין להגדרתך!
   msgFetchRemoteAgain: >-
-    כפי שייתכן שכבר ידוע לך, Self-hosted LiveSync שינה את התנהגות ברירת המחדל ומבנה
+    כפי שייתכן שכבר ידוע לך, RuSync שינה את התנהגות ברירת המחדל ומבנה
     מסד הנתונים.
 
 
@@ -430,7 +430,7 @@ moduleMigration:
     ___הערה 2: הנתחים הם בלתי-ניתנים לשינוי לחלוטין, ניתן למשוך רק את המטה-נתונים
     וההפרש.___
   msgSinceV02321: >-
-    מאז גרסה 0.23.21, Self-hosted LiveSync שינה את התנהגות ברירת המחדל ומבנה מסד
+    מאז גרסה 0.23.21, RuSync שינה את התנהגות ברירת המחדל ומבנה מסד
     הנתונים. השינויים הבאים בוצעו:
 
 
@@ -489,7 +489,7 @@ obsidianLiveSyncSettingTab:
   btnUse: השתמש
   buttonFetch: משוך
   defaultLanguage: ברירת מחדל
-  descConnectSetupURI: זוהי השיטה המומלצת להגדרת Self-hosted LiveSync עם Setup URI.
+  descConnectSetupURI: זוהי השיטה המומלצת להגדרת RuSync עם Setup URI.
   descCopySetupURI: מושלם להגדרת מכשיר חדש!
   descEnableLiveSync: הפעל רק לאחר הגדרת אחת משתי האפשרויות לעיל, או לאחר השלמת כל
     ההגדרות ידנית.
@@ -879,7 +879,7 @@ Replicator:
 Requires restart of Obsidian: דורש הפעלה מחדש של Obsidian
 Requires restart of Obsidian.: דורש הפעלה מחדש של Obsidian.
 Rerun Onboarding Wizard: הרץ שוב את אשף ההכוונה
-Rerun the onboarding wizard to set up Self-hosted LiveSync again.: הרץ שוב את אשף ההכוונה להגדרת Self-hosted LiveSync מחדש.
+Rerun the onboarding wizard to set up RuSync again.: הרץ שוב את אשף ההכוונה להגדרת RuSync מחדש.
 Rerun Wizard: הרץ שוב את האשף
 Reset notification threshold and check the remote database usage: אפס סף התראה ובדוק שימוש במסד הנתונים המרוחד
 Reset the remote storage size threshold and check the remote storage size again.:
@@ -1010,7 +1010,7 @@ Setup:
       No: לא, אנא השתמש בהגדרות ה-URI כפי שהן
       Yes: כן, אנא יעץ ל-Doctor
     Message: >-
-      Self-hosted LiveSync הפך ארוך יותר בהיסטוריה שלו וחלק מההגדרות המומלצות השתנו.
+      RuSync הפך ארוך יותר בהיסטוריה שלו וחלק מההגדרות המומלצות השתנו.
 
 
       עכשיו, הגדרה היא זמן מצוין לכך.

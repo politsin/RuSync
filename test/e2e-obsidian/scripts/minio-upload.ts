@@ -44,7 +44,7 @@ const notePath = "E2E/minio-upload.md";
 const noteContent = [
     "# Object Storage upload from real Obsidian",
     "",
-    "This note is created through Obsidian and uploaded by Self-hosted LiveSync to S3-compatible Object Storage.",
+    "This note is created through Obsidian and uploaded by RuSync to S3-compatible Object Storage.",
     "The test is intentionally small, but it crosses the real Obsidian, Journal Sync, and AWS SDK boundary.",
     `Created at: ${new Date().toISOString()}`,
     "",
@@ -57,7 +57,7 @@ async function createNoteAndWaitForLocalDb(cliBinary: string, env: NodeJS.Proces
             "(async()=>{",
             `const path=${JSON.stringify(notePath)};`,
             `const content=${JSON.stringify(noteContent)};`,
-            "const core=app.plugins.plugins['obsidian-livesync'].core;",
+            "const core=app.plugins.plugins['rusync'].core;",
             "if(!(await app.vault.adapter.exists('E2E'))) await app.vault.createFolder('E2E');",
             "const existing=app.vault.getAbstractFileByPath(path);",
             "if(existing) await app.vault.delete(existing);",
@@ -132,7 +132,7 @@ async function main(): Promise<void> {
             bucketPrefix,
         });
         await waitForLiveSyncCoreReady(cli.binary, session.cliEnv);
-        assertEqual(configured.isConfigured, true, "Self-hosted LiveSync was not marked as configured.");
+        assertEqual(configured.isConfigured, true, "RuSync was not marked as configured.");
         assertEqual(configured.remoteType, "MINIO", "Remote type was not Object Storage.");
         assertEqual(configured.endpoint, objectStorage.endpoint, "Configured Object Storage endpoint did not match.");
         assertEqual(configured.bucket, objectStorage.bucket, "Configured Object Storage bucket did not match.");

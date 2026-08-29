@@ -1,6 +1,6 @@
 # Conflict resolution and revision provenance
 
-This document describes the conflict-resolution and file-reflection guarantees used by Self-hosted LiveSync 1.0, together with the cases which still require user judgement. The underlying revision-tree operations and injectable provenance contract are owned by `@vrtmrz/livesync-commonlib`; LiveSync owns persistent device-local composition, Vault reflection, settings, and dialogue policy.
+This document describes the conflict-resolution and file-reflection guarantees used by RuSync 1.0, together with the cases which still require user judgement. The underlying revision-tree operations and injectable provenance contract are owned by `@vrtmrz/livesync-commonlib`; LiveSync owns persistent device-local composition, Vault reflection, settings, and dialogue policy.
 
 ## Revision-tree model
 

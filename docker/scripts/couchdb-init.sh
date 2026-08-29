@@ -1,5 +1,5 @@
 #!/bin/sh
-# Self-hosted LiveSync — CouchDB Initialization Script
+# RuSync — CouchDB Initialization Script
 # Runs once on first startup via the couchdb-init service.
 # Configures single-node cluster, auth, CORS, and size limits.
 

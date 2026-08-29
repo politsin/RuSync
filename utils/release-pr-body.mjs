@@ -64,7 +64,7 @@ export function renderReleasePrBody(version, baseBranch) {
           ];
 
     return [
-        `This release pull request prepares Self-hosted LiveSync ${versionCode} from ${baseBranchCode} as ${purpose}.`,
+        `This release pull request prepares RuSync ${versionCode} from ${baseBranchCode} as ${purpose}.`,
         "",
         "> [!IMPORTANT]",
         "> **Merge intentionally on hold**",

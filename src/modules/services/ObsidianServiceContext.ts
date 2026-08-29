@@ -6,7 +6,7 @@ import { translateLiveSyncMessage } from "@/common/translation";
 import type { ObsidianNoticeGroups } from "./ObsidianNoticeGroups";
 import type { KeyedNoticeManager } from "@vrtmrz/obsidian-plugin-kit/notice";
 
-/** Host capabilities owned by one Self-hosted LiveSync plug-in instance. */
+/** Host capabilities owned by one RuSync plug-in instance. */
 export class ObsidianServiceContext extends ServiceContext {
     app: App;
     plugin: Plugin;

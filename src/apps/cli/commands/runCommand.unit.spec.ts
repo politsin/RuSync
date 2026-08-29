@@ -199,7 +199,7 @@ const protocolFixtures: ProtocolFixture[] = [
                 P2P_roomID: "room-abc",
                 P2P_passphrase: "pass-123",
                 P2P_relays: "wss://relay.example",
-                P2P_AppID: "self-hosted-livesync",
+                P2P_AppID: "rusync",
                 P2P_AutoStart: true,
                 P2P_AutoBroadcast: false,
                 P2P_turnServers: "turn:turn.example:3478",
@@ -212,7 +212,7 @@ const protocolFixtures: ProtocolFixture[] = [
             expect(settings.P2P_roomID).toBe("room-abc");
             expect(settings.P2P_passphrase).toBe("pass-123");
             expect(settings.P2P_relays).toBe("wss://relay.example");
-            expect(settings.P2P_AppID).toBe("self-hosted-livesync");
+            expect(settings.P2P_AppID).toBe("rusync");
         },
     },
 ];
@@ -624,7 +624,7 @@ describe("runCommand abnormal cases", () => {
         ] as const,
         [
             "p2p",
-            "sls+p2p://room-abc?passphrase=pass-123&relays=wss%3A%2F%2Frelay.example&appId=self-hosted-livesync",
+            "sls+p2p://room-abc?passphrase=pass-123&relays=wss%3A%2F%2Frelay.example&appId=rusync",
         ] as const,
     ])("remote command round-trip works for %s", async (_protocol, initialConnStr) => {
         const core = createCoreMock();

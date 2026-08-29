@@ -2,7 +2,7 @@
 
 ## Overview
 
-Self-hosted LiveSync uses the following types of documents:
+RuSync uses the following types of documents:
 
 - Metadata
     - Legacy Metadata
@@ -28,10 +28,10 @@ export interface DatabaseEntry {
 
 ### Versioning Document
 
-This document stores version information for Self-hosted LiveSync.
+This document stores version information for RuSync.
 The ID is fixed as `obsydian_livesync_version` [VERSIONING_DOCID]. Yes, the typo has become a curse.
-When Self-hosted LiveSync detects changes to this document via Replication, it reads the version information and checks compatibility.
-This internal database version is independent of the plug-in's SemVer version. The last version explicitly acknowledged on a device is stored through Commonlib's device-local configuration contract. When that version differs, or when a settings migration requires review, Self-hosted LiveSync presents a dedicated compatibility dialogue and blocks replication without changing the user's automatic synchronisation choices. A supported upgrade can resume only after explicit review. A downgrade from a newer acknowledged database version, or settings written by a future schema, remains blocked until a compatible plug-in is installed.
+When RuSync detects changes to this document via Replication, it reads the version information and checks compatibility.
+This internal database version is independent of the plug-in's SemVer version. The last version explicitly acknowledged on a device is stored through Commonlib's device-local configuration contract. When that version differs, or when a settings migration requires review, RuSync presents a dedicated compatibility dialogue and blocks replication without changing the user's automatic synchronisation choices. A supported upgrade can resume only after explicit review. A downgrade from a newer acknowledged database version, or settings written by a future schema, remains blocked until a compatible plug-in is installed.
 Please refer to negotiation.ts.
 
 ### Synchronise Information Document
@@ -125,7 +125,7 @@ export interface MetadataDocument extends DatabaseEntry {
 ### type
 
 This field indicates the type of Metadata document.
-By convention, Self-hosted LiveSync does not save the mime type of the file, but distinguishes them with this field. Please note this.
+By convention, RuSync does not save the mime type of the file, but distinguishes them with this field. Please note this.
 Possible values are as follows:
 
 - NOTE_LEGACY: Legacy metadata document
