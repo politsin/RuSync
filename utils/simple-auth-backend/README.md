@@ -7,6 +7,7 @@ It is intentionally small:
 - it accepts one sync key;
 - it creates one CouchDB database per Vault;
 - it creates one technical CouchDB user per database;
+- it stores issued Vault credentials in `state.local.json` so that the same sync key and Vault name can configure another device;
 - it returns CouchDB credentials and the selected encryption policy to the plug-in.
 
 ## Start CouchDB
@@ -30,6 +31,7 @@ $env:RUSYNC_COUCHDB_URL = "http://127.0.0.1:5984"
 $env:RUSYNC_COUCHDB_ADMIN_USER = "admin"
 $env:RUSYNC_COUCHDB_ADMIN_PASSWORD = "password"
 $env:RUSYNC_SIMPLE_AUTH_KEY = "dev-sync-key"
+$env:RUSYNC_SIMPLE_AUTH_STORE = "utils/simple-auth-backend/state.local.json"
 node utils/simple-auth-backend/server.mjs
 ```
 
@@ -50,6 +52,8 @@ node utils/simple-auth-backend/smoke.mjs --unencrypted
 ```
 
 The smoke test prints a sanitised JSON result. It verifies that the backend can provision credentials and that the generated technical user can read the generated CouchDB database.
+
+Run the same smoke command twice with the same sync key and Vault name to verify the additional-device behaviour: the backend should return the same generated database and technical username instead of provisioning a new Vault.
 
 ## Boundaries
 

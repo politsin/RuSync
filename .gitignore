@@ -24,6 +24,7 @@ data.json
 
 # local config files
 *.local
+utils/simple-auth-backend/*.local.json
 
 cov_profile/**
 

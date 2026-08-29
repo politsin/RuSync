@@ -1,8 +1,11 @@
 import { createHash, randomBytes } from "node:crypto";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { createServer } from "node:http";
-import { pathToFileURL } from "node:url";
+import { dirname } from "node:path";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 const DEFAULT_PORT = 8787;
+const DEFAULT_STORE_PATH = fileURLToPath(new URL("./state.local.json", import.meta.url));
 
 class HttpError extends Error {
     constructor(status, message) {
@@ -33,6 +36,11 @@ export function createSafeName(name, fallbackToken = createToken(6)) {
     return normalised || `vault-${fallbackToken}`;
 }
 
+export function createProvisioningStateKey(syncKey, name) {
+    const safeName = createSafeName(name, "default");
+    return createHash("sha256").update(`${syncKey}\0${safeName}`).digest("hex");
+}
+
 export function createProvisioningPlan({ couchDbUrl, name, encrypted = true, tokenFactory = createToken }) {
     const safeName = createSafeName(name, tokenFactory(6));
     const suffix = tokenFactory(9).toLowerCase();
@@ -48,6 +56,53 @@ export function createProvisioningPlan({ couchDbUrl, name, encrypted = true, tok
         encrypted,
         passphrase,
     };
+}
+
+export function createEmptyProvisioningStore() {
+    return { vaults: {} };
+}
+
+export async function loadProvisioningStore(path) {
+    try {
+        const body = await readFile(path, "utf8");
+        const parsed = JSON.parse(body);
+        return parsed && typeof parsed === "object" && parsed.vaults && typeof parsed.vaults === "object"
+            ? parsed
+            : createEmptyProvisioningStore();
+    } catch (error) {
+        if (error && error.code === "ENOENT") {
+            return createEmptyProvisioningStore();
+        }
+        throw error;
+    }
+}
+
+export async function saveProvisioningStore(path, store) {
+    await mkdir(dirname(path), { recursive: true });
+    await writeFile(path, `${JSON.stringify(store, null, 2)}\n`, "utf8");
+}
+
+export function getProvisioningStorePath(env = process.env) {
+    return env.RUSYNC_SIMPLE_AUTH_STORE || DEFAULT_STORE_PATH;
+}
+
+export async function getOrCreateProvisioningPlan({ env, syncKey, name, encrypted, tokenFactory = createToken }) {
+    const storePath = getProvisioningStorePath(env);
+    const store = await loadProvisioningStore(storePath);
+    const stateKey = createProvisioningStateKey(syncKey, name);
+    const existing = store.vaults[stateKey];
+    if (existing) {
+        return existing;
+    }
+    const plan = createProvisioningPlan({
+        couchDbUrl: env.RUSYNC_COUCHDB_URL,
+        name,
+        encrypted,
+        tokenFactory,
+    });
+    store.vaults[stateKey] = plan;
+    await saveProvisioningStore(storePath, store);
+    return plan;
 }
 
 export function createCouchDbRequests(plan) {
@@ -132,6 +187,10 @@ export function validateSyncKey(request, body, env = process.env) {
     }
 }
 
+export function getRequestSyncKey(request, body) {
+    return `${request.headers["x-rusync-sync-key"] ?? body.syncKey ?? ""}`.trim();
+}
+
 export async function readJsonBody(request) {
     const chunks = [];
     for await (const chunk of request) {
@@ -169,9 +228,11 @@ export function createRequestHandler(env = process.env, fetcher = fetch) {
             }
             const body = await readJsonBody(request);
             validateSyncKey(request, body, env);
+            const syncKey = getRequestSyncKey(request, body);
             const encrypted = body.encrypted !== false;
-            const plan = createProvisioningPlan({
-                couchDbUrl: env.RUSYNC_COUCHDB_URL,
+            const plan = await getOrCreateProvisioningPlan({
+                env,
+                syncKey,
                 name: body.name,
                 encrypted,
             });

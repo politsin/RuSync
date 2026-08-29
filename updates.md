@@ -18,6 +18,7 @@ Earlier releases remain available in the 1.0 release history, the 1.0 preview hi
 
 - The new-user CouchDB setup path now starts with a sync-key authorisation flow for the RuSync MVP backend, keeps advanced CouchDB controls behind **Expert settings**, and applies encryption by default while leaving an explicit unencrypted option for trusted AI-readable databases.
 - A local simple-authorisation backend smoke test now provisions CouchDB credentials and verifies the generated database without launching Obsidian. The unit suite also covers the HTTP provisioning boundary with mocked CouchDB responses.
+- The local MVP backend now persists issued Vault credentials in an ignored JSON state file, so repeated use of the same sync key and Vault name can configure additional devices against the same CouchDB database.
 
 ## 1.0.21
 

@@ -1,12 +1,18 @@
 import { describe, expect, it, vi } from "vitest";
+import { mkdtemp, rm } from "node:fs/promises";
 import { createServer, type IncomingMessage, type ServerResponse } from "node:http";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import {
     createCouchDbRequests,
+    createProvisioningStateKey,
     createProvisioningPlan,
     createProvisioningResponse,
     createSafeName,
     applyProvisioningPlan,
     createRequestHandler,
+    getOrCreateProvisioningPlan,
+    loadProvisioningStore,
     validateSyncKey,
 } from "../utils/simple-auth-backend/server.mjs";
 import {
@@ -36,6 +42,15 @@ async function withHttpServer<T>(handler: RequestListener, run: (baseUrl: string
     }
 }
 
+async function withTempStore<T>(run: (storePath: string) => Promise<T>) {
+    const directory = await mkdtemp(join(tmpdir(), "rusync-simple-auth-"));
+    try {
+        return await run(join(directory, "state.local.json"));
+    } finally {
+        await rm(directory, { recursive: true, force: true });
+    }
+}
+
 describe("simple auth backend", () => {
     it("creates CouchDB-safe names and keeps encryption enabled by default", () => {
         const plan = createProvisioningPlan({
@@ -52,6 +67,77 @@ describe("simple auth backend", () => {
         });
         expect(plan.password).toBe("abc123");
         expect(plan.passphrase).toBe("abc123");
+    });
+
+    it("uses a hashed sync-key and Vault name pair as the provisioning state key", () => {
+        const first = createProvisioningStateKey("sync-key", "My Vault");
+        const second = createProvisioningStateKey("sync-key", "my vault");
+        const differentVault = createProvisioningStateKey("sync-key", "Other Vault");
+
+        expect(first).toMatch(/^[a-f0-9]{64}$/);
+        expect(first).toBe(second);
+        expect(first).not.toBe(differentVault);
+        expect(first).not.toContain("sync-key");
+    });
+
+    it("reuses the same provisioning plan for the same sync key and Vault name", async () => {
+        await withTempStore(async (storePath) => {
+            const env = {
+                RUSYNC_COUCHDB_URL: "http://localhost:5984",
+                RUSYNC_SIMPLE_AUTH_STORE: storePath,
+            };
+            const first = await getOrCreateProvisioningPlan({
+                env,
+                syncKey: "dev-sync-key",
+                name: "Team Vault",
+                encrypted: true,
+                tokenFactory: () => "first-token",
+            });
+            const second = await getOrCreateProvisioningPlan({
+                env,
+                syncKey: "dev-sync-key",
+                name: "team vault",
+                encrypted: false,
+                tokenFactory: () => "second-token",
+            });
+            const store = await loadProvisioningStore(storePath);
+
+            expect(second).toEqual(first);
+            expect(Object.keys(store.vaults)).toHaveLength(1);
+            expect(first.encrypted).toBe(true);
+            expect(first.passphrase).toBe("first-token");
+        });
+    });
+
+    it("creates a separate provisioning plan for another Vault name", async () => {
+        await withTempStore(async (storePath) => {
+            const env = {
+                RUSYNC_COUCHDB_URL: "http://localhost:5984",
+                RUSYNC_SIMPLE_AUTH_STORE: storePath,
+            };
+            const first = await getOrCreateProvisioningPlan({
+                env,
+                syncKey: "dev-sync-key",
+                name: "Personal",
+                encrypted: true,
+                tokenFactory: () => "first-token",
+            });
+            const second = await getOrCreateProvisioningPlan({
+                env,
+                syncKey: "dev-sync-key",
+                name: "Work",
+                encrypted: false,
+                tokenFactory: () => "second-token",
+            });
+
+            expect(second).not.toEqual(first);
+            expect(second.encrypted).toBe(false);
+            expect(second.passphrase).toBe("");
+            expect((await loadProvisioningStore(storePath)).vaults).toMatchObject({
+                [createProvisioningStateKey("dev-sync-key", "Personal")]: first,
+                [createProvisioningStateKey("dev-sync-key", "Work")]: second,
+            });
+        });
     });
 
     it("allows an explicitly unencrypted AI-readable database", () => {

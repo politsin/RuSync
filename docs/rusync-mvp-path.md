@@ -22,6 +22,7 @@ The first usable version is deliberately simple:
 - Scaling, user geography, tenancy design, billing, and operational hardening wait until there are roughly 50 real users.
 - One CouchDB endpoint can host many Vault databases on one port.
 - The backend only provisions a CouchDB database, a per-Vault technical CouchDB user, and a small synchronisation policy payload.
+- The local backend stores issued credentials in `utils/simple-auth-backend/state.local.json` so repeated use of the same sync key and Vault name connects another device to the same Vault.
 - The plug-in presents a simple authorisation screen first and keeps the existing detailed CouchDB settings behind **Expert settings**.
 - End-to-end encryption is enabled by default.
 - An explicit unencrypted mode remains available for trusted AI-readable databases.
@@ -49,6 +50,7 @@ $env:RUSYNC_COUCHDB_URL = "http://127.0.0.1:5984"
 $env:RUSYNC_COUCHDB_ADMIN_USER = "admin"
 $env:RUSYNC_COUCHDB_ADMIN_PASSWORD = "password"
 $env:RUSYNC_SIMPLE_AUTH_KEY = "dev-sync-key"
+$env:RUSYNC_SIMPLE_AUTH_STORE = "utils/simple-auth-backend/state.local.json"
 node utils/simple-auth-backend/server.mjs
 ```
 
@@ -113,6 +115,7 @@ The local backend URL is available from **Local MVP backend** for development. T
 - The generated CouchDB user is scoped to one generated database through the database `_security` document.
 - A Vault maps to one CouchDB database and one technical CouchDB user.
 - The simple backend is local-development infrastructure, not a production account system.
+- The first request for a `syncKey + Vault name` pair fixes the generated CouchDB credentials and encryption policy. Later requests with the same pair reuse them so that additional devices join the same Vault.
 - The default encrypted mode is for ordinary private notes.
 - The unencrypted mode is only for data intentionally exposed to trusted automation or AI tools.
 - Setup URI generation remains the preferred way to add later devices once the first device is configured.
